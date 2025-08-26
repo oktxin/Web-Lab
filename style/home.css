@@ -159,6 +159,7 @@
     align-items: center;
     gap: 1rem;
     margin-top: 3rem;
+    transition: background-color 0.5s ease;
 }
 
 .widgets-section-text-icon:hover{
@@ -235,4 +236,196 @@
 
 .let-section-block p{
     margin: 0;
+}
+
+
+
+.section-double{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 8rem 0;
+    width: 100%;
+}
+
+.section-double-title h2, .section-double-title h3 {
+    font-size: 3em;
+    margin-bottom: 1rem;
+    color: #000;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.section-double-title h2::after {
+    content: "conversions.";
+    background-color: #ffeb3b;
+    color: #000;
+    padding: 0 6px;
+    border-radius: 3px;
+}
+
+.section-double-title h3::after{
+    content: "growth.";
+    background-color: #ffeb3b;
+    color: #000;
+    padding: 0 6px;
+    border-radius: 3px;
+}
+
+.section-double-blocks{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    gap: 2rem;
+}
+
+.section-double-block{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 1rem;
+    background: #EEF1F7;
+    border-radius: 1rem;
+    padding: 1rem;
+    width: 22%;
+}
+
+.section-double-block h3{
+    font-size: 2em;
+    color: #000;
+    line-height: 1.2;
+    text-align: start;
+}
+
+.section-double-block-text p{
+    margin-top: 0.5rem;
+    font-size: 1.1em;
+}
+
+.section-double-block-text-img{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.section-double-block-text-img p{
+    font-size: 1.5em;
+    color: #000;
+    margin: 0;
+    line-height: 1.2;
+    text-align: start;
+}
+
+.section-double-review{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    width: 30%;
+}
+
+.section-double-review p{
+    text-align: center;
+    font-size: 1.2em;
+    color: #000;
+    line-height: 1.2;
+}
+
+.section-double-review-man{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+
+
+.started-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 8rem 0;
+    width: 100%;
+    background: #111827;
+}
+
+.started-section-text h2 {
+    font-size: 3.5em;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.started-section-text p{
+    font-size: 1.2em;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    text-align: center;
+}
+
+.started-section-pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.started-section-slider{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.started-section-slide{
+    background-color: #fff;
+    border-radius: 1rem;
+    padding-bottom: 2rem;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.started-section-slide img{
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    width: 100%;
+}
+
+.started-section-slide-text{
+    padding: 0 2rem;
+}
+
+.started-section-slide-text h2{
+    font-size: 2em;
+    color: #000;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    text-align: start;
+}
+
+.started-section-slide-text p{
+    font-size: 1.2em;
+    color: #000;
+    line-height: 1.2;
+    text-align: start;
+}
+
+.started-section-pagination-drill span:first-child{
+    color: #fff;
 }
