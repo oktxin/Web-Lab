@@ -170,3 +170,69 @@
 .widgets-section-text-icon p{
     font-size: 1.2em;
 }
+
+
+
+
+.let-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 4rem 0;
+    background: #EEF1F7;
+}
+
+.let-section h2 {
+    font-size: 3em;
+    color: #000;
+    line-height: 1.2;
+    text-align: start;
+}
+
+.let-section h2::after {
+    content: "more than 24h.";
+    background-color: #ffeb3b;
+    color: #000;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.let-section p {
+    font-size: 1.2em;
+    margin-bottom: 2.5rem;
+    color: #666;
+    width: 85%;
+    text-align: center;
+}
+
+.let-section-blocks{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 80%;
+}
+
+.let-section-block{
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 20%;
+    height: 12rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.let-section-block:hover{
+    transform: translateY(-5px);
+}
+
+.let-section-block p{
+    margin: 0;
+}
