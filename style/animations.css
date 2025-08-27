@@ -1,0 +1,419 @@
+/* 1. Пульсирующая анимация */
+.pulse-animation {
+    animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* 2. Анимация появления слева */
+.slide-in-left {
+    animation: slideInLeft 1s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 3. Анимация появления справа */
+.slide-in-right {
+    animation: slideInRight 1s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 4. Анимация вращения */
+.rotate-animation {
+    transition: transform 0.5s ease;
+}
+
+.rotate-animation:hover {
+    transform: rotate(5deg);
+}
+
+/* 5. Анимация градиентного фона */
+.gradient-bg-animation {
+    background: linear-gradient(-45deg, #EEF1F7, #e0e5f0, #d8def0, #EEF1F7);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* 6. Анимация масштабирования */
+.scale-animation {
+    transition: transform 0.3s ease;
+}
+
+.scale-animation:hover {
+    transform: scale(1.05);
+}
+
+/* 7. Анимация поднятия элемента */
+.slide-up-animation {
+    animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 8. Свечение границы */
+.border-glow {
+    transition: box-shadow 0.3s ease;
+}
+
+.border-glow:hover {
+    box-shadow: 0 0 15px rgba(0, 102, 255, 0.5);
+}
+
+/* 9. Анимация появления */
+.fade-in-animation {
+    animation: fadeIn 1.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 10. Анимация наклона */
+.skew-animation {
+    transition: transform 0.3s ease;
+}
+
+.skew-animation:hover {
+    transform: skewX(-5deg);
+}
+
+/* 11. Плавающая анимация */
+.floating-animation {
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* 12. Анимация bounce */
+.bounce-animation {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* 13. Анимация встряхивания */
+.shake-animation {
+    transition: transform 0.3s ease;
+}
+
+.shake-animation:hover {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+/* 14. Анимация увеличения */
+.zoom-animation {
+    transition: transform 0.5s ease;
+}
+
+.zoom-animation:hover {
+    transform: scale(1.1);
+}
+
+/* 15. Анимация размытия */
+.blur-animation {
+    transition: filter 0.5s ease;
+}
+
+.blur-animation:hover {
+    filter: blur(2px);
+}
+
+/* 16. Анимация изменения цвета */
+.color-change-animation {
+    transition: background-color 0.5s ease;
+}
+
+.color-change-animation:hover {
+    background-color: rgba(0, 102, 255, 0.1);
+}
+
+/* 17. Анимация тени */
+.shadow-animation {
+    transition: box-shadow 0.3s ease;
+}
+
+.shadow-animation:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* 18. Анимация кнопки */
+.button-animation {
+    transition: all 0.3s ease;
+}
+
+.button-animation:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 19. Анимация логотипа при наведении */
+.logo-hover {
+    transition: transform 0.3s ease;
+}
+
+.logo-hover:hover {
+    transform: translateY(-5px);
+}
+
+/* 20. Свечение при фокусе */
+.focus-glow:focus {
+    box-shadow: 0 0 10px rgba(0, 102, 255, 0.5);
+}
+
+/* 21. Анимация затухания */
+.fade-animation {
+    animation: fade 2s ease-in-out infinite alternate;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0.7;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Анимация для точек пагинации */
+.pagination-dot {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.pagination-dot.active {
+    color: #0066FF;
+    animation: pulse 1s infinite;
+}
+
+/* 1. Псевдоэлемент для заголовков секций */
+.hero-title::before {
+    content: "✨";
+    margin-right: 10px;
+    font-size: 0.8em;
+}
+
+/* 2. Псевдоэлемент для кнопок */
+.cta-button::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid transparent;
+    border-radius: 7px;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover::before {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* 3. Псевдоэлемент для блоков особенностей */
+.feature::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #0066FF;
+    transition: width 0.3s ease;
+}
+
+.feature:hover::after {
+    width: 100%;
+}
+
+/* 4. Псевдоэлемент для навигационных ссылок */
+.nav-link::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #0066FF;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::before {
+    width: 100%;
+}
+
+/* 5. Псевдоэлемент для карточек */
+.features-section-block::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 1rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.features-section-block:hover::after {
+    opacity: 1;
+}
+
+/* 6. Псевдоэлемент для отзывов */
+.customers-section-block::before {
+    content: """;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 60px;
+    color: #0066FF;
+    opacity: 0.1;
+    font-family: Georgia, serif;
+}
+
+/* Псевдоклассы */
+/* 1. Стилизация выделенного текста */
+::selection {
+    background-color: #0066FF;
+    color: white;
+}
+
+/* 2. Стилизация плейсхолдера */
+::placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+/* 3. Стилизация фокуса для элементов формы */
+input:focus, button:focus {
+    outline: 2px solid #0066FF;
+    outline-offset: 2px;
+}
+
+/* 4. Стилизация нечетных элементов в списках */
+.footer-links li:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* 5. Стилизация первого элемента в блоке */
+.features-section-block:first-child {
+    border-left: 4px solid #0066FF;
+}
+
+/* 6. Стилизация последнего элемента в блоке */
+.features-section-block:last-child {
+    border-right: 4px solid #0066FF;
+}
+
+@media (max-width: 1768px) {
+    .pulse-animation, .floating-animation, .bounce-animation {
+        animation: none;
+    }
+}
+
+@media (max-width: 768px) {
+    
+    .rotate-animation:hover, .scale-animation:hover, .zoom-animation:hover {
+        transform: none;
+    }
+    
+    .slide-in-left, .slide-in-right {
+        animation: none;
+    }
+}
+
+.burger-menu span {
+    transform-origin: center;
+    transition: all 0.3s ease;
+}
+
+.burger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
