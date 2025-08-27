@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог услуг - EmbedSocial</title>
+    <link rel="stylesheet" href="../style/catalog.css">
+    <link rel="stylesheet" href="../style/global.css">
+    <link rel="stylesheet" href="../style/header.css">
+    <link rel="stylesheet" href="../style/footer.css">
+    <link rel="stylesheet" href="../style/responsive.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="../images/logo.png" alt="img-hero">
+                <p>embedsocial</p>
+            </div>
+            <nav class="nav" id="mainNav">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="catalog.html" class="nav-link">Catalog</a>
+                <a href="#" class="nav-link">Templates</a>
+                <a href="#" class="nav-link">Pricing</a>
+            </nav>
+            <div class="nav-button">
+                <a href="#" class="nav-button-link login">Login</a>
+                <a href="#" class="nav-button-link trial">Start Free Trial</a>
+            </div>
+            <div class="burger-menu" id="burgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h1 class="catalog-title">Каталог услуг</h1>
+            
+            <div class="filters">
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Поиск услуг по названию или описанию...">
+                </div>
+                
+                <div class="filter-controls">
+                    <div class="filter-group">
+                        <label class="filter-label" for="sortSelect">Сортировка:</label>
+                        <select class="filter-select" id="sortSelect">
+                            <option value="default">По умолчанию</option>
+                            <option value="price-asc">Цена (по возрастанию)</option>
+                            <option value="price-desc">Цена (по убыванию)</option>
+                            <option value="name-asc">Название (А-Я)</option>
+                            <option value="name-desc">Название (Я-А)</option>
+                            <option value="rating-desc">Рейтинг (высокий сначала)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label" for="categorySelect">Категория:</label>
+                        <select class="filter-select" id="categorySelect">
+                            <option value="all">Все категории</option>
+                            <option value="widgets">Виджеты</option>
+                            <option value="templates">Шаблоны</option>
+                            <option value="integration">Интеграция</option>
+                            <option value="analytics">Аналитика</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="category-filters">
+                    <button class="category-btn active" data-category="all">Все</button>
+                    <button class="category-btn" data-category="widgets">Виджеты</button>
+                    <button class="category-btn" data-category="templates">Шаблоны</button>
+                    <button class="category-btn" data-category="integration">Интеграция</button>
+                    <button class="category-btn" data-category="analytics">Аналитика</button>
+                </div>
+            </div>
+            
+            <div class="array-methods">
+                <button class="method-btn" data-method="all">Все услуги</button>
+                <button class="method-btn" data-method="filter-popular">Популярные (рейтинг ≥ 4.5)</button>
+                <button class="method-btn" data-method="filter-price">Доступные (цена ≤ 499$)</button>
+                <button class="method-btn" data-method="sort-price">Сортировка по цене</button>
+                <button class="method-btn" data-method="sort-name">Сортировка по названию</button>
+                <button class="method-btn" data-method="map-sale">Скидка 10%</button>
+                <button class="method-btn" data-method="reduce-total">Общая стоимость</button>
+                <button class="method-btn" data-method="find-integration">Найти интеграции</button>
+                <button class="method-btn" data-method="some-free">Есть бесплатные</button>
+                <button class="method-btn" data-method="every-premium">Все премиум</button>
+            </div>
+            
+            <div class="products-container" id="productsContainer">
+            </div>
+        </div>
+    </main>
+    <footer>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-footer">
+                        <img src="../images/logo-white.png" alt="img-hero">
+                        <h2 class="brand-name">embeddedal</h2>
+                    </div>
+                    <p class="brand-description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id rhoncus suspendisse mattis ultricies adipiscing quem pretium eleifend.
+                    </p>
+                </div>
+
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h3 class="column-title">Product</h3>
+                        <ul class="footer-links">
+                            <li><a href="#" class="footer-link">Reviews management</a></li>
+                            <li><a href="#" class="footer-link">Embed instagram stories</a></li>
+                            <li><a href="#" class="footer-link">Display instagram feeds</a></li>
+                            <li><a href="#" class="footer-link">Collect reviews</a></li>
+                            <li><a href="#" class="footer-link">Send email requests</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h3 class="column-title">Company</h3>
+                        <ul class="footer-links">
+                            <li><a href="#" class="footer-link">About EmbedSocial</a></li>
+                            <li><a href="#" class="footer-link">Brand Guidelines</a></li>
+                            <li><a href="#" class="footer-link">Press Kit</a></li>
+                            <li><a href="#" class="footer-link">Support</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h3 class="column-title">Integrations</h3>
+                        <ul class="footer-links">
+                            <li><a href="#" class="footer-link">WordPress</a></li>
+                            <li><a href="#" class="footer-link">Shopify</a></li>
+                            <li><a href="#" class="footer-link">Magento</a></li>
+                            <li><a href="#" class="footer-link">Squarrespace</a></li>
+                            <li><a href="#" class="footer-link">Intercom</a></li>
+                            <li><a href="#" class="footer-link">Slack</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h3 class="column-title">Integrations</h3>
+                        <ul class="footer-links">
+                            <li><a href="#" class="footer-link">WordPress</a></li>
+                            <li><a href="#" class="footer-link">Shopify</a></li>
+                            <li><a href="#" class="footer-link">Magento</a></li>
+                            <li><a href="#" class="footer-link">Squarrespace</a></li>
+                            <li><a href="#" class="footer-link">Intercom</a></li>
+                            <li><a href="#" class="footer-link">Slack</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    </footer>
+
+    <script src="../js/catalog.js"></script>
+</body>
+</html>

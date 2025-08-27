@@ -1,14 +1,3 @@
-.main {
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 5rem;
-    padding: 1rem;
-}
-
 .hero {
     text-align: center;
     padding-top: 4rem;
