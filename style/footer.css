@@ -1,0 +1,150 @@
+footer {
+    background: #111827;
+    color: white;
+    padding: 4rem 15rem;
+    width: 100%;
+    margin-top: auto;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    margin-bottom: 2.3rem;
+}
+
+.brand-name {
+    font-size: 2em;
+    font-weight: 700;
+    margin: 0;
+    text-transform: lowercase;
+}
+
+.brand-description {
+    color: #b2bec3;
+    line-height: 1.6;
+    font-size: 1em;
+}
+
+.footer-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.4em;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.column-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 1.4rem;
+    position: relative;
+    padding-bottom: 0.6rem;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.footer-link {
+    color: #b2bec3;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-left: 0.95rem;
+}
+
+.footer-link::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #6c5ce7;
+    font-size: 0.7em;
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform: translateX(-5px);
+}
+
+.footer-link:hover {
+    color: white;
+    padding-left: 1.2rem;
+}
+
+.footer-link:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.footer-bottom {
+    margin-top: 2.6rem;
+}
+
+.footer-divider {
+    height: 1px;
+    background: linear-gradient(to right, rgba(108, 92, 231, 0.3), rgba(108, 92, 231, 0.1), rgba(108, 92, 231, 0.3));
+    margin-bottom: 1.4rem;
+}
+
+.bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+}
+
+.copyright {
+    color: #b2bec3;
+    font-size: 0.8em;
+}
+
+.legal-links {
+    display: flex;
+    gap: 1.4rem;
+}
+
+.legal-link {
+    color: #b2bec3;
+    text-decoration: none;
+    font-size: 0.8em;
+    transition: all 0.3s ease;
+}
+
+.legal-link:hover {
+    color: white;
+}
+
+.footer-link {
+    transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+    transform: translateX(5px);
+}
+
+.logo-footer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 0.5rem;
+}
+
+.logo-footer h2{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.footer-brand p{
+    margin-top: 2rem;
+    width: 70%;
+}
