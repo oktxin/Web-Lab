@@ -734,3 +734,123 @@
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
 }
+
+
+
+
+
+.jacole-section{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem;
+    width: 70%;
+    border-radius: 1rem;
+    background: #111827;
+}
+
+.jacole-section-text{
+    width: 50%;
+}
+
+.jacole-section-text h2 {
+    font-size: 2.8em;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    line-height: 1.2;
+    text-align: start;
+}
+
+.jacole-section-text p{
+    font-size: 1.2em;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    text-align: start;
+}
+
+.jacole-section-text-author{
+    display: flex;
+    gap: 0.5rem;
+}
+
+.jacole-section-text-author h3{
+    color: #fff;
+}
+
+
+.customers-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 3rem 0;
+}
+
+.customers-section h2{
+    font-size: 3em;
+    margin-bottom: 1.5rem;
+    color: #000;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.customers-section-blocks{
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 80%;
+}
+
+.customers-section-block{
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+    width: 23%;
+    height: 20rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    flex-direction: column;
+    gap: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.stars {
+    color: #ffc107;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.customers-section-block-google{
+    display: flex;
+    gap: 1rem;
+}
+
+.customers-section-block-text p {
+    font-size: 1em;
+    color: #666;
+    text-align: start;
+}
+
+.customers-section-title-desc {
+    font-size: 1.2em;
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.customers-section-title-desc span{
+    font-weight: bold;
+}
+
+.customers-section-widget{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 1em;
+    color: #666;
+}
