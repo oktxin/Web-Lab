@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../style/header.css">
     <link rel="stylesheet" href="../style/home.css">
     <link rel="stylesheet" href="../style/footer.css">
+    <link rel="stylesheet" href="../style/responsive.css">
 </head>
 <body>
     <header class="header">
@@ -16,7 +17,7 @@
                 <img src="../images/logo.png" alt="img-hero">
                 <p>embedsocial</p>
             </div>
-            <nav class="nav">
+            <nav class="nav" id="mainNav">
                 <a href="#" class="nav-link">Platform</a>
                 <a href="#" class="nav-link">Widgets</a>
                 <a href="#" class="nav-link">Templates</a>
@@ -25,6 +26,11 @@
             <div class="nav-button">
                 <a href="#" class="nav-button-link login">Login</a>
                 <a href="#" class="nav-button-link trial">Start Free Trial</a>
+            </div>
+            <div class="burger-menu" id="burgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </header>
@@ -346,7 +352,9 @@
         <section class="platform-section">
             <h2 class="platform-section-title">More than just a widget.<br>A complete</h2>
             <div class="platform-section-block">
-                <img src="../images/Shoppable.png" alt="Shoppable">
+                <div class="platform-section-block-img">
+                    <img src="../images/Shoppable.png" alt="Shoppable">
+                </div>
                 <div class="platform-section-block-text">
                     <div class="platform-section-block-logo">
                         <img src="../images/shopping-bag.png" alt="shopping">
@@ -386,10 +394,14 @@
                         </div>
                     </div>
                 </div>
-                <img src="../images/Ads.png" alt="Ads">
+                <div class="platform-section-block-img">
+                    <img src="../images/Ads.png" alt="Ads">
+                </div>
             </div>
             <div class="platform-section-block">
-                <img src="../images/Reports.png" alt="Reports">
+                <div class="platform-section-block-img">
+                    <img src="../images/Reports.png" alt="Reports">
+                </div>
                 <div class="platform-section-block-text">
                     <div class="platform-section-block-logo">
                         <img src="../images/chart-line.png" alt="chart-line">
@@ -472,7 +484,9 @@
                 </div>
                 <img src="../images/jacole.png" alt="jacole">
             </div>
-            <img src="../images/jacole-img.png" alt="jacole-img">
+            <div class="jacole-section-img">
+                <img src="../images/jacole-img.png" alt="jacole-img">
+            </div>
         </section>
 
         <section class="customers-section">
