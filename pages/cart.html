@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог услуг - EmbedSocial</title>
+    <title>Корзина - EmbedSocial</title>
     <link rel="stylesheet" href="../style/catalog.css">
     <link rel="stylesheet" href="../style/global.css">
     <link rel="stylesheet" href="../style/header.css">
@@ -35,57 +35,33 @@
         </div>
     </header>
     <main>
-    <div class="container">
-        <h1 class="catalog-title">Каталог услуг</h1>
-        
-        <div class="filters">
-            <div class="search-container">
-                <input type="text" class="search-input" id="searchInput" placeholder="Поиск услуг по названию или описанию...">
-            </div>
+        <div class="container">
+            <h1 class="catalog-title">Корзина покупок</h1>
             
-            <div class="filter-controls">
-                <div class="filter-group">
-                    <label class="filter-label" for="sortSelect">Сортировка:</label>
-                    <select class="filter-select" id="sortSelect">
-                        <option value="name_asc">Название (А-Я)</option>
-                        <option value="name_desc">Название (Я-А)</option>
-                        <option value="price_asc">Цена (по возрастанию)</option>
-                        <option value="price_desc">Цена (по убыванию)</option>
-                        <option value="rating_desc">Рейтинг (высокий сначала)</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <label class="filter-label" for="priceRange">Макс. цена:</label>
-                    <input type="range" id="priceRange" min="0" max="1000" value="20000" step="100">
-                    <span id="priceValue">20000 руб.</span>
-                </div>
+            <div id="cartItems" class="cart-items">
+            </div>
 
-                <div class="filter-group">
-                    <label class="filter-label" for="ratingRange">Мин. рейтинг:</label>
-                    <input type="range" id="ratingRange" min="0" max="5" value="5" step="0.1">
-                    <span id="ratingValue">5.0</span>
+            <div id="cartSummary" class="cart-summary">
+                <div class="total-price">
+                    Итого: <span id="totalPrice">0 руб.</span>
                 </div>
+                <button id="checkoutBtn" class="checkout-btn">Оформить заказ</button>
             </div>
-            
-            <div class="filter-sections">
-                <div class="filter-section">
-                    <h4>Категории:</h4>
-                    <div class="filter-checkboxes" id="categoryFilters"></div>
-                </div>
-                
-                <div class="filter-section">
-                    <h4>Сложность:</h4>
-                    <div class="filter-checkboxes" id="complexityFilters"></div>
-                </div>
+
+            <div id="emptyCart" class="no-results" style="display: none;">
+                <h3>Корзина пуста</h3>
+                <p>Добавьте товары в корзину, чтобы они отобразились здесь</p>
+                <a href="catalog.html" class="back-button">Перейти в каталог</a>
             </div>
         </div>
-        
-        <div id="productsGrid" class="products-grid">
+
+        <div id="successModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h2>Покупка оформлена успешно!</h2>
+                <p>Спасибо за ваш заказ. Мы свяжемся с вами в ближайшее время.</p>
+                <button id="closeModal" class="checkout-btn">OK</button>
+            </div>
         </div>
-        
-        <div id="pagination" class="pagination"></div>
-    </div>
     </main>
     <footer>
             <div class="footer-content">
@@ -147,7 +123,6 @@
                 </div>
             </div>
     </footer>
-
-    <script src="../js/catalog.js"></script>
+    <script src="../js/cart.js"></script>
 </body>
 </html>

@@ -1,0 +1,216 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Виджет Instagram Stories",
+      "description": "Отображайте истории из Instagram на вашем сайте с автоматическим обновлением",
+      "price": 299,
+      "category": "widgets",
+      "rating": 4.8,
+      "reviews": 142,
+      "image": "https://placehold.co/400x300/0066FF/white?text=Instagram+Widget",
+      "featured": true,
+      "details": {
+        "complexity": "легкая"
+      }
+    },
+    {
+      "id": "2",
+      "name": "Виджет Facebook Feed",
+      "description": "Вставьте ленту Facebook на ваш сайт для увеличения вовлеченности",
+      "price": 249,
+      "category": "widgets",
+      "rating": 4.6,
+      "reviews": 87,
+      "image": "https://placehold.co/400x300/1877F2/white?text=Facebook+Widget",
+      "featured": false,
+      "details": {
+        "complexity": "легкая"
+      }
+    },
+    {
+      "id": "3",
+      "name": "Виджет TikTok Gallery",
+      "description": "Показывайте ваши видео из TikTok в виде красивейшей галереи",
+      "price": 279,
+      "category": "widgets",
+      "rating": 4.7,
+      "reviews": 63,
+      "image": "https://placehold.co/400x300/000000/white?text=TikTok+Widget",
+      "featured": true,
+      "details": {
+        "complexity": "средняя"
+      }
+    },
+    {
+      "id": "4",
+      "name": "Шаблон Popover",
+      "description": "Готовый шаблон всплывающего окна для отображения социального контента",
+      "price": 99,
+      "category": "templates",
+      "rating": 4.5,
+      "reviews": 204,
+      "image": "https://placehold.co/400x300/7844E9/white?text=Popover+Template",
+      "featured": false,
+      "details": {
+        "complexity": "легкая"
+      }
+    },
+    {
+      "id": "5",
+      "name": "Шаблон Carousel",
+      "description": "Шаблон карусели для красивого отображения социального контента",
+      "price": 129,
+      "category": "templates",
+      "rating": 4.9,
+      "reviews": 176,
+      "image": "https://placehold.co/400x300/24B47E/white?text=Carousel+Template",
+      "featured": true,
+      "details": {
+        "complexity": "средняя"
+      }
+    },
+    {
+      "id": "6",
+      "name": "Шаблон Grid Layout",
+      "description": "Сеточный шаблон для равномерного отображения медиа-контента",
+      "price": 89,
+      "category": "templates",
+      "rating": 4.4,
+      "reviews": 98,
+      "image": "https://placehold.co/400x300/FF6928/white?text=Grid+Template",
+      "featured": false,
+      "details": {
+        "complexity": "легкая"
+      }
+    },
+    {
+      "id": "7",
+      "name": "Интеграция с WordPress",
+      "description": "Легкая интеграция виджетов с самой популярной CMS в мире",
+      "price": 199,
+      "category": "integration",
+      "rating": 4.8,
+      "reviews": 321,
+      "image": "https://placehold.co/400x300/21759B/white?text=WordPress+Integration",
+      "featured": true,
+      "details": {
+        "complexity": "сложная"
+      }
+    },
+    {
+      "id": "8",
+      "name": "Интеграция с Shopify",
+      "description": "Специальное решение для интернет-магазинов на платформе Shopify",
+      "price": 229,
+      "category": "integration",
+      "rating": 4.7,
+      "reviews": 154,
+      "image": "https://placehold.co/400x300/7AB55C/white?text=Shopify+Integration",
+      "featured": false,
+      "details": {
+        "complexity": "сложная"
+      }
+    },
+    {
+      "id": "9",
+      "name": "Интеграция с Wix",
+      "description": "Простое подключение виджетов к сайтам на конструкторе Wix",
+      "price": 179,
+      "category": "integration",
+      "rating": 4.3,
+      "reviews": 87,
+      "image": "https://placehold.co/400x300/0C6EF2/white?text=Wix+Integration",
+      "featured": false,
+      "details": {
+        "complexity": "средняя"
+      }
+    },
+    {
+      "id": "10",
+      "name": "Расширенная аналитика",
+      "description": "Подробные метрики и аналитика эффективности ваших виджетов",
+      "price": 149,
+      "category": "analytics",
+      "rating": 4.6,
+      "reviews": 112,
+      "image": "https://placehold.co/400x300/8E44AD/white?text=Advanced+Analytics",
+      "featured": false,
+      "details": {
+        "complexity": "средняя"
+      }
+    },
+    {
+      "id": "11",
+      "name": "A/B тестирование",
+      "description": "Тестируйте различные варианты виджетов для максимальной конверсии",
+      "price": 349,
+      "category": "analytics",
+      "rating": 4.9,
+      "reviews": 76,
+      "image": "https://placehold.co/400x300/E67E22/white?text=A+B+Testing",
+      "featured": true,
+      "details": {
+        "complexity": "сложная"
+      }
+    },
+    {
+      "id": "12",
+      "name": "Heatmap отслеживание",
+      "description": "Отслеживайте клики и взаимодействия пользователей с вашими виджетами",
+      "price": 299,
+      "category": "analytics",
+      "rating": 4.7,
+      "reviews": 64,
+      "image": "https://placehold.co/400x300/E74C3C/white?text=Heatmap+Tracking",
+      "featured": false,
+      "details": {
+        "complexity": "сложная"
+      }
+    },
+    {
+      "id": "13",
+      "name": "Бесплатный виджет",
+      "description": "Базовый виджет с основными функциями для начинающих",
+      "price": 0,
+      "category": "widgets",
+      "rating": 4.2,
+      "reviews": 289,
+      "image": "https://placehold.co/400x300/2ECC71/white?text=Free+Widget",
+      "featured": false,
+      "details": {
+        "complexity": "легкая"
+      }
+    },
+    {
+      "id": "14",
+      "name": "Кастомизация дизайна",
+      "description": "Индивидуальная настройка внешнего вида под ваш бренд",
+      "price": 399,
+      "category": "widgets",
+      "rating": 4.8,
+      "reviews": 132,
+      "image": "https://placehold.co/400x300/9B59B6/white?text=Custom+Design",
+      "featured": true,
+      "details": {
+        "complexity": "сложная"
+      }
+    },
+    {
+      "id": "15",
+      "name": "Приоритетная поддержка",
+      "description": "Круглосуточная поддержка с приоритетом в очереди",
+      "price": 199,
+      "category": "integration",
+      "rating": 4.9,
+      "reviews": 95,
+      "image": "https://placehold.co/400x300/34495E/white?text=Priority+Support",
+      "featured": false,
+      "details": {
+        "complexity": "легкая"
+      }
+    }
+  ],
+  "favorites": [],
+  "cart": []
+}
