@@ -327,11 +327,6 @@
     gap: 1rem;
   }
   
-  .hero-bottom-logos img {
-    margin: 0;
-    width: 30%;
-  }
-  
   .widgets-section-text {
     width: 100%;
   }
@@ -469,10 +464,6 @@
   
   .customization-section-block {
     width: 100%;
-  }
-  
-  .hero-bottom-logos img {
-    width: 45%;
   }
   
   .frequently-buttons {
