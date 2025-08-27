@@ -1,6 +1,11 @@
 .main {
     width: 100%;
-    margin: 0 auto
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5rem;
 }
 
 .hero {
@@ -133,8 +138,9 @@
     display: flex;
     justify-content: center;
     align-items: start;
-    padding: 8rem 0;
+    padding: 4rem 0;
     gap: 3rem;
+    width: 100%;
 }
 
 .widgets-section-text{
@@ -183,6 +189,7 @@
     gap: 2rem;
     padding: 4rem 0;
     background: #EEF1F7;
+    width: 100%;
 }
 
 .let-section h2 {
@@ -246,7 +253,7 @@
     align-items: center;
     flex-direction: column;
     gap: 3rem;
-    padding: 8rem 0;
+    padding: 4rem 0;
     width: 100%;
 }
 
@@ -353,7 +360,7 @@
     align-items: center;
     flex-direction: column;
     gap: 3rem;
-    padding: 8rem 0;
+    padding: 4rem 0;
     width: 100%;
     background: #111827;
 }
@@ -428,4 +435,302 @@
 
 .started-section-pagination-drill span:first-child{
     color: #fff;
+}
+
+.started-section-pagination-drill span{
+    cursor: pointer;
+}
+
+
+
+
+.customization-section, .installation-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 4rem 0;
+    width: 100%;
+}
+
+.customization-section-logo, .installation-section-logo, .integrations-section-logo{
+    display: flex;
+    background: #E8F4FC;
+    padding: 0.5rem;
+    color: #0066FF;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.customization-section-logo img, .installation-section-logo img, .integrations-section-logo img{
+    height: 100%;
+}
+
+.customization-section-title h2, .installation-section-title h2, .integrations-section-title h2 {
+    font-size: 3em;
+    margin-bottom: 1.5rem;
+    color: #000;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.customization-section-title p, .integrations-section-title p {
+    font-size: 1.2em;
+    margin-bottom: 1.5rem;
+    color: #000;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.customization-section-blocks, .installation-section-blocks{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%
+}
+
+.customization-section-block{
+    display: flex;
+    background: #EEF1F7;
+    padding: 0.5rem;
+    color: #000000;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.customization-section-block p{
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.customization-section-block img{
+    height: 100%;
+}
+
+.installation-section-block, .integrations-section-block{
+    display: flex;
+    padding: 0.5rem;
+    color: #000000;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.installation-section-block p, .integrations-section-block p{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+
+
+.integrations-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    padding: 2rem;
+    width: 68%;
+    background: #EEF1F7;
+    border-radius: 1rem;
+}
+
+.integrations-section-text{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem 0;
+}
+
+.integrations-section-title h2{
+    text-align: start;
+}
+
+.integrations-section-title p{
+    text-align: start
+}
+
+.integrations-section-blocks{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+
+
+
+.dive-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    padding: 3rem 0;
+    background: #EEF1F7;
+}
+
+.dive-section-text{
+    display: flex;
+    flex-direction: column;
+    width: 38%;
+}
+
+.dive-section-title {
+    font-size: 3.5em;
+    margin-bottom: 1.5rem;
+    color: #000;
+    line-height: 1.2;
+    text-align: start;
+}
+
+.dive-section-description {
+    font-size: 1.2em;
+    margin-bottom: 2.5rem;
+    color: #666;
+    width: 85%;
+    text-align: start;
+}
+
+
+
+
+.platform-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 3rem 0;
+}
+
+.platform-section-title {
+    font-size: 3.8em;
+    margin-bottom: 1.5rem;
+    color: #000;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.platform-section-title::after {
+    content: "Stories Platform.";
+    background-color: #ffeb3b;
+    color: #000;
+    padding: 0 6px;
+    border-radius: 3px;
+}
+
+
+.platform-section-block-logo{
+    display: flex;
+    background: #E8DDFF;
+    padding: 0.5rem;
+    color: #7844E9;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.platform-section-block-logo img{
+    height: 100%;
+}
+
+.platform-section-block-title h2 {
+    font-size: 3em;
+    margin-bottom: 1.5rem;
+    color: #000;
+    line-height: 1.2;
+    text-align: center;
+}
+
+
+
+.platform-section-block{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem;
+    width: 80%;
+    border-radius: 1rem;
+}
+
+.platform-section-block-text{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem 0;
+    width: 50%;
+}
+
+.platform-section-block-title h2{
+    text-align: start;
+}
+
+.platform-section-block-blocks{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.platform-section-block-block p{
+    font-size: 1.2em;
+}
+
+.platform-section-block-block:nth-child(3){
+    font-weight: bold;
+}
+
+
+
+.features-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 3rem 0;
+}
+
+.features-section h2{
+    font-size: 3em;
+    margin-bottom: 1.5rem;
+    color: #000;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.features-section-blocks{
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 80%;
+}
+
+.features-section-block{
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 20%;
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.underline {
+    text-decoration: underline;
+    text-decoration-color: #d3d3d3ff;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
 }
