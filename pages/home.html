@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="../style/footer.css">
     <link rel="stylesheet" href="../style/responsive.css">
     <link rel="stylesheet" href="../style/slider.css">
+    <link rel="stylesheet" href="../style/gallery.css">
+    <link rel="stylesheet" href="../style/video.css">
+    <link rel="stylesheet" href="../style/parallax.css">
+    <link rel="stylesheet" href="../style/scroll-animations.css">
     <link rel="icon" href="../images/favicon.png" type="image/x-icon">
 </head>
 <body>
@@ -24,6 +28,7 @@
             <a href="catalog.html" class="nav-link">Catalog</a>
             <a href="favorites.html" class="nav-link">Favorites</a>
             <a href="cart.html" class="nav-link">Cart</a>
+            <a href="#features" class="nav-link">features</a>
         </nav>
         <div class="nav-button">
         </div>
@@ -53,7 +58,7 @@
     </nav>
 </div>
     <main>
-        <section class="hero">
+        <section class="hero fade-in" >
             <div class="hero-top">
                 <div class="hero-top-text">
                     <h1 class="hero-title">Display Instagram Stories on any website,</h1>
@@ -127,7 +132,7 @@
             </div>
         </section>
 
-        <section class="let-section">
+        <section class="let-section" id="features">
             <h2>Let your story live</h2>
             <p>You've worked hard to create a beautiful Instagram story but it disappears in 24 hours?<br>No worries, use our story saver for Instagram to bring them to life on your website.</p>
             <div class="let-section-blocks">
@@ -204,6 +209,51 @@
                     <div>
                         <h4>Ben Calahen,</h4>
                         <p>COO at Clovin</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="interactive-gallery">
+            <h2 class="gallery-title">Интерактивная медиагалерея</h2>
+            <p class="gallery-description">Нажмите на элементы ниже, чтобы увидеть и услышать магию</p>
+            
+            <div class="gallery-container">
+                <div class="main-display">
+                    <img id="mainImage" src="https://placehold.co/600x400/2563eb/white?text=Нажмите+на+элемент" alt="Основное изображение">
+                    <div class="player-controls">
+                        <button id="playPauseBtn" class="control-btn" aria-label="Воспроизвести/пауза">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                            </svg>
+                        </button>
+                        <div class="volume-control">
+                            <button id="muteBtn" class="control-btn" aria-label="Отключить звук">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 9V15H7L12 20V4L7 9H3Z" fill="currentColor"/>
+                                </svg>
+                            </button>
+                            <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.7">
+                        </div>
+                    </div>
+                    <div class="image-info">
+                        <h3 id="imageTitle">Выберите элемент</h3>
+                        <p id="imageDescription">Нажмите на один из элементов ниже</p>
+                    </div>
+                </div>
+                
+                <div class="interactive-elements">
+                    <div class="interactive-item" data-id="1">
+                        <img src="https://placehold.co/100x100/2563eb/white?text=Элемент+1" alt="Элемент 1">
+                        <span>Элемент 1</span>
+                    </div>
+                    <div class="interactive-item" data-id="2">
+                        <img src="https://placehold.co/100x100/34d399/white?text=Элемент+2" alt="Элемент 2">
+                        <span>Элемент 2</span>
+                    </div>
+                    <div class="interactive-item" data-id="3">
+                        <img src="https://placehold.co/100x100/f59e0b/white?text=Элемент+3" alt="Элемент 3">
+                        <span>Элемент 3</span>
                     </div>
                 </div>
             </div>
@@ -513,6 +563,35 @@
             </div>
         </section>
 
+        <section class="video-section">
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <div class="video-player" id="videoPlayer">
+                        <video id="mainVideo" width="100%" height="100%" controls>
+                            <source src="" type="video/mp4">
+                            Ваш браузер не поддерживает видео тег.
+                        </video>
+                    </div>
+
+                    <div class="video-control" id="videoControl">
+                        <div class="video-preview">
+                            <img src="../images/Allison.png" alt="Запустить видео">
+                            <div class="play-button">
+                                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="40" cy="40" r="40" fill="rgba(0,0,0,0.6)"/>
+                                    <path d="M35 30L50 40L35 50V30Z" fill="white"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h3>Посмотрите нашу историю</h3>
+                            <p>Узнайте больше о нашем продукте из этого видео</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="customers-section">
             <div class="customers-section-title">
                 <h2>Our customers love EmbedStories</h2>
@@ -620,6 +699,54 @@
                 Widget powered <img src="../images/wid.png" alt="wid"> by <span class="underline">12 more features</span>
             </div>
         </section>
+
+<section id="counter-section" class="counter-section">
+    <div class="counter-container">
+        <div class="counter-item">
+            <div class="counter-number" data-target="5000">0</div>
+            <div class="counter-text">Довольных клиентов</div>
+        </div>
+        <div class="counter-item">
+            <div class="counter-number" data-target="99">0</div>
+            <div class="counter-text">Успешных проектов</div>
+        </div>
+        <div class="counter-item">
+            <div class="counter-number" data-target="24">0</div>
+            <div class="counter-text">Часа поддержки</div>
+        </div>
+        <div class="counter-item">
+            <div class="counter-number" data-target="100">0</div>
+            <div class="counter-text">Позитивных отзывов</div>
+        </div>
+    </div>
+</section>
+
+<section id="parallax-section" class="parallax-section">
+    <div class="parallax-container">
+        <div class="parallax-layer parallax-background"></div>
+
+        <div class="parallax-layer parallax-mid">
+            <div class="parallax-shape shape-1"></div>
+            <div class="parallax-shape shape-2"></div>
+        </div>
+
+        <div class="parallax-layer parallax-foreground">
+            <div class="parallax-shape shape-3"></div>
+            <div class="parallax-shape shape-4"></div>
+        </div>
+
+        <div class="parallax-layer parallax-reverse">
+            <div class="parallax-shape shape-1" style="background: linear-gradient(45deg, rgba(46, 204, 113, 0.4), rgba(52, 152, 219, 0.4)); left: 70%; top: 40%;"></div>
+            <div class="parallax-shape shape-2" style="background: linear-gradient(45deg, rgba(155, 89, 182, 0.4), rgba(241, 196, 15, 0.4)); left: 20%; top: 70%;"></div>
+        </div>
+    </div>
+
+    <div class="parallax-content">
+        <h2 class="parallax-title">Погрузитесь в глубину</h2>
+        <p class="parallax-text">Наш параллакс-эффект</p>
+        <a href="#" class="parallax-button">Узнать больше</a>
+    </div>
+</section>
 
         <section class="section-ff">
             <div class="frequently">
@@ -810,5 +937,10 @@
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" ></script>
     <script src="../js/map.js"></script>
     <script src="../js/slider.js"></script>
+    <script src="../js/gallery.js"></script>
+    <script src="../js/video.js"></script>
+    <script src="../js/smooth-scroll.js"></script>
+    <script src="../js/parallax.js"></script>
+    <script src="../js/scroll-animations.js"></script>
 </body>
 </html>

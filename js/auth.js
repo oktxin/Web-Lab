@@ -1,4 +1,3 @@
-// auth.js
 function isUserLoggedIn() {
     return localStorage.getItem('currentUser') !== null;
 }
@@ -29,8 +28,7 @@ function createUserDropdown() {
     
     const dropdownMenu = document.createElement('div');
     dropdownMenu.className = 'dropdown-menu';
-    
-    // Добавляем админ-панель в дроп-меню, если пользователь админ
+
     let adminItem = '';
     if (user.role === 'admin') {
         adminItem = `
@@ -93,8 +91,7 @@ function updateHeaderAuthState() {
             <a href="register.html" class="nav-button-link trial">Start Free Trial</a>
         `;
     }
-    
-    // Обновляем также мобильное меню
+
     updateMobileMenuAuthState();
 }
 
@@ -109,8 +106,7 @@ function updateMobileMenuAuthState() {
     
     if (isUserLoggedIn()) {
         const user = getCurrentUser();
-        
-        // Добавляем информацию о пользователе
+
         const userInfo = document.createElement('div');
         userInfo.className = 'mobile-user-info';
         userInfo.innerHTML = `
@@ -121,22 +117,19 @@ function updateMobileMenuAuthState() {
             </div>
         `;
         mobileNavButtons.appendChild(userInfo);
-        
-        // Добавляем ссылку на профиль
+
         const profileLink = document.createElement('a');
         profileLink.href = '#';
         profileLink.className = 'mobile-nav-button profile';
         profileLink.textContent = 'Профиль';
         mobileNavButtons.appendChild(profileLink);
-        
-        // Добавляем кнопку выхода
+
         const logoutButton = document.createElement('button');
         logoutButton.className = 'mobile-nav-button logout';
         logoutButton.textContent = 'Выйти';
         logoutButton.addEventListener('click', logout);
         mobileNavButtons.appendChild(logoutButton);
     } else {
-        // Показываем кнопки входа и регистрации
         const loginLink = document.createElement('a');
         loginLink.href = 'login.html';
         loginLink.className = 'mobile-nav-button login';
