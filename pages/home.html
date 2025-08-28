@@ -11,30 +11,45 @@
     <link rel="stylesheet" href="../style/responsive.css">
 </head>
 <body>
-    <header class="header">
-        <div class="header-container">
-            <div class="logo">
-                <img src="../images/logo.png" alt="img-hero">
-                <p>embedsocial</p>
-            </div>
-            <nav class="nav" id="mainNav">
-                <a href="home.html" class="nav-link">Home</a>
-                <a href="catalog.html" class="nav-link">Catalog</a>
-                <a href="favorites.html" class="nav-link">Favorites</a>
-                <a href="cart.html" class="nav-link">Cart</a>
-            </nav>
-            <div class="nav-button">
-                <a href="#" class="nav-button-link login">Login</a>
-                <a href="register.html" class="nav-button-link trial">Start Free Trial</a>
-            </div>
-            <div class="burger-menu" id="burgerMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <img src="../images/logo.png" alt="img-hero">
+            <p>embedsocial</p>
         </div>
-    </header>
+        <nav class="nav" id="mainNav">
+            <a href="home.html" class="nav-link">Home</a>
+            <a href="catalog.html" class="nav-link">Catalog</a>
+            <a href="favorites.html" class="nav-link">Favorites</a>
+            <a href="cart.html" class="nav-link">Cart</a>
+        </nav>
+        <div class="nav-button">
+        </div>
+        <div class="burger-menu" id="burgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</header>
 
+<div class="overlay" id="overlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+        <div class="close-menu" id="closeMenu">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <nav class="mobile-nav">
+        <a href="home.html" class="mobile-nav-link">Home</a>
+        <a href="catalog.html" class="mobile-nav-link">Catalog</a>
+        <a href="favorites.html" class="mobile-nav-link">Favorites</a>
+        <a href="cart.html" class="mobile-nav-link">Cart</a>
+        <div class="mobile-nav-buttons">
+        </div>
+    </nav>
+</div>
     <main>
         <section class="hero">
             <div class="hero-top">
@@ -779,5 +794,6 @@
             </div>
     </footer>
     <script src="../js/auth.js"></script>
+    <script src="../js/burger-menu.js"></script>
 </body>
 </html>

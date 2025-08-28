@@ -1,3 +1,4 @@
+// auth.js
 function isUserLoggedIn() {
     return localStorage.getItem('currentUser') !== null;
 }
@@ -28,6 +29,16 @@ function createUserDropdown() {
     
     const dropdownMenu = document.createElement('div');
     dropdownMenu.className = 'dropdown-menu';
+    
+    // Добавляем админ-панель в дроп-меню, если пользователь админ
+    let adminItem = '';
+    if (user.role === 'admin') {
+        adminItem = `
+            <div class="dropdown-divider"></div>
+            <a href="admin.html" class="dropdown-item admin-item">Админ-панель</a>
+        `;
+    }
+    
     dropdownMenu.innerHTML = `
         <div class="dropdown-header">
             <span class="user-avatar-large">${user.firstName?.charAt(0) || 'U'}</span>
@@ -39,6 +50,7 @@ function createUserDropdown() {
         <div class="dropdown-divider"></div>
         <a href="#" class="dropdown-item profile-item">Профиль</a>
         <a href="#" class="dropdown-item settings-item">Настройки</a>
+        ${adminItem}
         <div class="dropdown-divider"></div>
         <button class="dropdown-item logout-item">Выйти</button>
     `;
@@ -75,20 +87,67 @@ function updateHeaderAuthState() {
     if (isUserLoggedIn()) {
         const dropdown = createUserDropdown();
         navButtonContainer.appendChild(dropdown);
-        const user = getCurrentUser();
-        if (user.role === 'admin') {
-            const adminLink = document.createElement('a');
-            adminLink.href = 'admin.html';
-            adminLink.className = 'nav-button-link admin';
-            adminLink.textContent = 'Админ-панель';
-            navButtonContainer.appendChild(adminLink);
-        }
-        
     } else {
         navButtonContainer.innerHTML = `
             <a href="login.html" class="nav-button-link login">Login</a>
             <a href="register.html" class="nav-button-link trial">Start Free Trial</a>
         `;
+    }
+    
+    // Обновляем также мобильное меню
+    updateMobileMenuAuthState();
+}
+
+function updateMobileMenuAuthState() {
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (!mobileMenu) return;
+    
+    const mobileNavButtons = mobileMenu.querySelector('.mobile-nav-buttons');
+    if (!mobileNavButtons) return;
+    
+    mobileNavButtons.innerHTML = '';
+    
+    if (isUserLoggedIn()) {
+        const user = getCurrentUser();
+        
+        // Добавляем информацию о пользователе
+        const userInfo = document.createElement('div');
+        userInfo.className = 'mobile-user-info';
+        userInfo.innerHTML = `
+            <div class="mobile-user-avatar">${user.firstName?.charAt(0) || 'U'}</div>
+            <div class="mobile-user-details">
+                <div class="mobile-user-name">${user.firstName} ${user.lastName}</div>
+                <div class="mobile-user-email">${user.email}</div>
+            </div>
+        `;
+        mobileNavButtons.appendChild(userInfo);
+        
+        // Добавляем ссылку на профиль
+        const profileLink = document.createElement('a');
+        profileLink.href = '#';
+        profileLink.className = 'mobile-nav-button profile';
+        profileLink.textContent = 'Профиль';
+        mobileNavButtons.appendChild(profileLink);
+        
+        // Добавляем кнопку выхода
+        const logoutButton = document.createElement('button');
+        logoutButton.className = 'mobile-nav-button logout';
+        logoutButton.textContent = 'Выйти';
+        logoutButton.addEventListener('click', logout);
+        mobileNavButtons.appendChild(logoutButton);
+    } else {
+        // Показываем кнопки входа и регистрации
+        const loginLink = document.createElement('a');
+        loginLink.href = 'login.html';
+        loginLink.className = 'mobile-nav-button login';
+        loginLink.textContent = 'Login';
+        mobileNavButtons.appendChild(loginLink);
+        
+        const registerLink = document.createElement('a');
+        registerLink.href = 'register.html';
+        registerLink.className = 'mobile-nav-button trial';
+        registerLink.textContent = 'Start Free Trial';
+        mobileNavButtons.appendChild(registerLink);
     }
 }
 
