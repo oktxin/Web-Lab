@@ -10,7 +10,7 @@ function initializeLoginForm() {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
         if (await validateLoginForm()) {
-            loginUser();
+            loginUser(); 
         }
     });
 

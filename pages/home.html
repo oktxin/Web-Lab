@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../style/home.css">
     <link rel="stylesheet" href="../style/footer.css">
     <link rel="stylesheet" href="../style/responsive.css">
+    <link rel="stylesheet" href="../style/slider.css">
     <link rel="icon" href="../images/favicon.png" type="image/x-icon">
 </head>
 <body>
@@ -215,40 +216,47 @@
             </div>
             <button class="cta-button">See templates demos</button>
             <div class="started-section-pagination">
-                <div class="started-section-slider">
-                    <div class="started-section-slide">
-                        <img src="../images/Popover-slide.png" alt="Popover-slide">
-                        <div class="started-section-slide-text">
-                            <h2>Popover</h2>
-                            <p>Showcases on every page that gives the feel of a living & breathing website. </p>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <div class="started-section-slider">
+                            <div class="started-section-slide">
+                                <img src="../images/Popover-slide.png" alt="Popover-slide">
+                                <div class="started-section-slide-text">
+                                    <h2>Popover</h2>
+                                    <p>Showcases on every page that gives the feel of a living & breathing website. </p>
+                                </div>
+                            </div>
+                            <div class="started-section-slide">
+                                <img src="../images/Highlights-slide.png" alt="Highlights-slide">
+                                <div class="started-section-slide-text">
+                                    <h2>Highlights</h2>
+                                    <p>Mimics the same functionality of the Instagram Highlights on your website.</p>
+                                </div>
+                            </div>
+                            <div class="started-section-slide">
+                                <img src="../images/Slider-slide.png" alt="Slider-slide">
+                                <div class="started-section-slide-text">
+                                    <h2>Slider</h2>
+                                    <p>Display your stories in a full slideshow layout that catches your visitors' attention.</p>
+                                </div>
+                            </div>
+                            <div class="started-section-slide">
+                                <img src="../images/Gallery-slide.png" alt="Gallery-slide">
+                                <div class="started-section-slide-text">
+                                    <h2>Gallery</h2>
+                                    <p>One widget with multiple stories and embed them as a full story gallery on your website.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="started-section-slide">
-                        <img src="../images/Highlights-slide.png" alt="Highlights-slide">
-                        <div class="started-section-slide-text">
-                            <h2>Highlights</h2>
-                            <p>Mimics the same functionality of the Instagram Highlights on your website.</p>
-                        </div>
-                    </div>
-                    <div class="started-section-slide">
-                        <img src="../images/Slider-slide.png" alt="Slider-slide">
-                        <div class="started-section-slide-text">
-                            <h2>Slider</h2>
-                            <p>Display your stories in a full slideshow layout that catches your visitors' attention.</p>
-                        </div>
-                    </div>
-                    <div class="started-section-slide">
-                        <img src="../images/Gallery-slide.png" alt="Gallery-slide">
-                        <div class="started-section-slide-text">
-                            <h2>Gallery</h2>
-                            <p>One widget with multiple stories and embed them as a full story gallery on your website.</p>
-                        </div>
-                    </div>
+                    <button class="slider-nav slider-prev">&#10094;</button>
+                    <button class="slider-nav slider-next">&#10095;</button>
                 </div>
                 <div class="started-section-pagination-drill">
-                    <span>●</span>
-                    <span>●</span>
-                    <span>●</span>
+                    <span class="pagination-dot active" data-index="0">●</span>
+                    <span class="pagination-dot" data-index="1">●</span>
+                    <span class="pagination-dot" data-index="2">●</span>
+                    <span class="pagination-dot" data-index="3">●</span>
                 </div>
             </div>
         </section>
@@ -801,5 +809,6 @@
     <script src="../js/burger-menu.js"></script>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" ></script>
     <script src="../js/map.js"></script>
+    <script src="../js/slider.js"></script>
 </body>
 </html>
