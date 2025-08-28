@@ -1,18 +1,16 @@
 {
   "products": [
     {
-      "id": "1",
       "name": "Виджет Instagram Stories",
-      "description": "Отображайте истории из Instagram на вашем сайте с автоматическим обновлением",
       "price": 299,
       "category": "widgets",
-      "rating": 4.8,
-      "reviews": 142,
       "image": "https://placehold.co/400x300/0066FF/white?text=Instagram+Widget",
-      "featured": true,
+      "description": "Отображайте истории из Instagram на вашем сайте с автоматическим обновлением",
+      "rating": 4.8,
       "details": {
-        "complexity": "легкая"
-      }
+        "complexity": ""
+      },
+      "id": "1"
     },
     {
       "id": "2",

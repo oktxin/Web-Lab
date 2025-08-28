@@ -175,3 +175,9 @@
         grid-template-columns: 1fr;
     }
 }
+
+.admin-actions {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+}

@@ -217,21 +217,30 @@ async function loadProductsForAdmin() {
         
         container.innerHTML = '';
         
-        products.forEach(product => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><img src="${product.image}" alt="${product.name}" class="admin-product-image"></td>
-                <td>${product.name}</td>
-                <td>${product.category}</td>
-                <td>${product.price} руб.</td>
-                <td>${product.rating}</td>
-                <td>
-                    <button onclick="editProduct(${JSON.stringify(product).replace(/"/g, '&quot;')})">Редактировать</button>
-                    <button onclick="deleteProduct('${product.id}')">Удалить</button>
-                </td>
-            `;
-            container.appendChild(row);
-        });
+products.forEach(product => {
+    const row = document.createElement('tr');
+    row.classList.add('product-row');
+    row.setAttribute('data-product-id', product.id);
+    row.innerHTML = `
+        <td><img src="${product.image}" alt="${product.name}" class="admin-product-image"></td>
+        <td>${product.name}</td>
+        <td>${product.category}</td>
+        <td>${product.price} руб.</td>
+        <td>${product.rating}</td>
+        <td>
+            <button onclick="event.stopPropagation(); editProduct(${JSON.stringify(product).replace(/"/g, '&quot;')})">Редактировать</button>
+            <button onclick="event.stopPropagation(); deleteProduct('${product.id}')">Удалить</button>
+        </td>
+    `;
+
+    row.addEventListener('click', function(e) {
+        if (!e.target.closest('button')) { 
+            openProductModal(product);
+        }
+    });
+    
+    container.appendChild(row);
+});
     } catch (error) {
         console.error('Ошибка загрузки товаров:', error);
     }
