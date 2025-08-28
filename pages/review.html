@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы - EmbedSocial</title>
+    <link rel="stylesheet" href="../style/global.css">
+    <link rel="stylesheet" href="../style/header.css">
+    <link rel="stylesheet" href="../style/footer.css">
+    <link rel="stylesheet" href="../style/responsive.css">
+    <link rel="stylesheet" href="../style/review.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="../images/logo.png" alt="img-hero">
+                <p>embedsocial</p>
+            </div>
+            <nav class="nav" id="mainNav">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="catalog.html" class="nav-link">Catalog</a>
+                <a href="favorites.html" class="nav-link">Favorites</a>
+                <a href="cart.html" class="nav-link">Cart</a>
+                <a href="review.html" class="nav-link active">Reviews</a>
+            </nav>
+            <div class="nav-button">
+            </div>
+            <div class="burger-menu" id="burgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="reviews-container">
+            <div class="reviews-header">
+                <h1>Отзывы о товарах</h1>
+                <p>Поделитесь своим мнением о приобретенных товарах</p>
+            </div>
+
+            <div id="reviewFormContainer">
+            </div>
+
+            <div class="reviews-list">
+                <h2>Последние отзывы</h2>
+                <div id="reviewsList">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/reviews.js"></script>
+</body>
+</html>

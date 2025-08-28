@@ -18,6 +18,11 @@ function getElement(id) {
     return element;
 }
 
+function getCurrentUserId() {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    return user ? user.id : null;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = getElement('searchInput');
     const priceRange = getElement('priceRange');
@@ -330,10 +335,16 @@ function setupPagination(totalCount) {
 }
 
 function addToFavorites(productId) {
-    fetch(`${API_URL}/favorites`)
+    const userId = getCurrentUserId();
+    if (!userId) {
+        alert('Для добавления в избранное необходимо войти в систему');
+        return;
+    }
+    
+    fetch(`${API_URL}/favorites?userId=${userId}`)
         .then(response => response.json())
         .then(favorites => {
-            if (favorites.some(item => item.productId === productId)) {
+            if (favorites.some(item => item.productId === productId && item.userId === userId)) {
                 alert('Этот товар уже в избранном!');
                 return;
             }
@@ -344,6 +355,7 @@ function addToFavorites(productId) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    userId: userId,
                     productId: productId,
                     addedAt: new Date().toISOString()
                 })
@@ -360,10 +372,16 @@ function addToFavorites(productId) {
 }
 
 function addToCart(productId) {
-    fetch(`${API_URL}/cart`)
+    const userId = getCurrentUserId();
+    if (!userId) {
+        alert('Для добавления в корзину необходимо войти в систему');
+        return;
+    }
+    
+    fetch(`${API_URL}/cart?userId=${userId}`)
         .then(response => response.json())
         .then(cart => {
-            const existingItem = cart.find(item => item.productId === productId);
+            const existingItem = cart.find(item => item.productId === productId && item.userId === userId);
             
             if (existingItem) {
                 fetch(`${API_URL}/cart/${existingItem.id}`, {
@@ -389,6 +407,7 @@ function addToCart(productId) {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
+                        userId: userId,
                         productId: productId,
                         quantity: 1,
                         addedAt: new Date().toISOString()

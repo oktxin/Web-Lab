@@ -8,17 +8,50 @@ function getElement(id) {
     return element;
 }
 
+function getCurrentUserId() {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    return user ? user.id : null;
+}
+
 function parseProductId(productId) {
     const id = parseInt(productId);
     return isNaN(id) ? productId : id;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    if (!getCurrentUserId()) {
+        showLoginPrompt();
+        return;
+    }
     loadFavorites();
 });
 
+function showLoginPrompt() {
+    const container = getElement('favoritesGrid');
+    const emptyFavorites = getElement('emptyFavorites');
+    
+    if (container && emptyFavorites) {
+        container.innerHTML = '';
+        emptyFavorites.style.display = 'block';
+        emptyFavorites.innerHTML = `
+            <h3>Необходима авторизация</h3>
+            <p>Для просмотра избранного необходимо войти в систему</p>
+            <div style="margin-top: 20px;">
+                <a href="login.html" class="auth-button" style="margin-right: 10px;">Войти</a>
+                <a href="register.html" class="auth-button">Зарегистрироваться</a>
+            </div>
+        `;
+    }
+}
+
 function loadFavorites() {
-    fetch(`${API_URL}/favorites`)
+    const userId = getCurrentUserId();
+    if (!userId) {
+        showLoginPrompt();
+        return;
+    }
+    
+    fetch(`${API_URL}/favorites?userId=${userId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Ошибка загрузки избранного');
@@ -27,7 +60,7 @@ function loadFavorites() {
         })
         .then(favorites => {
             const productPromises = favorites.map(favorite => 
-                fetch(`${API_URL}/products/${parseProductId(favorite.productId)}`)
+                fetch(`${API_URL}/products/${favorite.productId}`)
                     .then(response => response.json())
                     .then(product => ({
                         ...favorite,

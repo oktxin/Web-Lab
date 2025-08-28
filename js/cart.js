@@ -7,6 +7,10 @@ function getElement(id) {
     }
     return element;
 }
+function getCurrentUserId() {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    return user ? user.id : null;
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     const checkoutBtn = getElement('checkoutBtn');
@@ -24,12 +28,43 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+    if (!getCurrentUserId()) {
+        showLoginPrompt();
+        return;
+    }
     loadCart();
 });
 
+function showLoginPrompt() {
+    const container = getElement('cartItems');
+    const emptyCart = getElement('emptyCart');
+    const cartSummary = getElement('cartSummary');
+    const checkoutBtn = getElement('checkoutBtn');
+    
+    if (container && emptyCart && cartSummary && checkoutBtn) {
+        container.innerHTML = '';
+        emptyCart.style.display = 'block';
+        emptyCart.innerHTML = `
+            <h3>Необходима авторизация</h3>
+            <p>Для просмотра корзины необходимо войти в систему</p>
+            <div style="margin-top: 20px;">
+                <a href="login.html" class="auth-button" style="margin-right: 10px;">Войти</a>
+                <a href="register.html" class="auth-button">Зарегистрироваться</a>
+            </div>
+        `;
+        cartSummary.style.display = 'none';
+        checkoutBtn.style.display = 'none';
+    }
+}
+
 function loadCart() {
-    fetch(`${API_URL}/cart`)
+    const userId = getCurrentUserId();
+    if (!userId) {
+        showLoginPrompt();
+        return;
+    }
+    
+    fetch(`${API_URL}/cart?userId=${userId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Ошибка загрузки корзины');
@@ -39,25 +74,30 @@ function loadCart() {
         .then(cart => {
             const productPromises = cart.map(cartItem => 
                 fetch(`${API_URL}/products/${cartItem.productId}`)
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Товар не найден');
+                        }
+                        return response.json();
+                    })
                     .then(product => ({
                         ...cartItem,
                         product: product
                     }))
                     .catch(error => {
-                        console.error('Ошибка загрузки товара:', error);
-                        return {
-                            ...cartItem,
-                            product: null
-                        };
+                        console.warn('Товар не найден, удаляем из корзины:', cartItem.productId);
+                        return fetch(`${API_URL}/cart/${cartItem.id}`, {
+                            method: 'DELETE'
+                        }).then(() => null);
                     })
             );
 
             return Promise.all(productPromises);
         })
         .then(cartWithProducts => {
-            displayCart(cartWithProducts);
-            updateSummary(cartWithProducts);
+            const validCart = cartWithProducts.filter(item => item !== null);
+            displayCart(validCart);
+            updateSummary(validCart);
         })
         .catch(error => {
             console.error('Ошибка загрузки корзины:', error);
@@ -73,9 +113,7 @@ function displayCart(cart) {
     
     if (!container || !emptyCart || !cartSummary || !checkoutBtn) return;
 
-    const validCart = cart.filter(item => item.product);
-    
-    if (validCart.length === 0) {
+    if (cart.length === 0) {
         container.innerHTML = '';
         emptyCart.style.display = 'block';
         cartSummary.style.display = 'none';
@@ -88,7 +126,12 @@ function displayCart(cart) {
     checkoutBtn.style.display = 'block';
     container.innerHTML = '';
     
-    validCart.forEach(item => {
+    cart.forEach(item => {
+        if (!item.product) {
+            console.warn('Пропускаем товар без продукта:', item.id);
+            return;
+        }
+        
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
         cartItem.dataset.id = item.id;
@@ -112,11 +155,6 @@ function displayCart(cart) {
         
         container.appendChild(cartItem);
     });
-
-    const invalidCount = cart.length - validCart.length;
-    if (invalidCount > 0) {
-        console.warn(`Найдено ${invalidCount} товаров в корзине с несуществующими продуктами`);
-    }
 }
 
 function displayError() {
@@ -139,7 +177,7 @@ function updateSummary(cart) {
     if (!totalPriceElement) return;
     
     const subtotal = cart.reduce((sum, item) => {
-        if (item.product) {
+        if (item.product && item.product.price) {
             return sum + (item.product.price * item.quantity);
         }
         return sum;
@@ -191,7 +229,13 @@ function removeFromCart(cartItemId) {
 }
 
 function checkout() {
-    fetch(`${API_URL}/cart`)
+    const userId = getCurrentUserId();
+    if (!userId) {
+        alert('Для оформления заказа необходимо войти в систему');
+        return;
+    }
+
+    fetch(`${API_URL}/cart?userId=${userId}`)
         .then(response => response.json())
         .then(cart => {
             if (cart.length === 0) {
@@ -199,23 +243,76 @@ function checkout() {
                 return;
             }
 
-            const deletePromises = cart.map(item => 
-                fetch(`${API_URL}/cart/${item.id}`, {
-                    method: 'DELETE'
-                })
+            const productPromises = cart.map(cartItem => 
+                fetch(`${API_URL}/products/${cartItem.productId}`)
+                    .then(response => response.json())
+                    .then(product => ({
+                        ...cartItem,
+                        product: product
+                    }))
+                    .catch(error => {
+                        console.warn('Товар не найден:', cartItem.productId);
+                        return {
+                            ...cartItem,
+                            product: null
+                        };
+                    })
             );
 
-            Promise.all(deletePromises)
-                .then(() => {
-                    const modal = getElement('successModal');
-                    if (modal) {
-                        modal.style.display = 'flex';
-                    }
-                    loadCart();
-                })
-                .catch(error => {
-                    console.error('Ошибка оформления заказа:', error);
-                    alert('Произошла ошибка при оформлении заказа');
-                });
+            return Promise.all(productPromises);
+        })
+        .then(cartWithProducts => {
+            const validCartItems = cartWithProducts.filter(item => item.product);
+
+            if (validCartItems.length === 0) {
+                alert('В корзине нет действительных товаров!');
+                return;
+            }
+
+            const order = {
+                orderDate: new Date().toISOString(),
+                items: validCartItems,
+                total: validCartItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0),
+                status: 'completed',
+                userId: userId
+            };
+
+            fetch(`${API_URL}/orders`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(order)
+            })
+            .then(response => response.json())
+            .then(() => {
+                const deletePromises = validCartItems.map(item => 
+                    fetch(`${API_URL}/cart/${item.id}`, {
+                        method: 'DELETE'
+                    })
+                );
+
+                return Promise.all(deletePromises);
+            })
+            .then(() => {
+                const modal = getElement('successModal');
+                if (modal) {
+                    modal.style.display = 'flex';
+                }
+                loadCart();
+            })
+            .catch(error => {
+                console.error('Ошибка оформления заказа:', error);
+                alert('Произошла ошибка при оформлении заказа');
+            });
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки корзины:', error);
+            alert('Не удалось загрузить корзину');
         });
+}
+
+function getCurrentUserId() {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    return user ? user.id : null;
 }

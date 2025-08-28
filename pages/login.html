@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход - EmbedSocial</title>
+    <link rel="stylesheet" href="../style/catalog.css">
+    <link rel="stylesheet" href="../style/global.css">
+    <link rel="stylesheet" href="../style/header.css">
+    <link rel="stylesheet" href="../style/footer.css">
+    <link rel="stylesheet" href="../style/responsive.css">
+    <link rel="stylesheet" href="../style/register.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="../images/logo.png" alt="img-hero">
+                <p>embedsocial</p>
+            </div>
+            <nav class="nav" id="mainNav">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="catalog.html" class="nav-link">Catalog</a>
+                <a href="favorites.html" class="nav-link">Favorites</a>
+                <a href="cart.html" class="nav-link">Cart</a>
+                <a href="register.html" class="nav-link">Register</a>
+            </nav>
+            <div class="nav-button">
+                <a href="login.html" class="nav-button-link login active">Login</a>
+                <a href="#" class="nav-button-link trial">Start Free Trial</a>
+            </div>
+            <div class="burger-menu" id="burgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="auth-container">
+            <h1 class="auth-title">Вход</h1>
+            
+            <form id="loginForm" class="auth-form">
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="loginEmail">Email или никнейм*</label>
+                        <input type="text" id="loginEmail" name="loginEmail" placeholder="your@email.com или ваш никнейм" required>
+                        <div class="error-message" id="loginEmailError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Пароль*</label>
+                        <input type="password" id="loginPassword" name="loginPassword" required>
+                        <div class="error-message" id="loginPasswordError"></div>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <label for="rememberMe">Запомнить меня</label>
+                    </div>
+                </div>
+                
+                <button type="submit" id="loginButton" class="auth-button">Войти</button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Нет аккаунта? <a href="register.html" class="auth-link">Зарегистрироваться</a></p>
+                <p><a href="#" class="auth-link">Забыли пароль?</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/login.js"></script>
+</body>
+</html>

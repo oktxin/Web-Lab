@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - EmbedSocial</title>
+    <link rel="stylesheet" href="../style/catalog.css">
+    <link rel="stylesheet" href="../style/global.css">
+    <link rel="stylesheet" href="../style/header.css">
+    <link rel="stylesheet" href="../style/footer.css">
+    <link rel="stylesheet" href="../style/responsive.css">
+    <link rel="stylesheet" href="../style/register.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="../images/logo.png" alt="img-hero">
+                <p>embedsocial</p>
+            </div>
+            <nav class="nav" id="mainNav">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="catalog.html" class="nav-link">Catalog</a>
+                <a href="favorites.html" class="nav-link">Favorites</a>
+                <a href="cart.html" class="nav-link">Cart</a>
+                <a href="register.html" class="nav-link active">Register</a>
+            </nav>
+            <div class="nav-button">
+                <a href="#" class="nav-button-link login">Login</a>
+                <a href="#" class="nav-button-link trial">Start Free Trial</a>
+            </div>
+            <div class="burger-menu" id="burgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="auth-container">
+            <h1 class="auth-title">Регистрация</h1>
+            
+            <form id="registrationForm" class="auth-form">
+                <div class="form-section">
+                    <h3>Контактная информация</h3>
+                    
+                    <div class="form-group">
+                        <label for="phone">Номер телефона*</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+375 (XX) XXX-XX-XX" required>
+                        <div class="error-message" id="phoneError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                        <div class="error-message" id="emailError"></div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Личная информация</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lastName">Фамилия*</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="firstName">Имя*</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="middleName">Отчество</label>
+                        <input type="text" id="middleName" name="middleName">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthDate">Дата рождения*</label>
+                        <input type="date" id="birthDate" name="birthDate" required>
+                        <div class="error-message" id="birthDateError"></div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Учетные данные</h3>
+                    
+                    <div class="form-group">
+                        <label>Никнейм*</label>
+                        <div class="nickname-container">
+                            <input type="text" id="nickname" name="nickname" readonly>
+                            <button type="button" id="generateNickname" class="generate-btn">Сгенерировать</button>
+                        </div>
+                        <div class="error-message" id="nicknameError"></div>
+                        <div class="attempts-counter">Попыток: <span id="attemptsCount">5</span></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="passwordMethod">Способ задания пароля*</label>
+                        <select id="passwordMethod" name="passwordMethod" required>
+                            <option value="">Выберите способ</option>
+                            <option value="auto">Автоматически</option>
+                            <option value="manual">Ввести самостоятельно</option>
+                        </select>
+                    </div>
+                    
+                    <div id="manualPasswordSection" style="display: none;">
+                        <div class="form-group">
+                            <label for="password">Пароль*</label>
+                            <input type="password" id="password" name="password">
+                            <div class="password-strength">
+                                <div class="strength-bar"></div>
+                                <div class="strength-text">Надежность пароля: <span id="strengthValue">не задан</span></div>
+                            </div>
+                            <div class="error-message" id="passwordError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Подтверждение пароля*</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword">
+                            <div class="error-message" id="confirmPasswordError"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="autoPasswordSection" style="display: none;">
+                        <div class="generated-password">
+                            <p>Ваш пароль будет сгенерирован автоматически и отправлен на указанный email.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                        <label for="agreeTerms">Я прочитал и согласен с <a href="#" class="terms-link">Соглашением пользователя</a>*</label>
+                    </div>
+                </div>
+                
+                <button type="submit" id="submitButton" class="auth-button" disabled>Зарегистрироваться</button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Уже есть аккаунт? <a href="login.html" class="auth-link">Войти</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/register.js"></script>
+</body>
+</html>
