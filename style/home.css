@@ -1036,3 +1036,19 @@
 .section-top-footer .features{
     margin-bottom: 0;
 }
+
+#map {
+    height: 18.75em;
+    width: 100%;
+    border: 0.0625em solid #ccc;
+    border-radius: 0.3125em;
+}
+
+.contact-map {
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+    gap: 1.25em;
+    width: 100%;
+    margin-top: 15px;
+}
