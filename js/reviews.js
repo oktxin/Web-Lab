@@ -1,13 +1,60 @@
 const API_URL = 'http://localhost:3000';
 const MIN_REVIEW_LENGTH = 20;
 
+function safeGetTranslation(key) {
+    if (typeof getTranslation === 'function') {
+        return getTranslation(key);
+    }
+    const fallbackTranslations = {
+        "loginRequired": "Для оставления отзыва необходимо войти в систему",
+        "pleaseLogin": "Пожалуйста, войдите или зарегистрируйтесь",
+        "login": "Войти",
+        "register": "Зарегистрироваться",
+        "adminNotice": "Администраторы не могут оставлять отзывы",
+        "adminManage": "Вы можете управлять отзывами через админ-панель",
+        "writeReview": "Оставить отзыв",
+        "selectProduct": "Выберите товар",
+        "chooseProduct": "Выберите товар",
+        "yourRating": "Ваша оценка",
+        "yourReview": "Ваш отзыв",
+        "reviewPlaceholder": "Расскажите о вашем опыте использования товара...",
+        "submitReview": "Отправить отзыв",
+        "minLength": "Минимальная длина:",
+        "characters": "символов",
+        "textRequired": "Текст отзыва обязателен",
+        "minLengthError": "Отзыв должен содержать минимум",
+        "ratingRequired": "Оценка обязательна",
+        "productRequired": "Выберите товар",
+        "reviewSubmitted": "Отзыв успешно отправлен на модерацию!",
+        "reviewError": "Не удалось отправить отзыв",
+        "noReviews": "Пока нет отзывов. Будьте первым, кто оставит отзыв!",
+        "unknownProduct": "Неизвестный товар",
+        "user": "Пользователь",
+        "reviewsTitle": "Отзывы о товарах",
+        "reviewsSubtitle": "Поделитесь своим мнением о приобретенных товарах",
+        "latestReviews": "Последние отзывы"
+    };
+    return fallbackTranslations[key] || key;
+}
+
+function safeFormatDate(dateString) {
+    if (typeof formatLocalizedDate === 'function') {
+        return formatLocalizedDate(dateString, currentLanguage);
+    }
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ru-RU', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     initializeReviewPage();
 });
 
 function initializeReviewPage() {
     loadReviews();
-
     initializeReviewForm();
 }
 
@@ -35,11 +82,11 @@ function showLoginPrompt() {
     const reviewFormContainer = document.getElementById('reviewFormContainer');
     reviewFormContainer.innerHTML = `
         <div class="login-prompt">
-            <h3>Для оставления отзыва необходимо войти в систему</h3>
-            <p>Пожалуйста, войдите или зарегистрируйтесь</p>
+            <h3>${safeGetTranslation('loginRequired')}</h3>
+            <p>${safeGetTranslation('pleaseLogin')}</p>
             <div class="auth-buttons">
-                <a href="login.html" class="auth-button" style="margin-right: 10px;">Войти</a>
-                <a href="register.html" class="auth-button">Зарегистрироваться</a>
+                <a href="login.html" class="auth-button" style="margin-right: 10px;">${safeGetTranslation('login')}</a>
+                <a href="register.html" class="auth-button">${safeGetTranslation('register')}</a>
             </div>
         </div>
     `;
@@ -49,8 +96,8 @@ function showAdminNotice() {
     const reviewFormContainer = document.getElementById('reviewFormContainer');
     reviewFormContainer.innerHTML = `
         <div class="admin-notice">
-            <h3>Администраторы не могут оставлять отзывы</h3>
-            <p>Вы можете управлять отзывами через админ-панель</p>
+            <h3>${safeGetTranslation('adminNotice')}</h3>
+            <p>${safeGetTranslation('adminManage')}</p>
         </div>
     `;
 }
@@ -60,18 +107,18 @@ function showReviewForm() {
     reviewFormContainer.innerHTML = `
         <form id="reviewForm" class="review-form">
             <div class="form-section">
-                <h3>Оставить отзыв</h3>
+                <h3>${safeGetTranslation('writeReview')}</h3>
                 
                 <div class="form-group">
-                    <label for="reviewProduct">Товар*</label>
+                    <label for="reviewProduct">${safeGetTranslation('selectProduct')}*</label>
                     <select id="reviewProduct" required>
-                        <option value="">Выберите товар</option>
+                        <option value="">${safeGetTranslation('chooseProduct')}</option>
                     </select>
                     <div class="error-message" id="reviewProductError"></div>
                 </div>
                 
                 <div class="form-group">
-                    <label>Оценка*</label>
+                    <label>${safeGetTranslation('yourRating')}*</label>
                     <div class="stars-input">
                         <button type="button" class="star-btn" data-rating="1">☆</button>
                         <button type="button" class="star-btn" data-rating="2">☆</button>
@@ -84,14 +131,14 @@ function showReviewForm() {
                 </div>
                 
                 <div class="form-group">
-                    <label for="reviewText">Текст отзыва*</label>
-                    <textarea id="reviewText" rows="4" placeholder="Расскажите о вашем опыте использования товара..." required></textarea>
+                    <label for="reviewText">${safeGetTranslation('yourReview')}*</label>
+                    <textarea id="reviewText" rows="4" placeholder="${safeGetTranslation('reviewPlaceholder')}" required></textarea>
                     <div class="error-message" id="reviewTextError"></div>
-                    <div class="attempts-counter">Минимальная длина: ${MIN_REVIEW_LENGTH} символов</div>
+                    <div class="attempts-counter">${safeGetTranslation('minLength')} ${MIN_REVIEW_LENGTH} ${safeGetTranslation('characters')}</div>
                 </div>
             </div>
             
-            <button type="submit" id="submitReview" class="auth-button">Отправить отзыв</button>
+            <button type="submit" id="submitReview" class="auth-button">${safeGetTranslation('submitReview')}</button>
         </form>
     `;
 }
@@ -159,7 +206,7 @@ async function loadUserPurchasedProducts() {
         const productSelect = document.getElementById('reviewProduct');
         if (!productSelect) return;
         
-        productSelect.innerHTML = '<option value="">Выберите товар</option>';
+        productSelect.innerHTML = `<option value="">${safeGetTranslation('chooseProduct')}</option>`;
         
         products.forEach(product => {
             if (purchasedProducts.has(product.id.toString())) {
@@ -180,12 +227,12 @@ function validateReviewText() {
     const errorElement = document.getElementById('reviewTextError');
     
     if (!text) {
-        showError(errorElement, 'Текст отзыва обязателен');
+        showError(errorElement, safeGetTranslation('textRequired'));
         return false;
     }
     
     if (text.length < MIN_REVIEW_LENGTH) {
-        showError(errorElement, `Отзыв должен содержать минимум ${MIN_REVIEW_LENGTH} символов`);
+        showError(errorElement, `${safeGetTranslation('minLengthError')} ${MIN_REVIEW_LENGTH} ${safeGetTranslation('characters')}`);
         return false;
     }
     
@@ -198,7 +245,7 @@ function validateReviewRating() {
     const errorElement = document.getElementById('reviewRatingError');
     
     if (!rating) {
-        showError(errorElement, 'Оценка обязательна');
+        showError(errorElement, safeGetTranslation('ratingRequired'));
         return false;
     }
     
@@ -211,7 +258,7 @@ function validateReviewProduct() {
     const errorElement = document.getElementById('reviewProductError');
     
     if (!productId) {
-        showError(errorElement, 'Выберите товар');
+        showError(errorElement, safeGetTranslation('productRequired'));
         return false;
     }
     
@@ -223,7 +270,7 @@ async function validateReviewForm() {
     const user = JSON.parse(localStorage.getItem('currentUser'));
     
     if (user && user.role === 'admin') {
-        alert('Администраторы не могут оставлять отзывы');
+        alert(safeGetTranslation('adminNotice'));
         return false;
     }
     
@@ -240,7 +287,7 @@ async function validateReviewForm() {
 async function submitReview() {
     const user = JSON.parse(localStorage.getItem('currentUser'));
     if (!user) {
-        alert('Для оставления отзыва необходимо войти в систему');
+        alert(safeGetTranslation('loginRequired'));
         return;
     }
     
@@ -263,7 +310,7 @@ async function submitReview() {
         });
         
         if (response.ok) {
-            alert('Отзыв успешно отправлен на модерацию!');
+            alert(safeGetTranslation('reviewSubmitted'));
             document.getElementById('reviewForm').reset();
 
             const starButtons = document.querySelectorAll('.star-btn');
@@ -274,11 +321,11 @@ async function submitReview() {
 
             loadReviews();
         } else {
-            throw new Error('Ошибка отправки отзыва');
+            throw new Error(safeGetTranslation('reviewError'));
         }
     } catch (error) {
         console.error('Ошибка:', error);
-        alert('Не удалось отправить отзыв');
+        alert(safeGetTranslation('reviewError'));
     }
 }
 
@@ -301,22 +348,41 @@ function displayReviews(reviews) {
 
     reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
     
+    if (reviews.length === 0) {
+        container.innerHTML = `<p class="no-reviews">${safeGetTranslation('noReviews')}</p>`;
+        return;
+    }
+    
     reviews.forEach(review => {
         const reviewElement = document.createElement('div');
         reviewElement.className = 'review-item';
         reviewElement.innerHTML = `
             <div class="review-header">
-                <h4>${review.product?.name || 'Неизвестный товар'}</h4>
+                <h4>${review.product?.name || safeGetTranslation('unknownProduct')}</h4>
                 <div class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
             </div>
             <p class="review-text">${review.text}</p>
             <div class="review-footer">
-                <span class="review-author">${review.user?.firstName || 'Пользователь'} ${review.user?.lastName || ''}</span>
-                <span class="review-date">${new Date(review.date).toLocaleDateString('ru-RU')}</span>
+                <span class="review-author">${review.user?.firstName || safeGetTranslation('user')} ${review.user?.lastName || ''}</span>
+                <span class="review-date">${safeFormatDate(review.date)}</span>
             </div>
         `;
         container.appendChild(reviewElement);
     });
+}
+
+function updateReviewsTranslation(lang) {
+    const reviewsTitle = document.querySelector('.reviews-header h1');
+    if (reviewsTitle) reviewsTitle.textContent = safeGetTranslation('reviewsTitle');
+    
+    const reviewsSubtitle = document.querySelector('.reviews-header p');
+    if (reviewsSubtitle) reviewsSubtitle.textContent = safeGetTranslation('reviewsSubtitle');
+    
+    const latestReviews = document.querySelector('.reviews-list h2');
+    if (latestReviews) latestReviews.textContent = safeGetTranslation('latestReviews');
+    
+    initializeReviewForm();
+    loadReviews();
 }
 
 function showError(element, message) {

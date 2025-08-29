@@ -7,6 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeLoginForm() {
     const form = document.getElementById('loginForm');
     
+    if (!form) {
+        console.error('Форма входа не найдена');
+        return;
+    }
+    
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
         if (await validateLoginForm()) {
@@ -14,16 +19,23 @@ function initializeLoginForm() {
         }
     });
 
-    document.getElementById('loginEmail').addEventListener('input', validateLoginEmail);
-    document.getElementById('loginPassword').addEventListener('input', validateLoginPassword);
+    const emailInput = document.getElementById('loginEmail');
+    const passwordInput = document.getElementById('loginPassword');
+    
+    if (emailInput) emailInput.addEventListener('input', validateLoginEmail);
+    if (passwordInput) passwordInput.addEventListener('input', validateLoginPassword);
 }
 
 function validateLoginEmail() {
-    const email = document.getElementById('loginEmail').value;
+    const emailInput = document.getElementById('loginEmail');
     const errorElement = document.getElementById('loginEmailError');
     
+    if (!emailInput || !errorElement) return false;
+    
+    const email = emailInput.value;
+    
     if (!email) {
-        showError(errorElement, 'Email или никнейм обязателен');
+        showError(errorElement, getTranslation('loginEmailRequired'));
         return false;
     }
     
@@ -32,11 +44,15 @@ function validateLoginEmail() {
 }
 
 function validateLoginPassword() {
-    const password = document.getElementById('loginPassword').value;
+    const passwordInput = document.getElementById('loginPassword');
     const errorElement = document.getElementById('loginPasswordError');
     
+    if (!passwordInput || !errorElement) return false;
+    
+    const password = passwordInput.value;
+    
     if (!password) {
-        showError(errorElement, 'Пароль обязателен');
+        showError(errorElement, getTranslation('passwordRequired'));
         return false;
     }
     
@@ -46,13 +62,18 @@ function validateLoginPassword() {
 
 async function validateLoginForm() {
     const isValid = validateLoginEmail() && validateLoginPassword();
-    document.getElementById('loginButton').disabled = !isValid;
+    const loginButton = document.getElementById('loginButton');
+    
+    if (loginButton) {
+        loginButton.disabled = !isValid;
+    }
+    
     return isValid;
 }
 
 async function loginUser() {
-    const login = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
+    const login = document.getElementById('loginEmail')?.value || '';
+    const password = document.getElementById('loginPassword')?.value || '';
     
     try {
         const responseEmail = await fetch(`${API_URL}/users?email=${encodeURIComponent(login)}`);
@@ -64,14 +85,14 @@ async function loginUser() {
         const users = [...usersByEmail, ...usersByNickname];
         
         if (users.length === 0) {
-            showError(document.getElementById('loginEmailError'), 'Пользователь не найден');
+            showError(document.getElementById('loginEmailError'), getTranslation('userNotFound'));
             return;
         }
         
         const user = users[0];
         
         if (user.password !== password) {
-            showError(document.getElementById('loginPasswordError'), 'Неверный пароль');
+            showError(document.getElementById('loginPasswordError'), getTranslation('invalidPassword'));
             return;
         }
 
@@ -83,24 +104,42 @@ async function loginUser() {
             lastName: user.lastName,
             role: user.role
         }));
+        
         if (typeof updateHeaderAuthState === 'function') {
             updateHeaderAuthState();
         }
-        alert('Вход выполнен успешно!');
+        
+        alert(getTranslation('loginSuccess'));
         window.location.href = 'home.html';
         
     } catch (error) {
         console.error('Ошибка входа:', error);
-        alert('Произошла ошибка при входе. Попробуйте еще раз.');
+        alert(getTranslation('loginError'));
     }
 }
 
 function showError(element, message) {
-    element.textContent = message;
-    element.style.display = 'block';
+    if (element) {
+        element.textContent = message;
+        element.style.display = 'block';
+    }
 }
 
 function hideError(element) {
-    element.textContent = '';
-    element.style.display = 'none';
+    if (element) {
+        element.textContent = '';
+        element.style.display = 'none';
+    }
+}
+
+function updateLoginTranslation(lang) {
+    const emailInput = document.getElementById('loginEmail');
+    if (emailInput) {
+        emailInput.placeholder = getTranslation('loginEmailPlaceholder');
+    }
+
+    const loginButton = document.getElementById('loginButton');
+    if (loginButton) {
+        loginButton.disabled = !validateLoginForm();
+    }
 }

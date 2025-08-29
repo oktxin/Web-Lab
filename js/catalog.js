@@ -10,6 +10,39 @@ let currentFilters = {
     search: ''
 };
 
+function safeGetTranslation(key) {
+    if (typeof getTranslation === 'function') {
+        return getTranslation(key);
+    }
+    const fallbackTranslations = {
+        "catalogTitle": "Каталог услуг",
+        "searchPlaceholder": "Поиск услуг по названию или описанию...",
+        "sortBy": "Сортировка:",
+        "nameAsc": "Название (А-Я)",
+        "nameDesc": "Название (Я-А)",
+        "priceAsc": "Цена (по возрастанию)",
+        "priceDesc": "Цена (по убыванию)",
+        "ratingDesc": "Рейтинг (высокий сначала)",
+        "maxPrice": "Макс. цена:",
+        "minRating": "Мин. рейтинг:",
+        "categories": "Категории:",
+        "complexity": "Сложность:",
+        "addToFavorites": "В избранное",
+        "addToCart": "В корзину",
+        "alreadyInFavorites": "Уже в избранном",
+        "authRequired": "Необходима авторизация",
+        "authRequiredText": "Нужно войти в систему",
+        "addedToCart": "Товар добавлен в корзину!",
+        "loadError": "Ошибка загрузки товаров",
+        "loadErrorText": "Попробуйте перезагрузить страницу",
+        "noResults": "Ничего не найдено",
+        "noResultsText": "Попробуйте изменить параметры фильтрации",
+        "price": "руб.",
+        "loginToAdd": "Войдите чтобы добавить"
+    };
+    return fallbackTranslations[key] || key;
+}
+
 function getElement(id) {
     const element = document.getElementById(id);
     if (!element) {
@@ -30,6 +63,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const sortSelect = getElement('sortSelect');
     
     if (searchInput && priceRange && ratingRange && sortSelect) {
+        searchInput.placeholder = safeGetTranslation('searchPlaceholder');
+        
         searchInput.addEventListener('input', function(e) {
             currentFilters.search = e.target.value;
             currentPage = 1;
@@ -40,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentFilters.price = parseInt(e.target.value);
             const priceValue = getElement('priceValue');
             if (priceValue) {
-                priceValue.textContent = currentFilters.price + ' руб.';
+                priceValue.textContent = currentFilters.price + ' ' + safeGetTranslation('price');
             }
             currentPage = 1;
             loadProducts();
@@ -208,8 +243,8 @@ function loadProducts() {
             if (productsGrid) {
                 productsGrid.innerHTML = `
                     <div class="no-results">
-                        <h3>Произошла ошибка при загрузке данных</h3>
-                        <p>Попробуйте перезагрузить страницу</p>
+                        <h3>${safeGetTranslation('loadError')}</h3>
+                        <p>${safeGetTranslation('loadErrorText')}</p>
                     </div>
                 `;
             }
@@ -224,8 +259,8 @@ function displayProducts(products) {
     if (products.length === 0) {
         container.innerHTML = `
             <div class="no-results">
-                <h3>Ничего не найдено</h3>
-                <p>Попробуйте изменить параметры фильтрации</p>
+                <h3>${safeGetTranslation('noResults')}</h3>
+                <p>${safeGetTranslation('noResultsText')}</p>
             </div>
         `;
         return;
@@ -258,14 +293,14 @@ function displayProducts(products) {
                 <h3 class="product-title">${product.name}</h3>
                 <p class="product-description">${product.description}</p>
                 <div class="product-meta">
-                    <div class="product-price">${product.price} руб.</div>
+                    <div class="product-price">${product.price} ${safeGetTranslation('price')}</div>
                     <div class="product-rating">
                         ${stars} <span>${product.rating}</span>
                     </div>
                 </div>
                 <div class="product-actions">
-                    <button class="action-btn favorite-btn" data-id="${product.id}">В избранное</button>
-                    <button class="action-btn cart-btn" data-id="${product.id}">В корзину</button>
+                    <button class="action-btn favorite-btn" data-id="${product.id}">${safeGetTranslation('addToFavorites')}</button>
+                    <button class="action-btn cart-btn" data-id="${product.id}">${safeGetTranslation('addToCart')}</button>
                 </div>
             </div>
         `;
@@ -337,89 +372,92 @@ function setupPagination(totalCount) {
 function addToFavorites(productId) {
     const userId = getCurrentUserId();
     if (!userId) {
-        alert('Для добавления в избранное необходимо войти в систему');
+        alert(safeGetTranslation('authRequired'));
         return;
     }
-    
-    fetch(`${API_URL}/favorites?userId=${userId}`)
-        .then(response => response.json())
-        .then(favorites => {
-            if (favorites.some(item => item.productId === productId && item.userId === userId)) {
-                alert('Этот товар уже в избранном!');
+
+    fetch(`${API_URL}/users/${userId}`)
+        .then(res => res.json())
+        .then(user => {
+            if ((user.favorites || []).includes(productId)) {
+                alert(safeGetTranslation('alreadyInFavorites'));
                 return;
             }
-
-            fetch(`${API_URL}/favorites`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    userId: userId,
-                    productId: productId,
-                    addedAt: new Date().toISOString()
-                })
-            })
-            .then(response => response.json())
-            .then(() => {
-                alert('Товар добавлен в избранное!');
-            })
-            .catch(error => {
-                console.error('Ошибка добавления в избранное:', error);
-                alert('Не удалось добавить товар в избранное');
+            const updatedFavorites = [...(user.favorites || []), productId];
+            return fetch(`${API_URL}/users/${userId}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ favorites: updatedFavorites })
             });
+        })
+        .then(() => {
+            const btn = document.querySelector(`.favorite-btn[data-id="${productId}"]`);
+            if (btn) {
+                btn.textContent = safeGetTranslation('alreadyInFavorites');
+                btn.disabled = true;
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка добавления в избранное:', error);
+            alert('Не удалось добавить товар в избранное');
         });
 }
 
-function addToCart(productId) {
+async function addToCart(productId) {
     const userId = getCurrentUserId();
     if (!userId) {
-        alert('Для добавления в корзину необходимо войти в систему');
+        alert(safeGetTranslation('authRequired'));
         return;
     }
+
+    try {
+        const cartItems = await fetch(`${API_URL}/cart?userId=${userId}`).then(r => r.json());
+        const existing = cartItems.find(item => item.productId === productId);
+
+        if (existing) {
+            await fetch(`${API_URL}/cart/${existing.id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ quantity: existing.quantity + 1 })
+            });
+        } else {
+            await fetch(`${API_URL}/cart`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id: crypto.randomUUID(),
+                    userId,
+                    productId,
+                    quantity: 1
+                })
+            });
+        }
+
+        alert(safeGetTranslation('addedToCart'));
+    } catch (error) {
+        console.error('Ошибка добавления в корзину:', error);
+        alert('Не удалось добавить товар в корзину');
+    }
+}
+
+function updateCatalogTranslation(lang) {
+    const catalogTitle = document.querySelector('.catalog-title');
+    if (catalogTitle) catalogTitle.textContent = safeGetTranslation('catalogTitle');
     
-    fetch(`${API_URL}/cart?userId=${userId}`)
-        .then(response => response.json())
-        .then(cart => {
-            const existingItem = cart.find(item => item.productId === productId && item.userId === userId);
-            
-            if (existingItem) {
-                fetch(`${API_URL}/cart/${existingItem.id}`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        quantity: existingItem.quantity + 1
-                    })
-                })
-                .then(() => {
-                    alert('Количество товара увеличено!');
-                })
-                .catch(error => {
-                    console.error('Ошибка увеличения количества:', error);
-                    alert('Не удалось увеличить количество товара');
-                });
-            } else {
-                fetch(`${API_URL}/cart`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        userId: userId,
-                        productId: productId,
-                        quantity: 1,
-                        addedAt: new Date().toISOString()
-                    })
-                })
-                .then(() => {
-                    alert('Товар добавлен в корзину!');
-                })
-                .catch(error => {
-                    console.error('Ошибка добавления в корзину:', error);
-                    alert('Не удалось добавить товар в корзину');
-                });
-            }
-        });
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) searchInput.placeholder = safeGetTranslation('searchPlaceholder');
+    
+    const priceLabel = document.querySelector('label[for="priceRange"]');
+    if (priceLabel) priceLabel.textContent = safeGetTranslation('maxPrice');
+    
+    const ratingLabel = document.querySelector('label[for="ratingRange"]');
+    if (ratingLabel) ratingLabel.textContent = safeGetTranslation('minRating');
+    
+    const categoriesTitle = document.querySelector('.filter-section h4');
+    if (categoriesTitle) categoriesTitle.textContent = safeGetTranslation('categories');
+    
+    const complexityTitle = document.querySelectorAll('.filter-section h4')[1];
+    if (complexityTitle) complexityTitle.textContent = safeGetTranslation('complexity');
+    
+    loadProducts();
 }

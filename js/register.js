@@ -1,125 +1,197 @@
 const API_URL = 'http://localhost:3000';
 
-const nickSuffixes = ['Pro', 'Master', 'Expert', 'Guru', 'King', 'Star', 'Hero', 'Leader', 'Champ', 'Wizard'];
-
-document.addEventListener('DOMContentLoaded', function() {
-    initializeForm();
+document.addEventListener('DOMContentLoaded', () => {
+    initializeForm(); 
 });
 
-function initializeForm() {
+
+async function initializeForm() {
     const form = document.getElementById('registrationForm');
     const passwordMethod = document.getElementById('passwordMethod');
     const generateBtn = document.getElementById('generateNickname');
     const submitButton = document.getElementById('submitButton');
 
-    generateNickname();
+    if (!form || !passwordMethod || !generateBtn || !submitButton) {
+        console.error('Не удалось найти необходимые элементы формы');
+        return;
+    }
+
+    await generateNickname();
 
     passwordMethod.addEventListener('change', function() {
         togglePasswordSections(this.value);
+        validateForm();
     });
 
-    generateBtn.addEventListener('click', function() {
-        const attempts = parseInt(document.getElementById('attemptsCount').textContent);
-        if (attempts > 0) {
-            generateNickname();
-            document.getElementById('attemptsCount').textContent = attempts - 1;
-        } else {
-            enableManualNicknameInput();
+    generateBtn.addEventListener('click', async function() {
+        const attemptsElement = document.getElementById('attemptsCount');
+        if (attemptsElement) {
+            const attempts = parseInt(attemptsElement.textContent);
+            if (attempts > 0) {
+                await generateNickname(); 
+                attemptsElement.textContent = attempts - 1;
+            } else {
+                enableManualNicknameInput();
+            }
         }
     });
 
-    form.addEventListener('input', async function() {
-        await validateForm();
+    const mainInputs = [
+        'phone', 'email', 'lastName', 'firstName', 
+        'birthDate', 'nickname', 'password', 'confirmPassword'
+    ];
+    
+    mainInputs.forEach(inputId => {
+        const input = document.getElementById(inputId);
+        if (input) {
+            input.addEventListener('input', function() {
+                validateForm();
+            });
+        }
     });
+
+    const agreeTerms = document.getElementById('agreeTerms');
+    if (agreeTerms) {
+        agreeTerms.addEventListener('change', function() {
+            updateSubmitButton();
+        });
+    }
 
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        if (await validateForm()) {
+        if (await validateForm(true)) {
             registerUser();
         }
     });
 
-    document.getElementById('phone').addEventListener('blur', validatePhone);
-    document.getElementById('email').addEventListener('blur', validateEmail);
-    document.getElementById('birthDate').addEventListener('blur', validateBirthDate);
-    document.getElementById('password').addEventListener('input', validatePassword);
-    document.getElementById('confirmPassword').addEventListener('blur', validateConfirmPassword);
+    const phoneInput = document.getElementById('phone');
+    const emailInput = document.getElementById('email');
+    const birthDateInput = document.getElementById('birthDate');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+
+    if (phoneInput) phoneInput.addEventListener('blur', validatePhone);
+    if (emailInput) emailInput.addEventListener('blur', validateEmail);
+    if (birthDateInput) birthDateInput.addEventListener('blur', validateBirthDate);
+    if (passwordInput) passwordInput.addEventListener('input', validatePassword);
+    if (confirmPasswordInput) confirmPasswordInput.addEventListener('blur', validateConfirmPassword);
+
+    updateSubmitButton();
 }
 
 function togglePasswordSections(method) {
     const manualSection = document.getElementById('manualPasswordSection');
     const autoSection = document.getElementById('autoPasswordSection');
     
-    if (method === 'manual') {
-        manualSection.style.display = 'block';
-        autoSection.style.display = 'none';
-    } else if (method === 'auto') {
-        manualSection.style.display = 'none';
-        autoSection.style.display = 'block';
-    } else {
-        manualSection.style.display = 'none';
-        autoSection.style.display = 'none';
+    if (manualSection && autoSection) {
+        if (method === 'manual') {
+            manualSection.style.display = 'block';
+            autoSection.style.display = 'none';
+        } else if (method === 'auto') {
+            manualSection.style.display = 'none';
+            autoSection.style.display = 'block';
+        } else {
+            manualSection.style.display = 'none';
+            autoSection.style.display = 'none';
+        }
     }
-    
-    validateForm();
 }
 
-function generateNickname() {
-    const firstName = document.getElementById('firstName').value || 'User';
-    const lastName = document.getElementById('lastName').value || '';
+async function generateNickname() {
+    const firstName = document.getElementById('firstName')?.value || 'User';
+    const lastName = document.getElementById('lastName')?.value || '';
+    const nicknameInput = document.getElementById('nickname');
     
-    let nickname = '';
+    if (!nicknameInput) return;
 
-    const firstPart = firstName.substring(0, Math.min(3, Math.max(1, Math.floor(Math.random() * 3) + 1)));
+    const firstNameLength = Math.floor(Math.random() * 3) + 1; 
+    const firstNamePart = firstName.substring(0, firstNameLength);
 
-    let secondPart = '';
-    if (lastName) {
-        secondPart = lastName.substring(0, Math.min(3, Math.max(1, Math.floor(Math.random() * 3) + 1)));
+    let lastNamePart = '';
+    if (lastName.trim() !== '') {
+        const lastNameLength = Math.floor(Math.random() * 3) + 1;
+        lastNamePart = lastName.substring(0, lastNameLength);
     }
 
     const randomNum = Math.floor(Math.random() * 990) + 10;
 
-    if (secondPart) {
-        const separator = Math.random() > 0.5 ? '' : (Math.random() > 0.5 ? '_' : '.');
-        nickname = firstPart + separator + secondPart + randomNum;
-    } else {
-        nickname = firstPart + randomNum;
+    const suffixes = ['Pro', 'Master', 'Hero', 'Star', 'Boss'];
+    const suffix = Math.random() > 0.7 ? suffixes[Math.floor(Math.random() * suffixes.length)] : '';
+
+    const separators = ['', '_', '.', '-'];
+    const separator = separators[Math.floor(Math.random() * separators.length)];
+
+    let nickname = lastNamePart
+        ? `${firstNamePart}${separator}${lastNamePart}${randomNum}${suffix}`
+        : `${firstNamePart}${randomNum}${suffix}`;
+
+    nickname = nickname.charAt(0).toUpperCase() + nickname.slice(1);
+
+    nicknameInput.value = nickname;
+
+    let isValid = await validateNickname();
+    let attempts = 5;
+    while (!isValid && attempts > 0) {
+        nicknameInput.value = nickname + Math.floor(Math.random() * 99);
+        isValid = await validateNickname();
+        attempts--;
     }
 
-    if (Math.random() > 0.7) {
-        const suffix = nickSuffixes[Math.floor(Math.random() * nickSuffixes.length)];
-        nickname += suffix;
-    }
+    updateSubmitButton();
+}
 
-    nickname = nickname.charAt(0).toUpperCase() + nickname.slice(1).toLowerCase();
-    
-    document.getElementById('nickname').value = nickname;
-    validateNickname();
+
+function getRandomSuffix() {
+    const suffixPatterns = [
+        'Pro', 'Master', 'Expert', 'Guru', 'King', 'Star', 
+        'Hero', 'Leader', 'Champ', 'Wizard', 'Ninja', 'Warrior',
+        'Genius', 'Savvy', 'Ace', 'Boss', 'Chief', 'Elite'
+    ];
+    return suffixPatterns[Math.floor(Math.random() * suffixPatterns.length)];
+}
+
+function getRandomSeparator() {
+
+    const separators = ['', '_', '.', '-', ''];
+    return separators[Math.floor(Math.random() * separators.length)];
 }
 
 function enableManualNicknameInput() {
     const nicknameInput = document.getElementById('nickname');
     const generateBtn = document.getElementById('generateNickname');
+    const attemptsCounter = document.querySelector('.attempts-counter');
     
-    nicknameInput.readOnly = false;
-    nicknameInput.placeholder = 'Введите свой никнейм';
-    generateBtn.style.display = 'none';
-    document.querySelector('.attempts-counter').style.display = 'none';
+    if (nicknameInput) {
+        nicknameInput.readOnly = false;
+        nicknameInput.placeholder = getTranslation('enterNickname');
+    }
     
-    nicknameInput.focus();
+    if (generateBtn) generateBtn.style.display = 'none';
+    if (attemptsCounter) attemptsCounter.style.display = 'none';
+    
+    if (nicknameInput) nicknameInput.focus();
 }
 
 async function validateNickname() {
-    const nickname = document.getElementById('nickname').value;
+    const nicknameInput = document.getElementById('nickname');
     const errorElement = document.getElementById('nicknameError');
     
+    if (!nicknameInput || !errorElement) return false;
+    
+    const nickname = nicknameInput.value;
+    
     if (!nickname) {
-        showError(errorElement, 'Никнейм обязателен для заполнения');
+        showError(errorElement, getTranslation('nicknameRequired'));
         return false;
     }
     
     if (nickname.length < 3) {
-        showError(errorElement, 'Никнейм должен содержать минимум 3 символа');
+        showError(errorElement, getTranslation('nicknameMinLength'));
+        return false;
+    }
+
+    if (nickname.length > 20) {
+        showError(errorElement, getTranslation('nicknameMaxLength'));
         return false;
     }
 
@@ -128,11 +200,12 @@ async function validateNickname() {
         const users = await response.json();
         
         if (users.length > 0) {
-            showError(errorElement, 'Этот никнейм уже занят');
+            showError(errorElement, getTranslation('nicknameTaken'));
             return false;
         }
     } catch (error) {
         console.error('Ошибка проверки никнейма:', error);
+        return true;
     }
     
     hideError(errorElement);
@@ -140,19 +213,23 @@ async function validateNickname() {
 }
 
 function validatePhone() {
-    const phone = document.getElementById('phone').value;
+    const phoneInput = document.getElementById('phone');
     const errorElement = document.getElementById('phoneError');
+    
+    if (!phoneInput || !errorElement) return false;
+    
+    const phone = phoneInput.value;
     const belarusRegex = /^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/;
     
     if (!phone) {
-        showError(errorElement, 'Номер телефона обязателен');
+        showError(errorElement, getTranslation('phoneRequired'));
         return false;
     }
 
     const cleanPhone = phone.replace(/[^\d+]/g, '');
     
     if (!belarusRegex.test(cleanPhone)) {
-        showError(errorElement, 'Введите корректный номер телефона РБ');
+        showError(errorElement, getTranslation('invalidPhone'));
         return false;
     }
     
@@ -161,17 +238,21 @@ function validatePhone() {
 }
 
 function validateEmail() {
-    const email = document.getElementById('email').value;
+    const emailInput = document.getElementById('email');
     const errorElement = document.getElementById('emailError');
+    
+    if (!emailInput || !errorElement) return false;
+    
+    const email = emailInput.value;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
     if (!email) {
-        showError(errorElement, 'Email обязателен');
+        showError(errorElement, getTranslation('emailRequired'));
         return false;
     }
     
     if (!emailRegex.test(email)) {
-        showError(errorElement, 'Введите корректный email');
+        showError(errorElement, getTranslation('invalidEmail'));
         return false;
     }
     
@@ -180,20 +261,24 @@ function validateEmail() {
 }
 
 function validateBirthDate() {
-    const birthDate = new Date(document.getElementById('birthDate').value);
+    const birthDateInput = document.getElementById('birthDate');
     const errorElement = document.getElementById('birthDateError');
     
-    if (!document.getElementById('birthDate').value) {
-        showError(errorElement, 'Дата рождения обязательна');
+    if (!birthDateInput || !errorElement) return false;
+    
+    const birthDateValue = birthDateInput.value;
+    if (!birthDateValue) {
+        showError(errorElement, getTranslation('birthDateRequired'));
         return false;
     }
     
+    const birthDate = new Date(birthDateValue);
     const today = new Date();
     const minAgeDate = new Date();
     minAgeDate.setFullYear(today.getFullYear() - 16);
     
     if (birthDate > minAgeDate) {
-        showError(errorElement, 'Вам должно быть не менее 16 лет');
+        showError(errorElement, getTranslation('minAgeRequired'));
         return false;
     }
     
@@ -202,25 +287,34 @@ function validateBirthDate() {
 }
 
 function validatePassword() {
-    const password = document.getElementById('password').value;
+    const passwordInput = document.getElementById('password');
     const errorElement = document.getElementById('passwordError');
-    const strengthBar = document.querySelector('.strength-bar');
     const strengthValue = document.getElementById('strengthValue');
     
+    if (!passwordInput) return true;
+    
+    const password = passwordInput.value;
+    
+    const manualSection = document.getElementById('manualPasswordSection');
+    if (manualSection && manualSection.style.display === 'none') {
+        if (errorElement) hideError(errorElement);
+        return true;
+    }
+    
     if (!password) {
-        hideError(errorElement);
-        updatePasswordStrength(0, 'не задан', '#ddd');
+        if (errorElement) hideError(errorElement);
+        if (strengthValue) updatePasswordStrength(0, getTranslation('notSet'), '#ddd');
         return false;
     }
 
     if (password.length < 8) {
-        showError(errorElement, 'Пароль должен содержать минимум 8 символов');
-        updatePasswordStrength(0, 'очень слабый', '#dc3545');
+        if (errorElement) showError(errorElement, getTranslation('passwordMinLength'));
+        if (strengthValue) updatePasswordStrength(0, getTranslation('veryWeak'), '#dc3545');
         return false;
     }
     
     if (password.length > 20) {
-        showError(errorElement, 'Пароль должен содержать не более 20 символов');
+        if (errorElement) showError(errorElement, getTranslation('passwordMaxLength'));
         return false;
     }
 
@@ -235,39 +329,39 @@ function validatePassword() {
 
     const commonPasswords = ['password', '12345678', 'qwerty123', 'admin123'];
     if (commonPasswords.includes(password.toLowerCase())) {
-        showError(errorElement, 'Этот пароль слишком распространен');
-        updatePasswordStrength(0, 'очень слабый', '#dc3545');
+        if (errorElement) showError(errorElement, getTranslation('commonPassword'));
+        if (strengthValue) updatePasswordStrength(0, getTranslation('veryWeak'), '#dc3545');
         return false;
     }
 
     switch(strength) {
         case 1:
-            message = 'очень слабый';
+            message = getTranslation('veryWeak');
             color = '#dc3545';
             break;
         case 2:
-            message = 'слабый';
+            message = getTranslation('weak');
             color = '#fd7e14';
             break;
         case 3:
-            message = 'средний';
+            message = getTranslation('medium');
             color = '#ffc107';
             break;
         case 4:
-            message = 'сильный';
+            message = getTranslation('strong');
             color = '#28a745';
             break;
     }
     
     const width = (strength / 4) * 100;
-    updatePasswordStrength(width, message, color);
+    if (strengthValue) updatePasswordStrength(width, message, color);
     
     if (strength < 3) {
-        showError(errorElement, 'Пароль слишком слабый. Используйте буквы разного регистра, цифры и специальные символы');
+        if (errorElement) showError(errorElement, getTranslation('passwordTooWeak'));
         return false;
     }
     
-    hideError(errorElement);
+    if (errorElement) hideError(errorElement);
     return true;
 }
 
@@ -275,24 +369,40 @@ function updatePasswordStrength(width, message, color) {
     const strengthBar = document.querySelector('.strength-bar');
     const strengthValue = document.getElementById('strengthValue');
     
-    strengthBar.style.setProperty('--strength-width', width + '%');
-    strengthBar.style.setProperty('--strength-color', color);
-    strengthValue.textContent = message;
-    strengthValue.style.color = color;
+    if (strengthBar) {
+        strengthBar.style.setProperty('--strength-width', width + '%');
+        strengthBar.style.setProperty('--strength-color', color);
+    }
+    
+    if (strengthValue) {
+        strengthValue.textContent = message;
+        strengthValue.style.color = color;
+    }
 }
 
 function validateConfirmPassword() {
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
     const errorElement = document.getElementById('confirmPasswordError');
     
+    if (!confirmPasswordInput || !errorElement) return true;
+    
+    const manualSection = document.getElementById('manualPasswordSection');
+    if (manualSection && manualSection.style.display === 'none') {
+        hideError(errorElement);
+        return true;
+    }
+    
+    const password = passwordInput ? passwordInput.value : '';
+    const confirmPassword = confirmPasswordInput.value;
+    
     if (!confirmPassword) {
-        showError(errorElement, 'Подтверждение пароля обязательно');
+        showError(errorElement, getTranslation('confirmPasswordRequired'));
         return false;
     }
     
     if (password !== confirmPassword) {
-        showError(errorElement, 'Пароли не совпадают');
+        showError(errorElement, getTranslation('passwordsDontMatch'));
         return false;
     }
     
@@ -300,53 +410,86 @@ function validateConfirmPassword() {
     return true;
 }
 
-async function validateForm() {
-    const requiredFields = [
-        validatePhone(),
-        validateEmail(),
-        validateBirthDate(),
-        await validateNickname() 
-    ];
+async function validateForm(finalValidation = false) {
+    const phoneValid = validatePhone();
+    const emailValid = validateEmail();
+    const birthDateValid = validateBirthDate();
+    const nicknameValid = await validateNickname();
     
-    const passwordMethod = document.getElementById('passwordMethod').value;
-    if (passwordMethod === 'manual') {
-        requiredFields.push(validatePassword());
-        requiredFields.push(validateConfirmPassword());
+    const passwordMethod = document.getElementById('passwordMethod');
+    let passwordValid = true;
+    let confirmPasswordValid = true;
+    
+    if (passwordMethod && passwordMethod.value === 'manual') {
+        passwordValid = validatePassword();
+        confirmPasswordValid = validateConfirmPassword();
     }
     
-    const agreeTerms = document.getElementById('agreeTerms').checked;
-    if (!agreeTerms) {
-        return false;
+    const agreeTerms = document.getElementById('agreeTerms');
+    const termsValid = agreeTerms ? agreeTerms.checked : false;
+    
+    updateSubmitButton();
+    
+    if (finalValidation) {
+        return phoneValid && emailValid && birthDateValid && nicknameValid && 
+               passwordValid && confirmPasswordValid && termsValid;
     }
     
-    const isValid = requiredFields.every(field => field === true);
-    document.getElementById('submitButton').disabled = !isValid;
-    
-    return isValid;
+    return true;
 }
 
+function updateSubmitButton() {
+    const submitButton = document.getElementById('submitButton');
+    if (!submitButton) return;
+    
+    const phone = document.getElementById('phone')?.value;
+    const email = document.getElementById('email')?.value;
+    const lastName = document.getElementById('lastName')?.value;
+    const firstName = document.getElementById('firstName')?.value;
+    const birthDate = document.getElementById('birthDate')?.value;
+    const nickname = document.getElementById('nickname')?.value;
+    const agreeTerms = document.getElementById('agreeTerms')?.checked;
+    
+    const passwordMethod = document.getElementById('passwordMethod')?.value;
+    let passwordValid = true;
+    
+    if (passwordMethod === 'manual') {
+        const password = document.getElementById('password')?.value;
+        const confirmPassword = document.getElementById('confirmPassword')?.value;
+        passwordValid = password && confirmPassword && password === confirmPassword;
+    }
+    
+    const allFieldsFilled = phone && email && lastName && firstName && 
+                           birthDate && nickname && agreeTerms && passwordValid;
+    
+    submitButton.disabled = !allFieldsFilled;
+}
 
 function showError(element, message) {
-    element.textContent = message;
-    element.style.display = 'block';
+    if (element) {
+        element.textContent = message;
+        element.style.display = 'block';
+    }
 }
 
 function hideError(element) {
-    element.textContent = '';
-    element.style.display = 'none';
+    if (element) {
+        element.textContent = '';
+        element.style.display = 'none';
+    }
 }
 
 async function registerUser() {
     const formData = {
-        phone: document.getElementById('phone').value,
-        email: document.getElementById('email').value,
-        lastName: document.getElementById('lastName').value,
-        firstName: document.getElementById('firstName').value,
-        middleName: document.getElementById('middleName').value || '',
-        birthDate: document.getElementById('birthDate').value,
-        nickname: document.getElementById('nickname').value,
-        passwordMethod: document.getElementById('passwordMethod').value,
-        agreeTerms: document.getElementById('agreeTerms').checked,
+        phone: document.getElementById('phone')?.value || '',
+        email: document.getElementById('email')?.value || '',
+        lastName: document.getElementById('lastName')?.value || '',
+        firstName: document.getElementById('firstName')?.value || '',
+        middleName: document.getElementById('middleName')?.value || '',
+        birthDate: document.getElementById('birthDate')?.value || '',
+        nickname: document.getElementById('nickname')?.value || '',
+        passwordMethod: document.getElementById('passwordMethod')?.value || '',
+        agreeTerms: document.getElementById('agreeTerms')?.checked || false,
         role: 'user',
         registrationDate: new Date().toISOString()
     };
@@ -354,7 +497,7 @@ async function registerUser() {
     if (formData.passwordMethod === 'auto') {
         formData.password = generateAutoPassword();
     } else {
-        formData.password = document.getElementById('password').value;
+        formData.password = document.getElementById('password')?.value || '';
     }
     
     try {
@@ -364,19 +507,17 @@ async function registerUser() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
-        });
-        if (typeof updateHeaderAuthState === 'function') {
-            updateHeaderAuthState();
-        }
+    });
+        
         if (response.ok) {
-            alert('Регистрация успешна!');
+            alert(getTranslation('registrationSuccess'));
             window.location.href = 'login.html';
         } else {
-            throw new Error('Ошибка регистрации');
+            throw new Error(getTranslation('registrationError'));
         }
     } catch (error) {
         console.error('Ошибка регистрации:', error);
-        alert('Произошла ошибка при регистрации. Попробуйте еще раз.');
+        alert(getTranslation('registrationFailed'));
     }
 }
 
@@ -389,4 +530,31 @@ function generateAutoPassword() {
     }
     
     return password;
+}
+
+function updateRegisterTranslation(lang) {
+    const nicknameInput = document.getElementById('nickname');
+    if (nicknameInput && !nicknameInput.readOnly) {
+        nicknameInput.placeholder = getTranslation('enterNickname');
+    }
+    
+    const attemptsCounter = document.querySelector('.attempts-counter');
+    if (attemptsCounter) {
+        const attemptsCount = document.getElementById('attemptsCount');
+        if (attemptsCount) {
+            attemptsCounter.innerHTML = getTranslation('attempts').replace('{count}', `<span id="attemptsCount">${attemptsCount.textContent}</span>`);
+        }
+    }
+    
+    const passwordInput = document.getElementById('password');
+    if (passwordInput) {
+        validatePassword();
+    } else {
+        const strengthValue = document.getElementById('strengthValue');
+        if (strengthValue) {
+            updatePasswordStrength(0, getTranslation('notSet'), '#ddd');
+        }
+    }
+    
+    updateSubmitButton();
 }

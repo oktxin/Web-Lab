@@ -1,5 +1,32 @@
 const API_URL = 'http://localhost:3000';
 
+function safeGetTranslation(key) {
+    if (typeof getTranslation === 'function') {
+        return getTranslation(key);
+    }
+    const fallbackTranslations = {
+        "favoritesTitle": "Избранное",
+        "emptyFavoritesTitle": "В избранном пока ничего нет",
+        "emptyFavoritesText": "Добавьте услуги, которые вам понравились",
+        "goToCatalog": "Перейти в каталог",
+        "authRequired": "Необходима авторизация",
+        "authRequiredText": "Для просмотра избранного необходимо войти в систему",
+        "login": "Войти",
+        "register": "Зарегистрироваться",
+        "loadError": "Ошибка загрузки избранного",
+        "loadErrorText": "Попробуйте перезагрузить страницу",
+        "removeFavorite": "Удалить товар из избранного?",
+        "addToCart": "В корзину",
+        "quantityIncreased": "Количество товара увеличено!",
+        "addedToCart": "Товар добавлен в корзину!",
+        "removeError": "Не удалось удалить товар из избранного",
+        "cartError": "Не удалось добавить товар в корзину",
+        "price": "руб.",
+        "category": "Категория"
+    };
+    return fallbackTranslations[key] || key;
+}
+
 function getElement(id) {
     const element = document.getElementById(id);
     if (!element) {
@@ -34,11 +61,11 @@ function showLoginPrompt() {
         container.innerHTML = '';
         emptyFavorites.style.display = 'block';
         emptyFavorites.innerHTML = `
-            <h3>Необходима авторизация</h3>
-            <p>Для просмотра избранного необходимо войти в систему</p>
+            <h3>${safeGetTranslation('authRequired')}</h3>
+            <p>${safeGetTranslation('authRequiredText')}</p>
             <div style="margin-top: 20px;">
-                <a href="login.html" class="auth-button" style="margin-right: 10px;">Войти</a>
-                <a href="register.html" class="auth-button">Зарегистрироваться</a>
+                <a href="login.html" class="auth-button" style="margin-right: 10px;">${safeGetTranslation('login')}</a>
+                <a href="register.html" class="auth-button">${safeGetTranslation('register')}</a>
             </div>
         `;
     }
@@ -50,50 +77,44 @@ function loadFavorites() {
         showLoginPrompt();
         return;
     }
-    
-    fetch(`${API_URL}/favorites?userId=${userId}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Ошибка загрузки избранного');
+
+    fetch(`${API_URL}/users/${userId}`)
+        .then(res => res.json())
+        .then(user => {
+            const favorites = user.favorites || [];
+            if (favorites.length === 0) {
+                displayFavorites([]);
+                return;
             }
-            return response.json();
-        })
-        .then(favorites => {
-            const productPromises = favorites.map(favorite => 
-                fetch(`${API_URL}/products/${favorite.productId}`)
-                    .then(response => response.json())
-                    .then(product => ({
-                        ...favorite,
-                        product: product
-                    }))
-                    .catch(error => {
-                        console.error('Ошибка загрузки товара:', error);
-                        return {
-                            ...favorite,
-                            product: null
-                        };
+
+            const productPromises = favorites.map(productId =>
+                fetch(`${API_URL}/products/${productId}`)
+                    .then(res => res.json())
+                    .then(product => ({ productId, product }))
+                    .catch(err => {
+                        console.warn('Товар не найден:', productId);
+                        return null;
                     })
             );
 
             return Promise.all(productPromises);
         })
         .then(favoritesWithProducts => {
-            displayFavorites(favoritesWithProducts);
+            if (!favoritesWithProducts) return;
+            const validFavorites = favoritesWithProducts.filter(f => f !== null);
+            displayFavorites(validFavorites);
         })
         .catch(error => {
             console.error('Ошибка загрузки избранного:', error);
-            const favoritesGrid = getElement('favoritesGrid');
+            const container = getElement('favoritesGrid');
             const emptyFavorites = getElement('emptyFavorites');
-            
-            if (favoritesGrid) {
-                favoritesGrid.innerHTML = '';
-            }
+            if (container) container.innerHTML = '';
             if (emptyFavorites) {
                 emptyFavorites.style.display = 'block';
                 emptyFavorites.innerHTML = `
-                    <h3>Ошибка загрузки избранного</h3>
-                    <p>Попробуйте перезагрузить страницу</p>
-                    <a href="catalog.html" class="back-button">Перейти в каталог</a>
+                    <h3>${safeGetTranslation('loadError')}</h3>
+                    <p>${safeGetTranslation('loadErrorText')}</p>
+                    <a href="catalog.html" class="back-button">${safeGetTranslation('goToCatalog')}</a>
                 `;
             }
         });
@@ -105,127 +126,124 @@ function displayFavorites(favorites) {
     
     if (!container || !emptyFavorites) return;
 
-    const validFavorites = favorites.filter(favorite => favorite.product);
-    
-    if (validFavorites.length === 0) {
+    if (favorites.length === 0) {
         container.innerHTML = '';
         emptyFavorites.style.display = 'block';
+        emptyFavorites.innerHTML = `
+            <h3>${safeGetTranslation('emptyFavoritesTitle')}</h3>
+            <p>${safeGetTranslation('emptyFavoritesText')}</p>
+            <a href="catalog.html" class="back-button">${safeGetTranslation('goToCatalog')}</a>
+        `;
         return;
     }
     
     emptyFavorites.style.display = 'none';
     container.innerHTML = '';
     
-    validFavorites.forEach(favorite => {
+    favorites.forEach(fav => {
+        const product = fav.product;
         const card = document.createElement('div');
         card.className = 'product-card';
 
         let stars = '';
-        const fullStars = Math.floor(favorite.product.rating);
-        const hasHalfStar = favorite.product.rating % 1 !== 0;
+        const fullStars = Math.floor(product.rating);
+        const hasHalfStar = product.rating % 1 !== 0;
         
-        for (let i = 0; i < fullStars; i++) {
-            stars += '★';
-        }
-        if (hasHalfStar) {
-            stars += '½';
-        }
-        for (let i = stars.length; i < 5; i++) {
-            stars += '☆';
-        }
+        for (let i = 0; i < fullStars; i++) stars += '★';
+        if (hasHalfStar) stars += '½';
+        for (let i = stars.length; i < 5; i++) stars += '☆';
 
         card.innerHTML = `
-            <button class="remove-favorite-btn" onclick="removeFromFavorites('${favorite.id}')">×</button>
-            <img src="${favorite.product.image}" alt="${favorite.product.name}" class="product-image">
+            <button class="remove-favorite-btn" onclick="removeFromFavorites('${fav.productId}')">×</button>
+            <img src="${product.image}" alt="${product.name}" class="product-image">
             <div class="product-info">
-                <div class="product-category">${favorite.product.category}</div>
-                <h3 class="product-title">${favorite.product.name}</h3>
-                <p class="product-description">${favorite.product.description}</p>
+                <div class="product-category">${product.category}</div>
+                <h3 class="product-title">${product.name}</h3>
+                <p class="product-description">${product.description}</p>
                 <div class="product-meta">
-                    <div class="product-price">${favorite.product.price} руб.</div>
+                    <div class="product-price">${product.price} ${safeGetTranslation('price')}</div>
                     <div class="product-rating">
-                        ${stars} <span>${favorite.product.rating}</span>
+                        ${stars} <span>${product.rating}</span>
                     </div>
                 </div>
                 <div class="product-actions">
-                    <button class="action-btn cart-btn" onclick="addToCartFromFavorites(${favorite.product.id})">В корзину</button>
+                    <button class="action-btn cart-btn" onclick="addToCart('${product.id}')">${safeGetTranslation('addToCart')}</button>
                 </div>
             </div>
         `;
         
         container.appendChild(card);
     });
-
-    const invalidCount = favorites.length - validFavorites.length;
-    if (invalidCount > 0) {
-        console.warn(`Найдено ${invalidCount} избранных товаров с несуществующими продуктами`);
-    }
 }
 
-function removeFromFavorites(favoriteId) {
-    if (!confirm('Удалить товар из избранного?')) return;
+function removeFromFavorites(productId) {
+    if (!confirm(safeGetTranslation('removeFavorite'))) return;
     
-    fetch(`${API_URL}/favorites/${favoriteId}`, {
-        method: 'DELETE'
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Ошибка удаления из избранного');
-        }
-        loadFavorites();
-    })
-    .catch(error => {
-        console.error('Ошибка при удалении из избранного:', error);
-        alert('Не удалось удалить товар из избранного');
-    });
+    const userId = getCurrentUserId();
+    if (!userId) {
+        alert(safeGetTranslation('authRequired'));
+        return;
+    }
+
+    fetch(`${API_URL}/users/${userId}`)
+        .then(res => res.json())
+        .then(user => {
+            const updatedFavorites = (user.favorites || []).filter(id => id !== productId);
+            return fetch(`${API_URL}/users/${userId}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ favorites: updatedFavorites })
+            });
+        })
+        .then(() => loadFavorites())
+        .catch(err => {
+            console.error(err);
+            alert(safeGetTranslation('removeError'));
+        });
 }
 
-function addToCartFromFavorites(productId) {
-    fetch(`${API_URL}/cart`)
-        .then(response => response.json())
+function addToCart(productId) {
+    const userId = getCurrentUserId();
+    if (!userId) {
+        alert(safeGetTranslation('authRequired'));
+        return;
+    }
+
+    fetch(`${API_URL}/cart?userId=${userId}`)
+        .then(res => res.json())
         .then(cart => {
-            const existingItem = cart.find(item => item.productId == productId);
-            
-            if (existingItem) {
-                fetch(`${API_URL}/cart/${existingItem.id}`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        quantity: existingItem.quantity + 1
-                    })
-                })
-                .then(() => {
-                    alert('Количество товара увеличено!');
-                })
-                .catch(error => {
-                    console.error('Ошибка увеличения количества:', error);
-                    alert('Не удалось увеличить количество товара');
+            const existing = cart.find(item => item.productId === productId);
+            if (existing) {
+                return fetch(`${API_URL}/cart/${existing.id}`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ quantity: existing.quantity + 1 })
                 });
             } else {
-                fetch(`${API_URL}/cart`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                return fetch(`${API_URL}/cart`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        productId: productId,
-                        quantity: 1,
-                        addedAt: new Date().toISOString()
+                        id: crypto.randomUUID(),
+                        userId,
+                        productId,
+                        quantity: 1
                     })
-                })
-                .then(() => {
-                    alert('Товар добавлен в корзину!');
-                })
-                .catch(error => {
-                    console.error('Ошибка добавления в корзину:', error);
-                    alert('Не удалось добавить товар в корзину');
                 });
             }
         })
-        .catch(error => {
-            console.error('Ошибка загрузки корзины:', error);
-            alert('Не удалось добавить товар в корзину');
+        .then(() => {
+            alert(safeGetTranslation('addedToCart'));
+        })
+        .catch(err => {
+            console.error(err);
+            alert(safeGetTranslation('cartError'));
         });
+}
+
+function updateFavoritesTranslation(lang) {
+    const favoritesTitle = document.querySelector('.catalog-title');
+    if (favoritesTitle) favoritesTitle.textContent = safeGetTranslation('favoritesTitle');
+    
+    loadFavorites();
 }

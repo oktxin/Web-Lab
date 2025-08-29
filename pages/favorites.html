@@ -7,110 +7,151 @@
     <link rel="stylesheet" href="../style/catalog.css">
     <link rel="stylesheet" href="../style/global.css">
     <link rel="stylesheet" href="../style/header.css">
+    <link rel="stylesheet" href="../style/home.css">
     <link rel="stylesheet" href="../style/footer.css">
+    <link rel="stylesheet" href="../style/theme.css">
     <link rel="stylesheet" href="../style/responsive.css">
+    <link rel="stylesheet" href="../style/user-styles.css">
 </head>
 <body>
-    <header class="header">
-        <div class="header-container">
-            <div class="logo">
-                <img src="../images/logo.png" alt="img-hero">
-                <p>embedsocial</p>
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <img src="../images/logo.png" alt="img-hero">
+            <p>embedsocial</p>
+        </div>
+        <nav class="nav" id="mainNav">
+            <a href="home.html" class="nav-link" data-translate="home">Home</a>
+            <a href="catalog.html" class="nav-link" data-translate="catalog">Catalog</a>
+            <a href="favorites.html" class="nav-link" data-translate="favorites">Favorites</a>
+            <a href="cart.html" class="nav-link" data-translate="cart">Cart</a>
+            <a href="review.html" class="nav-link active" data-translate="reviews">Reviews</a>
+        </nav>
+        <div class="nav-buttons">
+            <div class="language-switcher">
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="ru">RU</button>
             </div>
-            <nav class="nav" id="mainNav">
-                <a href="home.html" class="nav-link">Home</a>
-                <a href="catalog.html" class="nav-link">Catalog</a>
-                <a href="favorites.html" class="nav-link">Favorites</a>
-                <a href="cart.html" class="nav-link">Cart</a>
-            </nav>
+            <button id="theme-switcher" class="theme-switcher">☀️</button>
             <div class="nav-button">
-                <a href="#" class="nav-button-link login">Login</a>
-                <a href="#" class="nav-button-link trial">Start Free Trial</a>
-            </div>
-            <div class="burger-menu" id="burgerMenu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <a href="login.html" class="nav-button-link login" data-translate="login">Login</a>
+                <a href="register.html" class="nav-button-link trial" data-translate="startFreeTrial">Start Free Trial</a>
             </div>
         </div>
-    </header>
+        <div class="burger-menu" id="burgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</header>
+
+<div class="modal" id="profileModal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 data-translate="editProfile">Редактирование профиля</h2>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="firstName" data-translate="firstName">Имя:</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName" data-translate="lastName">Фамилия:</label>
+                <input type="text" id="lastName" name="lastName">
+            </div>
+            <div class="form-group">
+                <label for="nickname" data-translate="nickname">Никнейм:</label>
+                <input type="text" id="nickname" name="nickname">
+            </div>
+            <div class="form-group">
+                <label for="email" data-translate="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn-save" data-translate="save">Сохранить</button>
+                <button type="button" class="btn-reset" id="resetSettings" data-translate="resetSettings">Сбросить настройки</button>
+            </div>
+        </form>
+    </div>
+</div>
     <main>
         <div class="container">
-            <h1 class="catalog-title">Избранное</h1>
+            <h1 class="catalog-title" data-translate="favoritesTitle">Избранное</h1>
             
             <div id="favoritesGrid" class="products-grid">
-            
             </div>
 
             <div id="emptyFavorites" class="no-results" style="display: none;">
-                <h3>В избранном пока ничего нет</h3>
-                <p>Добавьте услуги, которые вам понравились</p>
-                <a href="catalog.html" class="back-button">Перейти в каталог</a>
+                <h3 data-translate="emptyFavoritesTitle">В избранном пока ничего нет</h3>
+                <p data-translate="emptyFavoritesText">Добавьте услуги, которые вам понравились</p>
+                <a href="catalog.html" class="back-button" data-translate="goToCatalog">Перейти в каталог</a>
             </div>
         </div>
     </main>
     <footer>
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="logo-footer">
-                        <img src="../images/logo-white.png" alt="img-hero">
-                        <h2 class="brand-name">embeddedal</h2>
-                    </div>
-                    <p class="brand-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id rhoncus suspendisse mattis ultricies adipiscing quem pretium eleifend.
-                    </p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo-footer">
+                    <img src="../images/logo-white.png" alt="img-hero">
+                    <h2 class="brand-name">embedsocial</h2>
+                </div>
+                <p class="brand-description" data-translate="footerDescription">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id rhoncus suspendisse mattis ultricies adipiscing quem pretium eleifend.
+                </p>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h3 class="column-title" data-translate="product">Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link" data-translate="reviewsManagement">Reviews management</a></li>
+                        <li><a href="#" class="footer-link" data-translate="embedInstagramStories">Embed instagram stories</a></li>
+                        <li><a href="#" class="footer-link" data-translate="displayInstagramFeeds">Display instagram feeds</a></li>
+                        <li><a href="#" class="footer-link" data-translate="collectReviews">Collect reviews</a></li>
+                        <li><a href="#" class="footer-link" data-translate="sendEmailRequests">Send email requests</a></li>
+                    </ul>
                 </div>
 
-                <div class="footer-columns">
-                    <div class="footer-column">
-                        <h3 class="column-title">Product</h3>
-                        <ul class="footer-links">
-                            <li><a href="#" class="footer-link">Reviews management</a></li>
-                            <li><a href="#" class="footer-link">Embed instagram stories</a></li>
-                            <li><a href="#" class="footer-link">Display instagram feeds</a></li>
-                            <li><a href="#" class="footer-link">Collect reviews</a></li>
-                            <li><a href="#" class="footer-link">Send email requests</a></li>
-                        </ul>
-                    </div>
+                <div class="footer-column">
+                    <h3 class="column-title" data-translate="company">Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link" data-translate="aboutEmbedSocial">About EmbedSocial</a></li>
+                        <li><a href="#" class="footer-link" data-translate="brandGuidelines">Brand Guidelines</a></li>
+                        <li><a href="#" class="footer-link" data-translate="pressKit">Press Kit</a></li>
+                        <li><a href="#" class="footer-link" data-translate="support">Support</a></li>
+                    </ul>
+                </div>
 
-                    <div class="footer-column">
-                        <h3 class="column-title">Company</h3>
-                        <ul class="footer-links">
-                            <li><a href="#" class="footer-link">About EmbedSocial</a></li>
-                            <li><a href="#" class="footer-link">Brand Guidelines</a></li>
-                            <li><a href="#" class="footer-link">Press Kit</a></li>
-                            <li><a href="#" class="footer-link">Support</a></li>
-                        </ul>
-                    </div>
+                <div class="footer-column">
+                    <h3 class="column-title" data-translate="integrations">Integrations</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link" data-translate="wordPress">WordPress</a></li>
+                        <li><a href="#" class="footer-link" data-translate="shopify">Shopify</a></li>
+                        <li><a href="#" class="footer-link" data-translate="magento">Magento</a></li>
+                        <li><a href="#" class="footer-link" data-translate="squarrespace">Squarrespace</a></li>
+                        <li><a href="#" class="footer-link" data-translate="intercom">Intercom</a></li>
+                        <li><a href="#" class="footer-link" data-translate="slack">Slack</a></li>
+                    </ul>
+                </div>
 
-                    <div class="footer-column">
-                        <h3 class="column-title">Integrations</h3>
-                        <ul class="footer-links">
-                            <li><a href="#" class="footer-link">WordPress</a></li>
-                            <li><a href="#" class="footer-link">Shopify</a></li>
-                            <li><a href="#" class="footer-link">Magento</a></li>
-                            <li><a href="#" class="footer-link">Squarrespace</a></li>
-                            <li><a href="#" class="footer-link">Intercom</a></li>
-                            <li><a href="#" class="footer-link">Slack</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-column">
-                        <h3 class="column-title">Integrations</h3>
-                        <ul class="footer-links">
-                            <li><a href="#" class="footer-link">WordPress</a></li>
-                            <li><a href="#" class="footer-link">Shopify</a></li>
-                            <li><a href="#" class="footer-link">Magento</a></li>
-                            <li><a href="#" class="footer-link">Squarrespace</a></li>
-                            <li><a href="#" class="footer-link">Intercom</a></li>
-                            <li><a href="#" class="footer-link">Slack</a></li>
-                        </ul>
-                    </div>
+                <div class="footer-column">
+                    <h3 class="column-title" data-translate="integrations">Integrations</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link" data-translate="wordPress">WordPress</a></li>
+                        <li><a href="#" class="footer-link" data-translate="shopify">Shopify</a></li>
+                        <li><a href="#" class="footer-link" data-translate="magento">Magento</a></li>
+                        <li><a href="#" class="footer-link" data-translate="squarrespace">Squarrespace</a></li>
+                        <li><a href="#" class="footer-link" data-translate="intercom">Intercom</a></li>
+                        <li><a href="#" class="footer-link" data-translate="slack">Slack</a></li>
+                    </ul>
                 </div>
             </div>
+        </div>
     </footer>
 
     <script src="../js/favorites.js"></script>
     <script src="../js/auth.js"></script>
+    <script src="../js/translation.js"></script>
+    <script src="../js/theme-switcher.js"></script>
 </body>
 </html>

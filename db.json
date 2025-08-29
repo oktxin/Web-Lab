@@ -211,14 +211,6 @@
       }
     }
   ],
-  "favorites": [
-    {
-      "id": "3de4",
-      "userId": "4a98",
-      "productId": "11",
-      "addedAt": "2025-08-28T13:33:06.518Z"
-    }
-  ],
   "cart": [],
   "users": [
     {
@@ -234,22 +226,36 @@
       "agreeTerms": true,
       "role": "user",
       "registrationDate": "2025-08-28T11:07:40.764Z",
-      "password": "JNXr8Y0OBeyg"
+      "password": "JNXr8Y0OBeyg",
+      "favorites": [
+        "11",
+        "12",
+        "13"
+      ],
+      "cart": []
     },
     {
       "id": "0828",
       "phone": "+375296081320",
       "email": "admin@gmail.com",
-      "lastName": "tretert",
-      "firstName": "ertert",
+      "lastName": "QQQ",
+      "firstName": "QWE",
       "middleName": "",
       "birthDate": "2003-02-28",
-      "nickname": "ADmin",
+      "nickname": "Admin",
       "passwordMethod": "auto",
       "agreeTerms": true,
       "role": "admin",
       "registrationDate": "2025-08-28T11:48:06.155Z",
-      "password": "5s7crlbJgAFo"
+      "password": "5s7crlbJgAFo",
+      "favorites": [],
+      "cart": [
+        {
+          "productId": "11",
+          "quantity": 1
+        }
+      ],
+      "settings": {}
     },
     {
       "id": "4a98",
@@ -349,6 +355,78 @@
       "total": 1645,
       "status": "completed",
       "userId": "4a98"
+    },
+    {
+      "id": "862f",
+      "orderDate": "2025-08-29T12:10:13.856Z",
+      "items": [
+        {
+          "productId": "12",
+          "quantity": 2,
+          "product": {
+            "id": "12",
+            "name": "Heatmap отслеживание",
+            "description": "Отслеживайте клики и взаимодействия пользователей с вашими виджетами",
+            "price": 299,
+            "category": "analytics",
+            "rating": 4.7,
+            "reviews": 64,
+            "image": "https://placehold.co/400x300/E74C3C/white?text=Heatmap+Tracking",
+            "featured": false,
+            "details": {
+              "complexity": "сложная"
+            }
+          }
+        },
+        {
+          "productId": "11",
+          "quantity": 1,
+          "product": {
+            "id": "11",
+            "name": "A/B тестирование",
+            "description": "Тестируйте различные варианты виджетов для максимальной конверсии",
+            "price": 349,
+            "category": "analytics",
+            "rating": 4.9,
+            "reviews": 76,
+            "image": "https://placehold.co/400x300/E67E22/white?text=A+B+Testing",
+            "featured": true,
+            "details": {
+              "complexity": "сложная"
+            }
+          }
+        }
+      ],
+      "total": 947,
+      "status": "completed",
+      "userId": "a1ea"
+    },
+    {
+      "id": "36b4",
+      "orderDate": "2025-08-29T12:21:22.148Z",
+      "items": [
+        {
+          "productId": "12",
+          "quantity": 2,
+          "product": {
+            "id": "12",
+            "name": "Heatmap отслеживание",
+            "description": "Отслеживайте клики и взаимодействия пользователей с вашими виджетами",
+            "price": 299,
+            "category": "analytics",
+            "rating": 4.7,
+            "reviews": 64,
+            "image": "https://placehold.co/400x300/E74C3C/white?text=Heatmap+Tracking",
+            "featured": false,
+            "details": {
+              "complexity": "сложная"
+            }
+          }
+        }
+      ],
+      "total": 598,
+      "status": "completed",
+      "userId": "a1ea"
     }
   ],
   "reviews": [

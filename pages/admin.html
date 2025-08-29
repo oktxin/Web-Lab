@@ -6,60 +6,102 @@
     <title>Админ-панель - EmbedSocial</title>
     <link rel="stylesheet" href="../style/global.css">
     <link rel="stylesheet" href="../style/header.css">
+    <link rel="stylesheet" href="../style/home.css">
     <link rel="stylesheet" href="../style/footer.css">
+    <link rel="stylesheet" href="../style/theme.css">
     <link rel="stylesheet" href="../style/responsive.css">
+    <link rel="stylesheet" href="../style/user-styles.css">
     <link rel="stylesheet" href="../style/admin.css">
 </head>
 <body>
-    <header class="header">
-        <div class="header-container">
-            <div class="logo">
-                <img src="../images/logo.png" alt="img-hero">
-                <p>embedsocial</p>
+
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <img src="../images/logo.png" alt="img-hero">
+            <p>embedsocial</p>
+        </div>
+        <nav class="nav" id="mainNav">
+            <a href="home.html" class="nav-link" data-translate="home">Home</a>
+            <a href="catalog.html" class="nav-link" data-translate="catalog">Catalog</a>
+            <a href="favorites.html" class="nav-link" data-translate="favorites">Favorites</a>
+            <a href="cart.html" class="nav-link" data-translate="cart">Cart</a>
+            <a href="review.html" class="nav-link active" data-translate="reviews">Reviews</a>
+        </nav>
+        <div class="nav-buttons">
+            <div class="language-switcher">
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="ru">RU</button>
             </div>
-            <nav class="nav" id="mainNav">
-                <a href="home.html" class="nav-link">Home</a>
-                <a href="catalog.html" class="nav-link">Catalog</a>
-                <a href="favorites.html" class="nav-link">Favorites</a>
-                <a href="cart.html" class="nav-link">Cart</a>
-            </nav>
+            <button id="theme-switcher" class="theme-switcher">☀️</button>
             <div class="nav-button">
-                <a href="admin.html" class="nav-button-link admin active">Админ-панель</a>
-            </div>
-            <div class="burger-menu" id="burgerMenu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <a href="login.html" class="nav-button-link login" data-translate="login">Login</a>
+                <a href="register.html" class="nav-button-link trial" data-translate="startFreeTrial">Start Free Trial</a>
             </div>
         </div>
-    </header>
+        <div class="burger-menu" id="burgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</header>
+
+<div class="modal" id="profileModal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 data-translate="editProfile">Редактирование профиля</h2>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="firstName" data-translate="firstName">Имя:</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName" data-translate="lastName">Фамилия:</label>
+                <input type="text" id="lastName" name="lastName">
+            </div>
+            <div class="form-group">
+                <label for="nickname" data-translate="nickname">Никнейм:</label>
+                <input type="text" id="nickname" name="nickname">
+            </div>
+            <div class="form-group">
+                <label for="email" data-translate="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn-save" data-translate="save">Сохранить</button>
+                <button type="button" class="btn-reset" id="resetSettings" data-translate="resetSettings">Сбросить настройки</button>
+            </div>
+        </form>
+    </div>
+</div>
 
     <div class="container">
         <div class="admin-container">
             <div class="admin-header">
-                <h1>Админ-панель</h1>
-                <p>Управление товарами и отзывами</p>
+                <h1 data-translate="adminPanel">Админ-панель</h1>
+                <p data-translate="adminSubtitle">Управление товарами и отзывами</p>
             </div>
 
             <div class="admin-tabs">
-                <button class="admin-tab active" data-tab="products">Управление товарами</button>
-                <button class="admin-tab" data-tab="reviews">Управление отзывами</button>
+                <button class="admin-tab active" data-tab="products" data-translate="manageProducts">Управление товарами</button>
+                <button class="admin-tab" data-tab="reviews" data-translate="manageReviews">Управление отзывами</button>
             </div>
 
             <div id="productsTab" class="admin-content active">
-                <h2>Добавить/редактировать товар</h2>
+                <h2 data-translate="addEditProduct">Добавить/редактировать товар</h2>
                 <form id="productForm" class="admin-form">
                     <input type="hidden" id="productId">
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="productName">Название товара*</label>
+                            <label for="productName" data-translate="productName">Название товара*</label>
                             <input type="text" id="productName" required>
                             <div class="error-message" id="productNameError"></div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="productPrice">Цена (руб)*</label>
+                            <label for="productPrice" data-translate="productPrice">Цена (руб)*</label>
                             <input type="number" id="productPrice" min="0" step="0.01" required>
                             <div class="error-message" id="productPriceError"></div>
                         </div>
@@ -67,53 +109,53 @@
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="productCategory">Категория*</label>
+                            <label for="productCategory" data-translate="category">Категория*</label>
                             <input type="text" id="productCategory" required>
                             <div class="error-message" id="productCategoryError"></div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="productRating">Рейтинг (0-5)</label>
+                            <label for="productRating" data-translate="rating">Рейтинг (0-5)</label>
                             <input type="number" id="productRating" min="0" max="5" step="0.1">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="productImage">URL изображения*</label>
+                            <label for="productImage" data-translate="imageUrl">URL изображения*</label>
                             <input type="url" id="productImage" required>
                             <div class="error-message" id="productImageError"></div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="productComplexity">Сложность</label>
+                            <label for="productComplexity" data-translate="complexity">Сложность</label>
                             <select id="productComplexity">
-                                <option value="">Выберите сложность</option>
-                                <option value="Легкий">Легкий</option>
-                                <option value="Средний">Средний</option>
-                                <option value="Сложный">Сложный</option>
+                                <option value="" data-translate="selectComplexity">Выберите сложность</option>
+                                <option value="Легкий" data-translate="easy">Легкий</option>
+                                <option value="Средний" data-translate="medium">Средний</option>
+                                <option value="Сложный" data-translate="hard">Сложный</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="productDescription">Описание</label>
+                        <label for="productDescription" data-translate="description">Описание</label>
                         <textarea id="productDescription" rows="4"></textarea>
                     </div>
 
-                    <button type="submit" id="submitProduct" class="admin-button">Добавить товар</button>
+                    <button type="submit" id="submitProduct" class="admin-button" data-translate="addProduct">Добавить товар</button>
                 </form>
 
-                <h2>Список товаров</h2>
+                <h2 data-translate="productsList">Список товаров</h2>
                 <table class="admin-table">
                     <thead>
                         <tr>
-                            <th>Изображение</th>
-                            <th>Название</th>
-                            <th>Категория</th>
-                            <th>Цена</th>
-                            <th>Рейтинг</th>
-                            <th>Действия</th>
+                            <th data-translate="image">Изображение</th>
+                            <th data-translate="productName">Название</th>
+                            <th data-translate="category">Категория</th>
+                            <th data-translate="price">Цена</th>
+                            <th data-translate="rating">Рейтинг</th>
+                            <th data-translate="actions">Действия</th>
                         </tr>
                     </thead>
                     <tbody id="productsList">
@@ -122,34 +164,34 @@
             </div>
 
             <div id="reviewsTab" class="admin-content">
-                <h2>Фильтры отзывов</h2>
+                <h2 data-translate="reviewFilters">Фильтры отзывов</h2>
                 <div class="admin-filters">
                     <div class="form-group">
-                        <label for="reviewFilterProduct">Фильтр по товару</label>
+                        <label for="reviewFilterProduct" data-translate="filterByProduct">Фильтр по товару</label>
                         <select id="reviewFilterProduct">
-                            <option value="">Все товары</option>
+                            <option value="" data-translate="allProducts">Все товары</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="reviewFilterUser">Фильтр по пользователю</label>
+                        <label for="reviewFilterUser" data-translate="filterByUser">Фильтр по пользователю</label>
                         <select id="reviewFilterUser">
-                            <option value="">Все пользователи</option>
+                            <option value="" data-translate="allUsers">Все пользователи</option>
                         </select>
                     </div>
                 </div>
 
-                <h2>Список отзывов</h2>
+                <h2 data-translate="reviewsList">Список отзывов</h2>
                 <table class="admin-table">
                     <thead>
                         <tr>
-                            <th>Товар</th>
-                            <th>Пользователь</th>
-                            <th>Рейтинг</th>
-                            <th>Текст отзыва</th>
-                            <th>Дата</th>
-                            <th>Статус</th>
-                            <th>Действия</th>
+                            <th data-translate="product">Товар</th>
+                            <th data-translate="user">Пользователь</th>
+                            <th data-translate="rating">Рейтинг</th>
+                            <th data-translate="reviewText">Текст отзыва</th>
+                            <th data-translate="date">Дата</th>
+                            <th data-translate="status">Статус</th>
+                            <th data-translate="actions">Действия</th>
                         </tr>
                     </thead>
                     <tbody id="reviewsAdminList">
@@ -159,7 +201,70 @@
         </div>
     </div>
 
-    <script src="../js/auth.js"></script>
+        <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo-footer">
+                    <img src="../images/logo-white.png" alt="img-hero">
+                    <h2 class="brand-name">embedsocial</h2>
+                </div>
+                <p class="brand-description" data-translate="footerDescription">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id rhoncus suspendisse mattis ultricies adipiscing quem pretium eleifend.
+                </p>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h3 class="column-title" data-translate="product">Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link" data-translate="reviewsManagement">Reviews management</a></li>
+                        <li><a href="#" class="footer-link" data-translate="embedInstagramStories">Embed instagram stories</a></li>
+                        <li><a href="#" class="footer-link" data-translate="displayInstagramFeeds">Display instagram feeds</a></li>
+                        <li><a href="#" class="footer-link" data-translate="collectReviews">Collect reviews</a></li>
+                        <li><a href="#" class="footer-link" data-translate="sendEmailRequests">Send email requests</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3 class="column-title" data-translate="company">Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link" data-translate="aboutEmbedSocial">About EmbedSocial</a></li>
+                        <li><a href="#" class="footer-link" data-translate="brandGuidelines">Brand Guidelines</a></li>
+                        <li><a href="#" class="footer-link" data-translate="pressKit">Press Kit</a></li>
+                        <li><a href="#" class="footer-link" data-translate="support">Support</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3 class="column-title" data-translate="integrations">Integrations</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link" data-translate="wordPress">WordPress</a></li>
+                        <li><a href="#" class="footer-link" data-translate="shopify">Shopify</a></li>
+                        <li><a href="#" class="footer-link" data-translate="magento">Magento</a></li>
+                        <li><a href="#" class="footer-link" data-translate="squarrespace">Squarrespace</a></li>
+                        <li><a href="#" class="footer-link" data-translate="intercom">Intercom</a></li>
+                        <li><a href="#" class="footer-link" data-translate="slack">Slack</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3 class="column-title" data-translate="integrations">Integrations</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link" data-translate="wordPress">WordPress</a></li>
+                        <li><a href="#" class="footer-link" data-translate="shopify">Shopify</a></li>
+                        <li><a href="#" class="footer-link" data-translate="magento">Magento</a></li>
+                        <li><a href="#" class="footer-link" data-translate="squarrespace">Squarrespace</a></li>
+                        <li><a href="#" class="footer-link" data-translate="intercom">Intercom</a></li>
+                        <li><a href="#" class="footer-link" data-translate="slack">Slack</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script src="../js/admin.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/translation.js"></script>
+    <script src="../js/theme-switcher.js"></script>
 </body>
 </html>

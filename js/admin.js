@@ -72,28 +72,28 @@ function validateProductForm() {
     let isValid = true;
     
     if (!name) {
-        showError('productNameError', 'Название обязательно');
+        showError('productNameError', 'nameRequired');
         isValid = false;
     } else {
         hideError('productNameError');
     }
     
     if (!price || isNaN(price) || parseFloat(price) <= 0) {
-        showError('productPriceError', 'Цена должна быть положительным числом');
+        showError('productPriceError', 'priceRequired');
         isValid = false;
     } else {
         hideError('productPriceError');
     }
     
     if (!category) {
-        showError('productCategoryError', 'Категория обязательна');
+        showError('productCategoryError', 'categoryRequired');
         isValid = false;
     } else {
         hideError('productCategoryError');
     }
     
     if (!image) {
-        showError('productImageError', 'Изображение обязательно');
+        showError('productImageError', 'imageRequired');
         isValid = false;
     } else {
         hideError('productImageError');
@@ -126,13 +126,15 @@ async function addProduct() {
         });
         
         if (response.ok) {
-            alert('Товар успешно добавлен!');
-            form.reset();
+            alert(getTranslation('productAdded'));
+            document.getElementById('productForm').reset();
             loadProductsForAdmin();
+        } else {
+            alert(getTranslation('errorAddingProduct'));
         }
     } catch (error) {
         console.error('Ошибка:', error);
-        alert('Не удалось добавить товар');
+        alert(getTranslation('errorAddingProduct'));
     }
 }
 
@@ -160,18 +162,20 @@ async function updateProduct() {
         });
         
         if (response.ok) {
-            alert('Товар успешно обновлен!');
+            alert(getTranslation('productUpdated'));
             resetProductForm();
             loadProductsForAdmin();
+        } else {
+            alert(getTranslation('errorUpdatingProduct'));
         }
     } catch (error) {
         console.error('Ошибка:', error);
-        alert('Не удалось обновить товар');
+        alert(getTranslation('errorUpdatingProduct'));
     }
 }
 
 async function deleteProduct(productId) {
-    if (!confirm('Удалить товар?')) return;
+    if (!confirm(getTranslation('confirmDeleteProduct'))) return;
     
     try {
         const response = await fetch(`${API_URL}/products/${productId}`, {
@@ -179,12 +183,14 @@ async function deleteProduct(productId) {
         });
         
         if (response.ok) {
-            alert('Товар удален!');
+            alert(getTranslation('productDeleted'));
             loadProductsForAdmin();
+        } else {
+            alert(getTranslation('errorDeletingProduct'));
         }
     } catch (error) {
         console.error('Ошибка:', error);
-        alert('Не удалось удалить товар');
+        alert(getTranslation('errorDeletingProduct'));
     }
 }
 
@@ -194,17 +200,17 @@ function editProduct(product) {
     document.getElementById('productPrice').value = product.price;
     document.getElementById('productCategory').value = product.category;
     document.getElementById('productImage').value = product.image;
-    document.getElementById('productDescription').value = product.description;
-    document.getElementById('productRating').value = product.rating;
+    document.getElementById('productDescription').value = product.description || '';
+    document.getElementById('productRating').value = product.rating || '';
     document.getElementById('productComplexity').value = product.details?.complexity || '';
     
-    document.getElementById('submitProduct').textContent = 'Обновить товар';
+    document.getElementById('submitProduct').textContent = getTranslation('updateProduct');
 }
 
 function resetProductForm() {
     document.getElementById('productForm').reset();
     document.getElementById('productId').value = '';
-    document.getElementById('submitProduct').textContent = 'Добавить товар';
+    document.getElementById('submitProduct').textContent = getTranslation('addProduct');
 }
 
 async function loadProductsForAdmin() {
@@ -212,29 +218,33 @@ async function loadProductsForAdmin() {
         const response = await fetch(`${API_URL}/products`);
         const products = await response.json();
         
-        const container = document.getElementById('productsList');
-        if (!container) return;
-        
-        container.innerHTML = '';
-        
-        products.forEach(product => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><img src="${product.image}" alt="${product.name}" class="admin-product-image"></td>
-                <td>${product.name}</td>
-                <td>${product.category}</td>
-                <td>${product.price} руб.</td>
-                <td>${product.rating}</td>
-                <td>
-                    <button onclick="editProduct(${JSON.stringify(product).replace(/"/g, '&quot;')})">Редактировать</button>
-                    <button onclick="deleteProduct('${product.id}')">Удалить</button>
-                </td>
-            `;
-            container.appendChild(row);
-        });
+        displayAdminProducts(products);
     } catch (error) {
         console.error('Ошибка загрузки товаров:', error);
     }
+}
+
+function displayAdminProducts(products) {
+    const container = document.getElementById('productsList');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    products.forEach(product => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><img src="${product.image}" alt="${product.name}" class="admin-product-image"></td>
+            <td>${product.name}</td>
+            <td>${product.category}</td>
+            <td>${product.price} ${getTranslation('price')}</td>
+            <td>${product.rating || 0}</td>
+            <td>
+                <button onclick="editProduct(${JSON.stringify(product).replace(/"/g, '&quot;')})">${getTranslation('edit')}</button>
+                <button onclick="deleteProduct('${product.id}')">${getTranslation('delete')}</button>
+            </td>
+        `;
+        container.appendChild(row);
+    });
 }
 
 function initializeReviewsManagement() {
@@ -243,18 +253,12 @@ function initializeReviewsManagement() {
     
     if (productFilter) {
         productFilter.addEventListener('change', function() {
-            const selectedProductId = this.value;
-            const selectedUserId = document.getElementById('reviewFilterUser').value;
-            updateFilterSelects(selectedProductId, selectedUserId);
             loadReviewsForAdmin();
         });
     }
     
     if (userFilter) {
         userFilter.addEventListener('change', function() {
-            const selectedProductId = document.getElementById('reviewFilterProduct').value;
-            const selectedUserId = this.value;
-            updateFilterSelects(selectedProductId, selectedUserId);
             loadReviewsForAdmin();
         });
     }
@@ -270,7 +274,7 @@ function addResetFilterButton() {
         const resetButton = document.createElement('button');
         resetButton.id = 'resetFiltersBtn';
         resetButton.className = 'admin-button';
-        resetButton.textContent = 'Сбросить фильтры';
+        resetButton.textContent = getTranslation('resetFilters');
         resetButton.style.marginTop = '20px';
         
         resetButton.addEventListener('click', function() {
@@ -287,12 +291,10 @@ async function loadReviewsForAdmin() {
     try {
         await loadReviewFilters();
         
-        let url = `${API_URL}/reviews`;
-        
         const productFilter = document.getElementById('reviewFilterProduct').value;
         const userFilter = document.getElementById('reviewFilterUser').value;
 
-        const response = await fetch(url);
+        const response = await fetch(`${API_URL}/reviews`);
         let reviews = await response.json();
 
         if (productFilter) {
@@ -336,19 +338,6 @@ async function loadReviewsForAdmin() {
     }
 }
 
-function updateFilterSelects(selectedProductId, selectedUserId) {
-    const productSelect = document.getElementById('reviewFilterProduct');
-    const userSelect = document.getElementById('reviewFilterUser');
-    
-    if (productSelect && selectedProductId !== undefined) {
-        productSelect.value = selectedProductId;
-    }
-    
-    if (userSelect && selectedUserId !== undefined) {
-        userSelect.value = selectedUserId;
-    }
-}
-
 async function loadReviewFilters() {
     try {
         const currentProduct = document.getElementById('reviewFilterProduct').value;
@@ -367,11 +356,8 @@ async function loadReviewFilters() {
         
         if (!productSelect || !userSelect) return;
 
-        const productOptions = productSelect.innerHTML;
-        const userOptions = userSelect.innerHTML;
-        
-        productSelect.innerHTML = '<option value="">Все товары</option>';
-        userSelect.innerHTML = '<option value="">Все пользователи</option>';
+        productSelect.innerHTML = '<option value="">' + getTranslation('allProducts') + '</option>';
+        userSelect.innerHTML = '<option value="">' + getTranslation('allUsers') + '</option>';
         
         products.forEach(product => {
             const option = document.createElement('option');
@@ -408,14 +394,14 @@ function displayAdminReviews(reviews) {
     reviews.forEach(review => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${review.product?.name || 'Неизвестно'}</td>
-            <td>${review.user?.firstName || 'Пользователь'} ${review.user?.lastName || ''}</td>
+            <td>${review.product?.name || getTranslation('unknownProduct')}</td>
+            <td>${review.user?.firstName || getTranslation('user')} ${review.user?.lastName || ''}</td>
             <td>${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</td>
             <td>${review.text}</td>
             <td>${new Date(review.date).toLocaleDateString()}</td>
             <td>${review.status}</td>
             <td>
-                <button onclick="deleteReview('${review.id}')">Удалить</button>
+                <button onclick="deleteReview('${review.id}')">${getTranslation('delete')}</button>
             </td>
         `;
         container.appendChild(row);
@@ -423,7 +409,7 @@ function displayAdminReviews(reviews) {
 }
 
 async function deleteReview(reviewId) {
-    if (!confirm('Удалить отзыв?')) return;
+    if (!confirm(getTranslation('confirmDeleteReview'))) return;
     
     try {
         const response = await fetch(`${API_URL}/reviews/${reviewId}`, {
@@ -431,19 +417,21 @@ async function deleteReview(reviewId) {
         });
         
         if (response.ok) {
-            alert('Отзыв удален!');
+            alert(getTranslation('reviewDeleted'));
             loadReviewsForAdmin();
+        } else {
+            alert(getTranslation('errorDeletingReview'));
         }
     } catch (error) {
         console.error('Ошибка:', error);
-        alert('Не удалось удалить отзыв');
+        alert(getTranslation('errorDeletingReview'));
     }
 }
 
-function showError(elementId, message) {
+function showError(elementId, messageKey) {
     const element = document.getElementById(elementId);
     if (element) {
-        element.textContent = message;
+        element.textContent = getTranslation(messageKey);
         element.style.display = 'block';
     }
 }
@@ -453,5 +441,39 @@ function hideError(elementId) {
     if (element) {
         element.textContent = '';
         element.style.display = 'none';
+    }
+}
+
+function updateAdminTranslation(lang) {
+    const submitButton = document.getElementById('submitProduct');
+    if (submitButton) {
+        submitButton.textContent = document.getElementById('productId').value 
+            ? getTranslation('updateProduct') 
+            : getTranslation('addProduct');
+    }
+
+    const resetButton = document.getElementById('resetFiltersBtn');
+    if (resetButton) {
+        resetButton.textContent = getTranslation('resetFilters');
+    }
+
+    const productSelect = document.getElementById('reviewFilterProduct');
+    const userSelect = document.getElementById('reviewFilterUser');
+    
+    if (productSelect && productSelect.options.length > 0) {
+        productSelect.options[0].text = getTranslation('allProducts');
+    }
+    
+    if (userSelect && userSelect.options.length > 0) {
+        userSelect.options[0].text = getTranslation('allUsers');
+    }
+
+    loadProductsForAdmin();
+    loadReviewsForAdmin();
+}
+
+function updateAdminOnLanguageChange(lang) {
+    if (typeof updateAdminTranslation === 'function') {
+        updateAdminTranslation(lang);
     }
 }

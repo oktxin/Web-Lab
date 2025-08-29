@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Stories Widget</title>
+    <title data-translate="pageTitle">Instagram Stories Widget</title>
     <link rel="stylesheet" href="../style/global.css">
     <link rel="stylesheet" href="../style/header.css">
     <link rel="stylesheet" href="../style/home.css">
     <link rel="stylesheet" href="../style/footer.css">
+    <link rel="stylesheet" href="../style/theme.css">
     <link rel="stylesheet" href="../style/responsive.css">
+    <link rel="stylesheet" href="../style/user-styles.css">
 </head>
 <body>
     <header class="header">
@@ -18,14 +20,22 @@
                 <p>embedsocial</p>
             </div>
             <nav class="nav" id="mainNav">
-                <a href="home.html" class="nav-link">Home</a>
-                <a href="catalog.html" class="nav-link">Catalog</a>
-                <a href="favorites.html" class="nav-link">Favorites</a>
-                <a href="cart.html" class="nav-link">Cart</a>
+                <a href="home.html" class="nav-link" data-translate="home">Home</a>
+                <a href="catalog.html" class="nav-link" data-translate="catalog">Catalog</a>
+                <a href="favorites.html" class="nav-link" data-translate="favorites">Favorites</a>
+                <a href="cart.html" class="nav-link" data-translate="cart">Cart</a>
+                <a href="review.html" class="nav-link active" data-translate="reviews">Reviews</a>
             </nav>
-            <div class="nav-button">
-                <a href="#" class="nav-button-link login">Login</a>
-                <a href="register.html" class="nav-button-link trial">Start Free Trial</a>
+            <div class="nav-buttons">
+                <div class="language-switcher">
+                    <button class="lang-btn" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="ru">RU</button>
+                </div>
+                <button id="theme-switcher" class="theme-switcher">☀️</button>
+                <div class="nav-button">
+                    <a href="login.html" class="nav-button-link login" data-translate="login">Login</a>
+                    <a href="register.html" class="nav-button-link trial" data-translate="startFreeTrial">Start Free Trial</a>
+                </div>
             </div>
             <div class="burger-menu" id="burgerMenu">
                 <span></span>
@@ -35,30 +45,59 @@
         </div>
     </header>
 
+    <div class="modal" id="profileModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 data-translate="editProfile">Редактирование профиля</h2>
+            <form id="profileForm">
+                <div class="form-group">
+                    <label for="firstName" data-translate="firstName">Имя:</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName" data-translate="lastName">Фамилия:</label>
+                    <input type="text" id="lastName" name="lastName">
+                </div>
+                <div class="form-group">
+                    <label for="nickname" data-translate="nickname">Никнейм:</label>
+                    <input type="text" id="nickname" name="nickname">
+                </div>
+                <div class="form-group">
+                    <label for="email" data-translate="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn-save" data-translate="save">Сохранить</button>
+                    <button type="button" class="btn-reset" id="resetSettings" data-translate="resetSettings">Сбросить настройки</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <main>
         <section class="hero">
             <div class="hero-top">
                 <div class="hero-top-text">
-                    <h1 class="hero-title">Display Instagram Stories on any website,</h1>
-                    <p class="hero-description">Display Instagram Stories Widget on your website, that auto-syncs, and updates each time you add a photo in your active story.</p>
+                    <h1 class="hero-title" data-translate="heroTitle" data-after-translate="inSeconds">Display Instagram Stories on any website,</h1>
+                    <p class="hero-description" data-translate="heroDescription">Display Instagram Stories Widget on your website, that auto-syncs, and updates each time you add a photo in your active story.</p>
                     
                     <div class="cta-section">
-                        <input type="email" placeholder="Enter your email..." class="email-input">
-                        <button class="cta-button">Start Free Trial</button>
+                        <input type="email" placeholder="Enter your email..." class="email-input" data-translate="enterEmail">
+                        <button class="cta-button" data-translate="startFreeTrial">Start Free Trial</button>
                     </div>
                     
                     <div class="features">
                         <div class="feature">
                             <span class="feature-icon">•</span>
-                            Free 7-day trial
+                            <span data-translate="freeTrial">Free 7-day trial</span>
                         </div>
                         <div class="feature">
                             <span class="feature-icon">•</span>
-                            Easy setup
+                            <span data-translate="easySetup">Easy setup</span>
                         </div>
                         <div class="feature">
                             <span class="feature-icon">•</span>
-                            Cancel any time
+                            <span data-translate="cancelAnyTime">Cancel any time</span>
                         </div>
                     </div>
                 </div>
@@ -67,7 +106,7 @@
                 </div>
             </div>
             <div class="hero-bottom">
-                <p class="hero-bottom-text">JOIN 5000+ WEBSITES THAT USE EMBEDSOCIAL TO SELL MORE</p>
+                <p class="hero-bottom-text" data-translate="heroBottomText">JOIN 5000+ WEBSITES THAT USE EMBEDSOCIAL TO SELL MORE</p>
                 <div class="hero-bottom-logos">
                     <img src="../images/cnn.png" alt="cnn">
                     <img src="../images/netgeo.png" alt="netgeo">
@@ -84,109 +123,109 @@
                 <img src="../images/Widgets.png" alt="Widgets">
             </div>
             <div class="widgets-section-text">
-                <h2>Widgets for<br>every website.</h2>
+                <h2 data-translate="widgetsTitle" data-translate-html="true">Widgets for<br>every website.</h2>
                 <div class="widgets-section-text-icons">
                     <div class="widgets-section-text-icon">
                         <img src="../images/Highlights.png" alt="Highlights">
-                        <p>Highlights</p>
+                        <p data-translate="highlights">Highlights</p>
                     </div>
                     <div class="widgets-section-text-icon">
                         <img src="../images/Popover.png" alt="Popover">
-                        <p>Popover</p>
+                        <p data-translate="popover">Popover</p>
                     </div>
                     <div class="widgets-section-text-icon">
                         <img src="../images/Inline.png" alt="Inline">
-                        <p>Inline slideshows</p>
+                        <p data-translate="inlineSlideshows">Inline slideshows</p>
                     </div>
                     <div class="widgets-section-text-icon">
                         <img src="../images/Story.png" alt="Story">
-                        <p>Story list gallery</p>
+                        <p data-translate="storyListGallery">Story list gallery</p>
                     </div>
                     <div class="widgets-section-text-icon">
                         <img src="../images/Carousel.png" alt="Carousel">
-                        <p>Carousel gallery</p>
+                        <p data-translate="carouselGallery">Carousel gallery</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="let-section">
-            <h2>Let your story live</h2>
-            <p>You've worked hard to create a beautiful Instagram story but it disappears in 24 hours?<br>No worries, use our story saver for Instagram to bring them to life on your website.</p>
+            <h2 data-translate="letTitle" data-after-translate="moreThan24h">Let your story live</h2>
+            <p data-translate="letDescription">You've worked hard to create a beautiful Instagram story but it disappears in 24 hours?<br>No worries, use our story saver for Instagram to bring them to life on your website.</p>
             <div class="let-section-blocks">
                 <div class="let-section-block">
                     <img src="../images/instagram.png" alt="instagram">
-                    <h3>Auto-Sync</h3>
-                    <p>Instagram Stories</p>
+                    <h3 data-translate="autoSync">Auto-Sync</h3>
+                    <p data-translate="instagramStories">Instagram Stories</p>
                 </div>
                 <div class="let-section-block">
                     <img src="../images/facebook.png" alt="facebook">
-                    <h3>Upload</h3>
-                    <p>Facebook Stories</p>
+                    <h3 data-translate="upload">Upload</h3>
+                    <p data-translate="facebookStories">Facebook Stories</p>
                 </div>
                 <div class="let-section-block">
                     <img src="../images/tiktok.png" alt="tiktok">
-                    <h3>Sync</h3>
-                    <p>TikTok Stories</p>
+                    <h3 data-translate="sync">Sync</h3>
+                    <p data-translate="tiktokStories">TikTok Stories</p>
                 </div>
                 <div class="let-section-block">
                     <img src="../images/twitter.png" alt="twitter">
-                    <h3>Upload</h3>
-                    <p>Twitter Fleets</p>
+                    <h3 data-translate="upload">Upload</h3>
+                    <p data-translate="twitterFleets">Twitter Fleets</p>
                 </div>
                 <div class="let-section-block">
                     <img src="../images/LI-In-Bug.png" alt="In">
-                    <h3>Upload</h3>
-                    <p>LinkedIn Stories</p>
+                    <h3 data-translate="upload">Upload</h3>
+                    <p data-translate="linkedinStories">LinkedIn Stories</p>
                 </div>
             </div>
         </section>
 
         <section class="section-double">
             <div class="section-double-title">
-                <h2>Double your</h2>
-                <h3>Double your</h3>
+                <h2 data-translate="doubleTitle" data-after-translate="conversions">Double your</h2>
+                <h3 data-translate="doubleTitle" data-after-translate="growth">Double your</h3>
             </div>
             <div class="section-double-blocks">
                 <div class="section-double-block">
-                    <h3>Brands</h3>
+                    <h3 data-translate="brands">Brands</h3>
                     <div class="section-double-block-text">
                         <div class="section-double-block-text-img">
                             <img src="../images/Icreases.png" alt="Icreases">
-                            <p>Icreases conversions</p>
+                            <p data-translate="increasesConversions">Increases conversions</p>
                         </div>
-                        <p>Enhance the visual showcase of your products with unique content making visitors convert to buyers.</p>
+                        <p data-translate="brandsDescription">Enhance the visual showcase of your products with unique content making visitors convert to buyers.</p>
                     </div>
                 </div>
                 <div class="section-double-block">
-                    <h3>Marketers</h3>
+                    <h3 data-translate="marketers">Marketers</h3>
                     <div class="section-double-block-text">
                         <div class="section-double-block-text-img">
                             <img src="../images/clock.png" alt="clock">
-                            <p>Save time</p>
+                            <p data-translate="saveTime">Save time</p>
                         </div>
-                        <p>No more re-purposing, re-cropping or re-uploading the same content from your Instagram stories to your website. </p>
+                        <p data-translate="marketersDescription">No more re-purposing, re-cropping or re-uploading the same content from your Instagram stories to your website.</p>
                     </div>
                 </div>
                 <div class="section-double-block">
-                    <h3>Web designers</h3>
+                    <h3 data-translate="webDesigners">Web designers</h3>
                     <div class="section-double-block-text">
                         <div class="section-double-block-text-img">
                             <img src="../images/Fresh.png" alt="Fresh">
-                            <p>Fresh content</p>
+                            <p data-translate="freshContent">Fresh content</p>
                         </div>
-                        <p>Every story you post on Instagram, it is automatically saved in your account. Auto updates you unique content.</p>
+                        <p data-translate="designersDescription">Every story you post on Instagram, it is automatically saved in your account. Auto updates you unique content.</p>
                     </div>
                 </div>
             </div>
             <div class="section-double-review">
                 <img src="../images/clovin.png" alt="clovin">
-                <p>“Storytelling on another level. EmbedStories is great - it takes pride of place on our homepage aggregating stories from our Instagram account. I highly recommend this product. ”.</p>
+                <p data-translate="reviewText">"Storytelling on another level. EmbedStories is great - it takes pride of place on our homepage aggregating stories from our Instagram account. I highly recommend this product."</p>
                 <div class="section-double-review-man">
                     <img src="../images/man.png" alt="man">
                     <div>
                         <h4>Ben Calahen,</h4>
-                        <p>COO at Clovin</p>
+                        <p data-translate="reviewPosition">COO at Clovin</p>
                     </div>
                 </div>
             </div>
@@ -194,38 +233,38 @@
 
         <section class="started-section">
             <div class="started-section-text">
-                <h2>Get started with one<br>of our templates</h2>
-                <p>Start with one of our pre-designed templates. Create, personalize and<br>embed the perfect widget for any page or campaign in just minutes.</p>
+                <h2 data-translate="startedTitle">Get started with one<br>of our templates</h2>
+                <p data-translate="startedDescription">Start with one of our pre-designed templates. Create, personalize and<br>embed the perfect widget for any page or campaign in just minutes.</p>
             </div>
-            <button class="cta-button">See templates demos</button>
+            <button class="cta-button" data-translate="seeDemos">See templates demos</button>
             <div class="started-section-pagination">
                 <div class="started-section-slider">
                     <div class="started-section-slide">
                         <img src="../images/Popover-slide.png" alt="Popover-slide">
                         <div class="started-section-slide-text">
-                            <h2>Popover</h2>
-                            <p>Showcases on every page that gives the feel of a living & breathing website. </p>
+                            <h2 data-translate="popover">Popover</h2>
+                            <p data-translate="popoverDescription">Showcases on every page that gives the feel of a living & breathing website.</p>
                         </div>
                     </div>
                     <div class="started-section-slide">
                         <img src="../images/Highlights-slide.png" alt="Highlights-slide">
                         <div class="started-section-slide-text">
-                            <h2>Highlights</h2>
-                            <p>Mimics the same functionality of the Instagram Highlights on your website.</p>
+                            <h2 data-translate="highlights">Highlights</h2>
+                            <p data-translate="highlightsDescription">Mimics the same functionality of the Instagram Highlights on your website.</p>
                         </div>
                     </div>
                     <div class="started-section-slide">
                         <img src="../images/Slider-slide.png" alt="Slider-slide">
                         <div class="started-section-slide-text">
-                            <h2>Slider</h2>
-                            <p>Display your stories in a full slideshow layout that catches your visitors' attention.</p>
+                            <h2 data-translate="slider">Slider</h2>
+                            <p data-translate="sliderDescription">Display your stories in a full slideshow layout that catches your visitors' attention.</p>
                         </div>
                     </div>
                     <div class="started-section-slide">
                         <img src="../images/Gallery-slide.png" alt="Gallery-slide">
                         <div class="started-section-slide-text">
-                            <h2>Gallery</h2>
-                            <p>One widget with multiple stories and embed them as a full story gallery on your website.</p>
+                            <h2 data-translate="gallery">Gallery</h2>
+                            <p data-translate="galleryDescription">One widget with multiple stories and embed them as a full story gallery on your website.</p>
                         </div>
                     </div>
                 </div>
@@ -240,36 +279,36 @@
         <section class="customization-section">
             <div class="customization-section-logo">
                 <img src="../images/fill-drip.png" alt="fill-drip">
-                <p>Customization</p>
+                <p data-translate="customization">Customization</p>
             </div>
             <div class="customization-section-title">
-                <h2>Be on brand. Customize in minutes</h2>
-                <p>EmbedStories gives you flexibility in managing the display and looks of the Instagram Stories on your website.</p>
+                <h2 data-translate="customizationTitle">Be on brand. Customize in minutes</h2>
+                <p data-translate="customizationDescription">EmbedStories gives you flexibility in managing the display and looks of the Instagram Stories on your website.</p>
             </div>
             <div class="customization-section-blocks">
                 <div class="customization-section-block">
                     <img src="../images/Stories.png" alt="Stories">
-                    <p>Stories from specific date</p>
+                    <p data-translate="storiesDate">Stories from specific date</p>
                 </div>
                 <div class="customization-section-block">
                     <img src="../images/color.png" alt="color">
-                    <p>Customize color</p>
+                    <p data-translate="customizeColor">Customize color</p>
                 </div>
                 <div class="customization-section-block">
                     <img src="../images/Fresh.png" alt="Follow">
-                    <p>Follow button</p>
+                    <p data-translate="followButton">Follow button</p>
                 </div>
                 <div class="customization-section-block">
                     <img src="../images/th-large.png" alt="th-large">
-                    <p>Multiple layouts</p>
+                    <p data-translate="multipleLayouts">Multiple layouts</p>
                 </div>
                 <div class="customization-section-block">
                     <img src="../images/Advance.png" alt="Advance">
-                    <p>Advance moderation</p>
+                    <p data-translate="advanceModeration">Advance moderation</p>
                 </div>
                 <div class="customization-section-block">
                     <img src="../images/code.png" alt="code">
-                    <p>Custom CSS</p>
+                    <p data-translate="customCSS">Custom CSS</p>
                 </div>
             </div>
             <img src="../images/customization.png" alt="customization">
@@ -278,20 +317,20 @@
         <section class="installation-section">
             <div class="installation-section-logo">
                 <img src="../images/fill-drip.png" alt="Installation-logo">
-                <p>Installation</p>
+                <p data-translate="installation">Installation</p>
             </div>
             <div class="installation-section-title">
-                <h2>Embed it and forget it</h2>
+                <h2 data-translate="installationTitle">Embed it and forget it</h2>
             </div>
             <div class="installation-section-blocks">
                 <div class="installation-section-block">
-                    <p>✓ Simple instalation. No developers needed</p>
+                    <p data-translate="installationPoint1">✓ Simple installation. No developers needed</p>
                 </div>
                 <div class="installation-section-block">
-                    <p>✓ Embed on different CMS platforms</p>
+                    <p data-translate="installationPoint2">✓ Embed on different CMS platforms</p>
                 </div>
                 <div class="installation-section-block">
-                    <p>✓ Auto sync new stories</p>
+                    <p data-translate="installationPoint3">✓ Auto sync new stories</p>
                 </div>
             </div>
             <img src="../images/installation.png" alt="installation">
@@ -301,18 +340,18 @@
             <div class="integrations-section-text">
                 <div class="integrations-section-logo">
                     <img src="../images/cube.png" alt="integrations">
-                    <p>Integrations</p>
+                    <p data-translate="integrations">Integrations</p>
                 </div>
                 <div class="integrations-section-title">
-                    <h2>Works with 99.9% of web platforms</h2>
-                    <p>We integrate with tons of other apps, ecoomerce platforms or web builders. Native apps are avaialble, too.</p>
+                    <h2 data-translate="integrationsTitle">Works with 99.9% of web platforms</h2>
+                    <p data-translate="integrationsDescription">We integrate with tons of other apps, ecommerce platforms or web builders. Native apps are available, too.</p>
                 </div>
                 <div class="integrations-section-blocks">
                     <div class="integrations-section-block">
-                        <p>✓ Works with any website</p>
+                        <p data-translate="integrationPoint1">✓ Works with any website</p>
                     </div>
                     <div class="integrations-section-block">
-                        <p>✓ No coding required to embed</p>
+                        <p data-translate="integrationPoint2">✓ No coding required to embed</p>
                     </div>
                 </div>
             </div>
@@ -321,26 +360,26 @@
 
         <section class="dive-section">
             <div class="dive-section-text">
-                <h1 class="dive-section-title">Ready to dive in?<br>Create your widget today.</h1>
-                <p class="dive-section-description">Display Instagram Stories Widget on your website, that auto-syncs, and updates each time you add a photo in your active story.</p>
+                <h1 class="dive-section-title" data-translate="diveTitle">Ready to dive in?<br>Create your widget today.</h1>
+                <p class="dive-section-description" data-translate="diveDescription">Display Instagram Stories Widget on your website, that auto-syncs, and updates each time you add a photo in your active story.</p>
                     
                 <div class="cta-section">
-                    <input type="email" placeholder="Enter your email..." class="email-input">
-                    <button class="cta-button">Start Free Trial</button>
+                    <input type="email" placeholder="Enter your email..." class="email-input" data-translate="enterEmail">
+                    <button class="cta-button" data-translate="startFreeTrial">Start Free Trial</button>
                 </div>
                     
                 <div class="features">
                     <div class="feature">
                         <span class="feature-icon">•</span>
-                        Free 7-day trial
+                        <span data-translate="freeTrial">Free 7-day trial</span>
                     </div>
                     <div class="feature">
                         <span class="feature-icon">•</span>
-                        Easy setup
+                        <span data-translate="easySetup">Easy setup</span>
                     </div>
                     <div class="feature">
                         <span class="feature-icon">•</span>
-                        Cancel any time
+                        <span data-translate="cancelAnyTime">Cancel any time</span>
                     </div>
                 </div>
             </div>
@@ -350,7 +389,7 @@
         </section>
 
         <section class="platform-section">
-            <h2 class="platform-section-title">More than just a widget.<br>A complete</h2>
+            <h2 class="platform-section-title" data-translate="platformTitle" data-after-translate="storiesPlatform">More than just a widget.<br>A complete</h2>
             <div class="platform-section-block">
                 <div class="platform-section-block-img">
                     <img src="../images/Shoppable.png" alt="Shoppable">
@@ -358,17 +397,17 @@
                 <div class="platform-section-block-text">
                     <div class="platform-section-block-logo">
                         <img src="../images/shopping-bag.png" alt="shopping">
-                        <p>Shoppable Story</p>
+                        <p data-translate="shoppableStory">Shoppable Story</p>
                     </div>
                     <div class="platform-section-block-title">
-                        <h2>Make your Instagram Stories, Shoppable</h2>
+                        <h2 data-translate="shoppableTitle">Make your Instagram Stories, Shoppable</h2>
                     </div>
                     <div class="platform-section-block-blocks">
                         <div class="platform-section-block-block">
-                            <p>✓ Use the Call to Acton feature and add buy links to the Instagram stories</p>
+                            <p data-translate="shoppablePoint1">✓ Use the Call to Action feature and add buy links to the Instagram stories</p>
                         </div>
                         <div class="platform-section-block-block">
-                            <p>✓ Allow your web visitors to interact and directly buy the product showcased in the Instagram story.</p>
+                            <p data-translate="shoppablePoint2">✓ Allow your web visitors to interact and directly buy the product showcased in the Instagram story</p>
                         </div>
                     </div>
                 </div>
@@ -377,20 +416,20 @@
                 <div class="platform-section-block-text">
                     <div class="platform-section-block-logo">
                         <img src="../images/rocket.png" alt="rocket">
-                        <p>Story Ads</p>
+                        <p data-translate="storyAds">Story Ads</p>
                     </div>
                     <div class="platform-section-block-title">
-                        <h2>Boost your Instagram stories with few clicks</h2>
+                        <h2 data-translate="adsTitle">Boost your Instagram stories with few clicks</h2>
                     </div>
                     <div class="platform-section-block-blocks">
                         <div class="platform-section-block-block">
-                            <p>✓ Create Instagram Story Ads in just a few clicks</p>
+                            <p data-translate="adsPoint1">✓ Create Instagram Story Ads in just a few clicks</p>
                         </div>
                         <div class="platform-section-block-block">
-                            <p>✓ Archive Instagram Stories with EmbesStories and re-use them for Instagram Ads.</p>
+                            <p data-translate="adsPoint2">✓ Archive Instagram Stories with EmbedStories and re-use them for Instagram Ads</p>
                         </div>
                         <div class="platform-section-block-block">
-                            <p>✓ This is an option that is not available in the Facebook Ads Manager.</p>
+                            <p data-translate="adsPoint3">✓ This is an option that is not available in the Facebook Ads Manager</p>
                         </div>
                     </div>
                 </div>
@@ -405,20 +444,20 @@
                 <div class="platform-section-block-text">
                     <div class="platform-section-block-logo">
                         <img src="../images/chart-line.png" alt="chart-line">
-                        <p>Reports and Anayitics</p>
+                        <p data-translate="reportsAnalytics">Reports and Analytics</p>
                     </div>
                     <div class="platform-section-block-title">
-                        <h2>Create. Analyze. Grow.</h2>
+                        <h2 data-translate="reportsTitle">Create. Analyze. Grow.</h2>
                     </div>
                     <div class="platform-section-block-blocks">
                         <div class="platform-section-block-block">
-                            <p>✓ Analyze conversions, clicks, views</p>
+                            <p data-translate="reportsPoint1">✓ Analyze conversions, clicks, views</p>
                         </div>
                         <div class="platform-section-block-block">
-                            <p>✓ Compare metrics between products</p>
+                            <p data-translate="reportsPoint2">✓ Compare metrics between products</p>
                         </div>
                         <div class="platform-section-block-block">
-                            <p>✓ See the direct effect.</p>
+                            <p data-translate="reportsPoint3">✓ See the direct effect</p>
                         </div>
                     </div>
                 </div>
@@ -426,61 +465,61 @@
         </section>
 
         <section class="features-section">
-            <h2>Other features at your service</h2>
+            <h2 data-translate="featuresTitle">Other features at your service</h2>
             <div class="features-section-blocks">
                 <div class="features-section-block">
                     <img src="../images/Auto.png" alt="Auto">
-                    <h3>Auto sync</h3>
-                    <p>Sync all Instagram stories in a single click and create an widget that you can embed on any website.</p>
+                    <h3 data-translate="autoSync">Auto sync</h3>
+                    <p data-translate="autoSyncDescription">Sync all Instagram stories in a single click and create a widget that you can embed on any website.</p>
                 </div>
                 <div class="features-section-block">
                     <img src="../images/Responsive.png" alt="Responsive">
-                    <h3>Responsive</h3>
-                    <p>Mobile-friendly, fully responsive, fits on every display: tablet, mobile, or desktop.</p>
+                    <h3 data-translate="responsive">Responsive</h3>
+                    <p data-translate="responsiveDescription">Mobile-friendly, fully responsive, fits on every display: tablet, mobile, or desktop.</p>
                 </div>
                 <div class="features-section-block">
                     <img src="../images/Follow.png" alt="Follow">
-                    <h3>Follow button</h3>
-                    <p>Show a Follow button with a link to your Instagram account to help you drive traffic and increase followers.</p>
+                    <h3 data-translate="followButton">Follow button</h3>
+                    <p data-translate="followButtonDescription">Show a Follow button with a link to your Instagram account to help you drive traffic and increase followers.</p>
                 </div>
                 <div class="features-section-block">
                     <img src="../images/Unlimited.png" alt="Unlimited">
-                    <h3>Unlimited widgets</h3>
-                    <p>Create multiple widgets and embed feeds on various websites from multiple social media platforms.</p>
+                    <h3 data-translate="unlimitedWidgets">Unlimited widgets</h3>
+                    <p data-translate="unlimitedWidgetsDescription">Create multiple widgets and embed feeds on various websites from multiple social media platforms.</p>
                 </div>
                 <div class="features-section-block">
                     <img src="../images/Localization.png" alt="Localization">
-                    <h3>Localization</h3>
-                    <p>Use the 10+ languages available in the platform to localize the widget for your web visitors.</p>
+                    <h3 data-translate="localization">Localization</h3>
+                    <p data-translate="localizationDescription">Use the 10+ languages available in the platform to localize the widget for your web visitors.</p>
                 </div>
                 <div class="features-section-block">
                     <img src="../images/Filters.png" alt="Filters">
-                    <h3>Filters (PRO)</h3>
-                    <p>Use filters by date or keywords. Change the number of pages and post per page in your feed...</p>
+                    <h3 data-translate="filters">Filters (PRO)</h3>
+                    <p data-translate="filtersDescription">Use filters by date or keywords. Change the number of pages and post per page in your feed...</p>
                 </div>
                 <div class="features-section-block">
                     <img src="../images/Analytics.png" alt="Analytics">
-                    <h3>Analytics</h3>
-                    <p>Know which Instagram story performs best and the total clicks of the entire widget on your website.</p>
+                    <h3 data-translate="analytics">Analytics</h3>
+                    <p data-translate="analyticsDescription">Know which Instagram story performs best and the total clicks of the entire widget on your website.</p>
                 </div>
                 <div class="features-section-block">
                     <img src="../images/Custom.png" alt="Custom">
-                    <h3>Custom CSS</h3>
-                    <p>Variety of settings, filters, and a Custom CSS editor to style your social media widget entirely.</p>
+                    <h3 data-translate="customCSS">Custom CSS</h3>
+                    <p data-translate="customCSSDescription">Variety of settings, filters, and a Custom CSS editor to style your social media widget entirely.</p>
                 </div>
             </div>
             <div class="text">
-                Amd <span class="underline">12 more features</span> available in all plans...
+                <span data-translate="andMore">And</span> <span class="underline" data-translate="moreFeatures">12 more features</span> <span data-translate="availableInPlans">available in all plans...</span>
             </div>
         </section>
 
         <section class="jacole-section">
             <div class="jacole-section-text">
-                <h2>It was love at first story</h2>
-                <p>“Great plugin and amazing support. I trialed several plugins that try to accomplish the same thing. None of them did it as beautifully and as simple as EmbedStories”</p>
+                <h2 data-translate="jacoleTitle">It was love at first story</h2>
+                <p data-translate="jacoleQuote">"Great plugin and amazing support. I trialed several plugins that try to accomplish the same thing. None of them did it as beautifully and as simple as EmbedStories"</p>
                 <div class="jacole-section-text-author">
                     <h3>Bertha Jo, </h3>
-                    <p>CEO at jacole</p>
+                    <p data-translate="jacolePosition">CEO at jacole</p>
                 </div>
                 <img src="../images/jacole.png" alt="jacole">
             </div>
@@ -491,8 +530,8 @@
 
         <section class="customers-section">
             <div class="customers-section-title">
-                <h2>Our customers love EmbedStories</h2>
-                <div class="customers-section-title-desc"><span>Rated 4.8</span> by our customers on Facebook and Google</div>
+                <h2 data-translate="customersTitle">Our customers love EmbedStories</h2>
+                <div class="customers-section-title-desc"><span data-translate="rated">Rated 4.8</span> <span data-translate="byCustomers">by our customers on Facebook and Google</span></div>
             </div>
             <div class="customers-section-blocks">
                 <div class="customers-section-block">
@@ -500,11 +539,11 @@
                         <img src="../images/Terry.png" alt="Terry">
                         <h3>Terry Dias</h3>
                         <div class="stars">★★★★★</div>
-                        <p>I just signed up for a trial and within a couple of hours had a brand new customer testimonials page built on our website as well as sliders...</p>
+                        <p data-translate="terryReview">I just signed up for a trial and within a couple of hours had a brand new customer testimonials page built on our website as well as sliders...</p>
                     </div>
                     <div class="customers-section-block-google">
                         <img src="../images/search.png" alt="search">
-                        <p>2 weeks ago</p>
+                        <p data-translate="weeksAgo">2 weeks ago</p>
                     </div>
                 </div>
                 <div class="customers-section-block">
@@ -512,11 +551,11 @@
                         <img src="../images/James.png" alt="James">
                         <h3>James Workman</h3>
                         <div class="stars">★★★★★</div>
-                        <p>Seriously impressed by Embed Social.Good job making the app so easy to use.</p>
+                        <p data-translate="jamesReview">Seriously impressed by Embed Social. Good job making the app so easy to use.</p>
                     </div>
                     <div class="customers-section-block-google">
                         <img src="../images/search.png" alt="search">
-                        <p>2 weeks ago</p>
+                        <p data-translate="weeksAgo">2 weeks ago</p>
                     </div>
                 </div>
                 <div class="customers-section-block">
@@ -524,11 +563,11 @@
                         <img src="../images/Ahmad.png" alt="Ahmad">
                         <h3>Ahmad Vaccaro</h3>
                         <div class="stars">★★★★★</div>
-                        <p>Emebed Social and their services is just perfect ! It has made my business life so much easier ! 5 stars!</p>
+                        <p data-translate="ahmadReview">Embed Social and their services is just perfect! It has made my business life so much easier! 5 stars!</p>
                     </div>
                     <div class="customers-section-block-google">
                         <img src="../images/search.png" alt="search">
-                        <p>2 weeks ago</p>
+                        <p data-translate="weeksAgo">2 weeks ago</p>
                     </div>
                 </div>
                 <div class="customers-section-block">
@@ -536,11 +575,11 @@
                         <img src="../images/Allison.png" alt="Allison">
                         <h3>Allison Culhane</h3>
                         <div class="stars">★★★★★</div>
-                        <p>Awesome products, Superior human support.</p>
+                        <p data-translate="allisonReview">Awesome products, Superior human support.</p>
                     </div>
                     <div class="customers-section-block-google">
                         <img src="../images/search.png" alt="search">
-                        <p>2 weeks ago</p>
+                        <p data-translate="weeksAgo">2 weeks ago</p>
                     </div>
                 </div>
                 <div class="customers-section-block">
@@ -548,23 +587,23 @@
                         <img src="../images/Davis.png" alt="Davis">
                         <h3>Davis Herwitz</h3>
                         <div class="stars">★★★★★</div>
-                        <p>I've been on the look out for lots of companies to do what they do, and I've never found any company who are so quick to get in touch and...</p>
+                        <p data-translate="davisReview">I've been on the look out for lots of companies to do what they do, and I've never found any company who are so quick to get in touch and...</p>
                     </div>
                     <div class="customers-section-block-google">
                         <img src="../images/search.png" alt="search">
-                        <p>2 weeks ago</p>
+                        <p data-translate="weeksAgo">2 weeks ago</p>
                     </div>
                 </div>
                 <div class="customers-section-block">
                     <div class="customers-section-block-text">
                         <img src="../images/Jessie.png" alt="Jessie">
-                        <h3>Jessie Grant </h3>
+                        <h3>Jessie Grant</h3>
                         <div class="stars">★★★★★</div>
-                        <p>Very impressed. 5 stars!</p>
+                        <p data-translate="jessieReview">Very impressed. 5 stars!</p>
                     </div>
                     <div class="customers-section-block-google">
                         <img src="../images/search.png" alt="search">
-                        <p>2 weeks ago</p>
+                        <p data-translate="weeksAgo">2 weeks ago</p>
                     </div>
                 </div>
                 <div class="customers-section-block">
@@ -572,11 +611,11 @@
                         <img src="../images/John.png" alt="John">
                         <h3>John Smith</h3>
                         <div class="stars">★★★★★</div>
-                        <p>Our experience with EmbedStories is very good, very solid, loads fast, looks good.</p>
+                        <p data-translate="johnReview">Our experience with EmbedStories is very good, very solid, loads fast, looks good.</p>
                     </div>
                     <div class="customers-section-block-google">
                         <img src="../images/search.png" alt="search">
-                        <p>2 weeks ago</p>
+                        <p data-translate="weeksAgo">2 weeks ago</p>
                     </div>
                 </div>
                 <div class="customers-section-block">
@@ -584,104 +623,104 @@
                         <img src="../images/man.png" alt="Ben">
                         <h3>Ben Calahen</h3>
                         <div class="stars">★★★★★</div>
-                        <p>Storytelling on another level. EmbedStories is great - it takes pride of place on our homepage...</p>
+                        <p data-translate="benReview">Storytelling on another level. EmbedStories is great - it takes pride of place on our homepage...</p>
                     </div>
                     <div class="customers-section-block-google">
                         <img src="../images/search.png" alt="search">
-                        <p>2 weeks ago</p>
+                        <p data-translate="weeksAgo">2 weeks ago</p>
                     </div>
                 </div>
             </div>
             <div class="customers-section-widget">
-                Widget powered <img src="../images/wid.png" alt="wid"> by <span class="underline">12 more features</span>
+                <span data-translate="widgetPowered">Widget powered</span> <img src="../images/wid.png" alt="wid"> <span data-translate="byFeatures">by</span> <span class="underline" data-translate="moreFeatures">12 more features</span>
             </div>
         </section>
 
         <section class="section-ff">
             <div class="frequently">
                 <div class="frequently-title">
-                    <h2>Try all EmbedStories features 7 days free.</h2>
-                    <p>Reach more with your Instagram stories.</p>
+                    <h2 data-translate="frequentlyTitle">Try all EmbedStories features 7 days free.</h2>
+                    <p data-translate="frequentlySubtitle">Reach more with your Instagram stories.</p>
                 </div>
                 <div class="frequently-buttons">
-                    <button>Annualy, save 20%</button>
-                    <button>Monthly</button>
+                    <button data-translate="annually">Annualy, save 20%</button>
+                    <button data-translate="monthly">Monthly</button>
                 </div>
                 <div class="frequently-blocks">
                     <div class="frequently-block">
-                        <h2>FREE</h2>
+                        <h2 data-translate="free">FREE</h2>
                         <div class="frequently-block-cost">
                             <h3>$0</h3>
-                            <p>/month</p>
+                            <p data-translate="month">/month</p>
                         </div>
-                        <button>Start Using For Free</button>
+                        <button data-translate="startFree">Start Using For Free</button>
                         <div class="frequently-block-pros">
-                            <div class="frequently-block-plus">✓ <span class="underline">1 Instagram Business Account</span></div>
-                            <div class="frequently-block-plus">✓ Auto Update</div>
-                            <div class="frequently-block-plus">✓ <span class="strike-basic">Unlimited Story Widgets</span></div>
-                            <div class="frequently-block-plus">✓ <span class="strike-basic">Unlimited Galleries</span></div>
-                            <div class="frequently-block-plus">✓ <span class="strike-basic">Multiple Layouts & Options</span></div>
-                            <div class="frequently-block-plus">✓ <span class="strike-basic">Convert to AMP Format</span></div>
-                            <div class="frequently-block-plus">✓ <span class="strike-basic">API Access</span></div>
-                            <div class="frequently-block-plus">✓ <span class="strike-basic">Team Sub-Accounts</span></div>
-                            <div class="frequently-block-plus">✓ <span class="strike-basic">Advance Analytics</span></div>
+                            <div class="frequently-block-plus">✓ <span class="underline" data-translate="account1">1 Instagram Business Account</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="autoUpdate">Auto Update</span></div>
+                            <div class="frequently-block-plus">✓ <span class="strike-basic" data-translate="unlimitedWidgets">Unlimited Story Widgets</span></div>
+                            <div class="frequently-block-plus">✓ <span class="strike-basic" data-translate="unlimitedGalleries">Unlimited Galleries</span></div>
+                            <div class="frequently-block-plus">✓ <span class="strike-basic" data-translate="multipleLayouts">Multiple Layouts & Options</span></div>
+                            <div class="frequently-block-plus">✓ <span class="strike-basic" data-translate="ampFormat">Convert to AMP Format</span></div>
+                            <div class="frequently-block-plus">✓ <span class="strike-basic" data-translate="apiAccess">API Access</span></div>
+                            <div class="frequently-block-plus">✓ <span class="strike-basic" data-translate="teamAccounts">Team Sub-Accounts</span></div>
+                            <div class="frequently-block-plus">✓ <span class="strike-basic" data-translate="advanceAnalytics">Advance Analytics</span></div>
                         </div>
                     </div>
                     <div class="frequently-block">
-                        <h2>PRO</h2>
+                        <h2 data-translate="pro">PRO</h2>
                         <div class="frequently-block-cost">
                             <h3>$29</h3>
-                            <p>/month</p>
+                            <p data-translate="month">/month</p>
                         </div>
-                        <button class="blue-btn">Try Free For 7 Days</button>
+                        <button class="blue-btn" data-translate="tryFree">Try Free For 7 Days</button>
                         <div class="frequently-block-pros">
-                            <div class="frequently-block-plus">✓ <span class="underline">1 Instagram Business Account</span></div>
-                            <div class="frequently-block-plus">✓ Auto Update</div>
-                            <div class="frequently-block-plus">✓ Unlimited Story Widgets</div>
-                            <div class="frequently-block-plus">✓ Unlimited Galleries</div>
-                            <div class="frequently-block-plus">✓ Multiple Layouts & Options</div>
-                            <div class="frequently-block-plus">✓ Convert to AMP Format</div>
-                            <div class="frequently-block-plus">✓ API Access</div>
-                            <div class="frequently-block-plus">✓ <span class="strike-basic">Team Sub-Accounts</span></div>
-                            <div class="frequently-block-plus">✓ <span class="strike-basic">Advance Analytics</span></div>
+                            <div class="frequently-block-plus">✓ <span class="underline" data-translate="account1">1 Instagram Business Account</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="autoUpdate">Auto Update</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="unlimitedWidgets">Unlimited Story Widgets</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="unlimitedGalleries">Unlimited Galleries</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="multipleLayouts">Multiple Layouts & Options</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="ampFormat">Convert to AMP Format</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="apiAccess">API Access</span></div>
+                            <div class="frequently-block-plus">✓ <span class="strike-basic" data-translate="teamAccounts">Team Sub-Accounts</span></div>
+                            <div class="frequently-block-plus">✓ <span class="strike-basic" data-translate="advanceAnalytics">Advance Analytics</span></div>
                         </div>
                     </div>
                     <div class="frequently-block">
-                        <h2>PRO Plus</h2>
+                        <h2 data-translate="proPlus">PRO Plus</h2>
                         <div class="frequently-block-cost">
                             <h3>$49</h3>
-                            <p>/month</p>
+                            <p data-translate="month">/month</p>
                         </div>
-                        <button>Try Free For 7 Days</button>
+                        <button data-translate="tryFree">Try Free For 7 Days</button>
                         <div class="frequently-block-pros">
-                            <div class="frequently-block-plus">✓ <span class="underline">3 Instagram Business Account</span></div>
-                            <div class="frequently-block-plus">✓ Auto Update</div>
-                            <div class="frequently-block-plus">✓ Unlimited Story Widgets</div>
-                            <div class="frequently-block-plus">✓ Unlimited Galleries</div>
-                            <div class="frequently-block-plus">✓ Multiple Layouts & Options</div>
-                            <div class="frequently-block-plus">✓ Convert to AMP Format</div>
-                            <div class="frequently-block-plus">✓ API Access</div>
-                            <div class="frequently-block-plus">✓ <span class="strike-basic">Team Sub-Accounts</span></div>
-                            <div class="frequently-block-plus">✓ <span class="strike-basic">Advance Analytics</span></div>
+                            <div class="frequently-block-plus">✓ <span class="underline" data-translate="account3">3 Instagram Business Accounts</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="autoUpdate">Auto Update</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="unlimitedWidgets">Unlimited Story Widgets</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="unlimitedGalleries">Unlimited Galleries</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="multipleLayouts">Multiple Layouts & Options</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="ampFormat">Convert to AMP Format</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="apiAccess">API Access</span></div>
+                            <div class="frequently-block-plus">✓ <span class="strike-basic" data-translate="teamAccounts">Team Sub-Accounts</span></div>
+                            <div class="frequently-block-plus">✓ <span class="strike-basic" data-translate="advanceAnalytics">Advance Analytics</span></div>
                         </div>
                     </div>
                     <div class="frequently-block">
-                        <h2>PREMIUM</h2>
+                        <h2 data-translate="premium">PREMIUM</h2>
                         <div class="frequently-block-cost">
                             <h3>$99</h3>
-                            <p>/month</p>
+                            <p data-translate="month">/month</p>
                         </div>
-                        <button>Try Free For 7 Days</button>
+                        <button data-translate="tryFree">Try Free For 7 Days</button>
                         <div class="frequently-block-pros">
-                            <div class="frequently-block-plus">✓ <span class="underline">10 Instagram Business Account</span></div>
-                            <div class="frequently-block-plus">✓ Auto Update</div>
-                            <div class="frequently-block-plus">✓ Unlimited Story Widgets</div>
-                            <div class="frequently-block-plus">✓ Unlimited Galleries</div>
-                            <div class="frequently-block-plus">✓ Multiple Layouts & Options</div>
-                            <div class="frequently-block-plus">✓ Convert to AMP Format</div>
-                            <div class="frequently-block-plus">✓ API Access</div>
-                            <div class="frequently-block-plus">✓ Team Sub-Accounts</div>
-                            <div class="frequently-block-plus">✓ Advance Analytics</div>
+                            <div class="frequently-block-plus">✓ <span class="underline" data-translate="account10">10 Instagram Business Accounts</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="autoUpdate">Auto Update</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="unlimitedWidgets">Unlimited Story Widgets</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="unlimitedGalleries">Unlimited Galleries</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="multipleLayouts">Multiple Layouts & Options</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="ampFormat">Convert to AMP Format</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="apiAccess">API Access</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="teamAccounts">Team Sub-Accounts</span></div>
+                            <div class="frequently-block-plus">✓ <span data-translate="advanceAnalytics">Advance Analytics</span></div>
                         </div>
                     </div>
                 </div>
@@ -689,95 +728,97 @@
         </section>
 
         <section class="creators-section">
-            <h2>From the creators of EmbedSocial trusted<br>and displayed on</h2>
+            <h2 data-translate="creatorsTitle" data-after-translate="fiftyThousandWebsites">From the creators of EmbedSocial trusted<br>and displayed on</h2>
             <img src="../images/creators.png" alt="creators">
         </section>
 
         <section class="section-top-footer">
-            <h2>Ready to dive in?<br>Create your widget today.</h2>
-            <p>Display Instagram Stories Widget on your website, that auto-syncs, and<br>updates each time you add a photo in your active story.</p>
+            <h2 data-translate="topFooterTitle">Ready to dive in?<br>Create your widget today.</h2>
+            <p data-translate="topFooterDescription">Display Instagram Stories Widget on your website, that auto-syncs, and<br>updates each time you add a photo in your active story.</p>
                     
             <div class="cta-section">
-                <input type="email" placeholder="Enter your email..." class="email-input">
-                <button class="cta-button">Start Free Trial</button>
+                <input type="email" placeholder="Enter your email..." class="email-input" data-translate="enterEmail">
+                <button class="cta-button" data-translate="startFreeTrial">Start Free Trial</button>
             </div>
                     
             <div class="features">
                 <div class="feature">
                     <span class="feature-icon">•</span>
-                    Free 7-day trial
+                    <span data-translate="freeTrial">Free 7-day trial</span>
                 </div>
                 <div class="feature">
                     <span class="feature-icon">•</span>
-                    Easy setup
+                    <span data-translate="easySetup">Easy setup</span>
                 </div>
                 <div class="feature">
                     <span class="feature-icon">•</span>
-                    Cancel any time
+                    <span data-translate="cancelAnyTime">Cancel any time</span>
                 </div>
             </div>
         </section>
     </main>
     <footer>
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="logo-footer">
-                        <img src="../images/logo-white.png" alt="img-hero">
-                        <h2 class="brand-name">embeddedal</h2>
-                    </div>
-                    <p class="brand-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id rhoncus suspendisse mattis ultricies adipiscing quem pretium eleifend.
-                    </p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo-footer">
+                    <img src="../images/logo-white.png" alt="img-hero">
+                    <h2 class="brand-name">embedsocial</h2>
+                </div>
+                <p class="brand-description" data-translate="footerDescription">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id rhoncus suspendisse mattis ultricies adipiscing quem pretium eleifend.
+                </p>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h3 class="column-title" data-translate="product">Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link" data-translate="reviewsManagement">Reviews management</a></li>
+                        <li><a href="#" class="footer-link" data-translate="embedInstagramStories">Embed instagram stories</a></li>
+                        <li><a href="#" class="footer-link" data-translate="displayInstagramFeeds">Display instagram feeds</a></li>
+                        <li><a href="#" class="footer-link" data-translate="collectReviews">Collect reviews</a></li>
+                        <li><a href="#" class="footer-link" data-translate="sendEmailRequests">Send email requests</a></li>
+                    </ul>
                 </div>
 
-                <div class="footer-columns">
-                    <div class="footer-column">
-                        <h3 class="column-title">Product</h3>
-                        <ul class="footer-links">
-                            <li><a href="#" class="footer-link">Reviews management</a></li>
-                            <li><a href="#" class="footer-link">Embed instagram stories</a></li>
-                            <li><a href="#" class="footer-link">Display instagram feeds</a></li>
-                            <li><a href="#" class="footer-link">Collect reviews</a></li>
-                            <li><a href="#" class="footer-link">Send email requests</a></li>
-                        </ul>
-                    </div>
+                <div class="footer-column">
+                    <h3 class="column-title" data-translate="company">Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link" data-translate="aboutEmbedSocial">About EmbedSocial</a></li>
+                        <li><a href="#" class="footer-link" data-translate="brandGuidelines">Brand Guidelines</a></li>
+                        <li><a href="#" class="footer-link" data-translate="pressKit">Press Kit</a></li>
+                        <li><a href="#" class="footer-link" data-translate="support">Support</a></li>
+                    </ul>
+                </div>
 
-                    <div class="footer-column">
-                        <h3 class="column-title">Company</h3>
-                        <ul class="footer-links">
-                            <li><a href="#" class="footer-link">About EmbedSocial</a></li>
-                            <li><a href="#" class="footer-link">Brand Guidelines</a></li>
-                            <li><a href="#" class="footer-link">Press Kit</a></li>
-                            <li><a href="#" class="footer-link">Support</a></li>
-                        </ul>
-                    </div>
+                <div class="footer-column">
+                    <h3 class="column-title" data-translate="integrations">Integrations</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link" data-translate="wordPress">WordPress</a></li>
+                        <li><a href="#" class="footer-link" data-translate="shopify">Shopify</a></li>
+                        <li><a href="#" class="footer-link" data-translate="magento">Magento</a></li>
+                        <li><a href="#" class="footer-link" data-translate="squarrespace">Squarrespace</a></li>
+                        <li><a href="#" class="footer-link" data-translate="intercom">Intercom</a></li>
+                        <li><a href="#" class="footer-link" data-translate="slack">Slack</a></li>
+                    </ul>
+                </div>
 
-                    <div class="footer-column">
-                        <h3 class="column-title">Integrations</h3>
-                        <ul class="footer-links">
-                            <li><a href="#" class="footer-link">WordPress</a></li>
-                            <li><a href="#" class="footer-link">Shopify</a></li>
-                            <li><a href="#" class="footer-link">Magento</a></li>
-                            <li><a href="#" class="footer-link">Squarrespace</a></li>
-                            <li><a href="#" class="footer-link">Intercom</a></li>
-                            <li><a href="#" class="footer-link">Slack</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-column">
-                        <h3 class="column-title">Integrations</h3>
-                        <ul class="footer-links">
-                            <li><a href="#" class="footer-link">WordPress</a></li>
-                            <li><a href="#" class="footer-link">Shopify</a></li>
-                            <li><a href="#" class="footer-link">Magento</a></li>
-                            <li><a href="#" class="footer-link">Squarrespace</a></li>
-                            <li><a href="#" class="footer-link">Intercom</a></li>
-                            <li><a href="#" class="footer-link">Slack</a></li>
-                        </ul>
-                    </div>
+                <div class="footer-column">
+                    <h3 class="column-title" data-translate="integrations">Integrations</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link" data-translate="wordPress">WordPress</a></li>
+                        <li><a href="#" class="footer-link" data-translate="shopify">Shopify</a></li>
+                        <li><a href="#" class="footer-link" data-translate="magento">Magento</a></li>
+                        <li><a href="#" class="footer-link" data-translate="squarrespace">Squarrespace</a></li>
+                        <li><a href="#" class="footer-link" data-translate="intercom">Intercom</a></li>
+                        <li><a href="#" class="footer-link" data-translate="slack">Slack</a></li>
+                    </ul>
                 </div>
             </div>
+        </div>
     </footer>
     <script src="../js/auth.js"></script>
+    <script src="../js/translation.js"></script>
+    <script src="../js/theme-switcher.js"></script>
 </body>
 </html>

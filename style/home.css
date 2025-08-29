@@ -27,7 +27,7 @@
 }
 
 .hero-title::after {
-    content: "in seconds.";
+    content: var(--after-content, "in seconds.");
     background-color: #ffeb3b;
     color: #000;
     padding: 2px 6px;
@@ -190,7 +190,7 @@
 }
 
 .let-section h2::after {
-    content: "more than 24h.";
+    content: var(--after-content, "more than 24h.");
     background-color: #ffeb3b;
     color: #000;
     padding: 2px 6px;
@@ -256,7 +256,7 @@
 }
 
 .section-double-title h2::after {
-    content: "conversions.";
+    content: var(--after-content, "conversions.");
     background-color: #ffeb3b;
     color: #000;
     padding: 0 6px;
@@ -264,7 +264,7 @@
 }
 
 .section-double-title h3::after{
-    content: "growth.";
+    content: var(--after-content, "growth.");
     background-color: #ffeb3b;
     color: #000;
     padding: 0 6px;
@@ -607,7 +607,7 @@
 }
 
 .platform-section-title::after {
-    content: "Stories Platform.";
+    content: var(--after-content, "Stories Platform.");
     background-color: #ffeb3b;
     color: #000;
     padding: 0 6px;
@@ -997,7 +997,7 @@
 }
 
 .creators-section h2::after {
-    content: "50,000+ websites";
+    content: var(--after-content, "50,000+ websites");
     background-color: #ffeb3b;
     color: #000;
     padding: 0 3px;
