@@ -361,6 +361,7 @@
   
   .customers-section-block {
     width: 100%;
+    height: auto;
   }
   
   .frequently-block {
@@ -398,6 +399,10 @@
 }
 
 @media (max-width: 480px) {
+.section-top-footer .cta-section{
+    width: 60%;
+}
+
   .hero-title {
     font-size: 2em;
   }
