@@ -361,7 +361,7 @@
   
   .customers-section-block {
     width: 100%;
-    height: auto;
+    height: 320px;
   }
   
   .frequently-block {
@@ -485,5 +485,11 @@
   }
   .section-double-title h2, .section-double-title h3{
     font-size: 2rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .customers-section-block {
+    height: auto;
   }
 }
