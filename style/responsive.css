@@ -1,25 +1,25 @@
 @media (max-width: 1400px) {
-  .hero-top-img{
+  .hero-top-img {
     width: 100%;
   }
 
-  .widgets-section-img{
-    width: 100%
-  }
-
-  .widgets-section-img img{
+  .widgets-section-img {
     width: 100%;
   }
 
-  .hero-top-img img{
+  .widgets-section-img img {
     width: 100%;
   }
 
-  .customization-section img:last-child{
+  .hero-top-img img {
     width: 100%;
   }
 
-  .installation-section img:last-child{
+  .customization-section img:last-child {
+    width: 100%;
+  }
+
+  .installation-section img:last-child {
     width: 100%;
   }
 }
@@ -28,468 +28,489 @@
   .header-container {
     padding: 0 1.5rem;
   }
-  
+
   .hero-top {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .hero-top-text {
     width: 80%;
     align-items: center;
   }
-  
-  .hero-title, .hero-description {
+
+  .hero-title,
+  .hero-description {
     text-align: center;
   }
-  
+
   .widgets-section {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .widgets-section-text {
     width: 80%;
     text-align: center;
   }
-  
+
   .widgets-section-text-icons {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
   }
-  
+
   .widgets-section-text-icon {
     flex-direction: column;
     text-align: center;
     width: 45%;
   }
-  
+
   .let-section-blocks {
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .let-section-block {
     width: 45%;
     margin-bottom: 1rem;
   }
-  
+
   .section-double-blocks {
     flex-wrap: wrap;
   }
-  
+
   .section-double-block {
     width: 45%;
     margin-bottom: 1rem;
   }
-  
+
   .started-section-slider {
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .started-section-slide {
     width: 45%;
     margin-bottom: 1rem;
   }
-  
-  .customization-section-blocks, .installation-section-blocks {
+
+  .customization-section-blocks,
+  .installation-section-blocks {
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .customization-section-block {
     width: 30%;
     margin-bottom: 1rem;
   }
-  
+
   .integrations-section {
     flex-direction: column;
     text-align: center;
     width: 90%;
   }
-  
+
   .integrations-section-text {
     align-items: center;
   }
-  
-  .integrations-section-title h2, .integrations-section-title p {
+
+  .integrations-section-title h2,
+  .integrations-section-title p {
     text-align: center;
   }
-  
+
   .dive-section {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .dive-section-text {
     width: 80%;
     align-items: center;
   }
-  
-  .dive-section-title, .dive-section-description {
+
+  .dive-section-title,
+  .dive-section-description {
     text-align: center;
   }
-  
+
   .platform-section-block {
     flex-direction: column;
     text-align: center;
     width: 90%;
   }
-  
+
   .platform-section-block-text {
     width: 100%;
     align-items: center;
   }
-  
+
   .platform-section-block-title h2 {
     text-align: center;
   }
-  
+
   .features-section-blocks {
     flex-wrap: wrap;
   }
-  
+
   .features-section-block {
     width: 45%;
   }
-  
+
   .jacole-section {
     flex-direction: column;
     text-align: center;
     width: 90%;
   }
-  
+
   .jacole-section-text {
     width: 100%;
     align-items: center;
   }
-  
-  .jacole-section-text h2, .jacole-section-text p {
+
+  .jacole-section-text h2,
+  .jacole-section-text p {
     text-align: center;
   }
-  
+
   .customers-section-blocks {
     flex-wrap: wrap;
   }
-  
+
   .customers-section-block {
     width: 45%;
   }
-  
+
   .frequently-blocks {
     flex-wrap: wrap;
   }
-  
+
   .frequently-block {
     width: 45%;
     margin-bottom: 1rem;
   }
-  
+
   footer {
     padding: 4rem 2rem;
   }
-  
+
   .footer-content {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .footer-columns {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .footer-brand p {
     width: 100%;
   }
 }
 
 .burger-menu {
-    display: none;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 25px;
-    cursor: pointer;
-    z-index: 1000;
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  cursor: pointer;
+  z-index: 1000;
 }
 
 .burger-menu span {
-    display: block;
-    height: 3px;
-    width: 100%;
-    background-color: #333;
-    border-radius: 3px;
-    transition: all 0.3s ease;
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #333;
+  border-radius: 3px;
+  transition: all 0.3s ease;
 }
 
 .burger-menu.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(5px, 5px);
 }
 
 .burger-menu.active span:nth-child(2) {
-    opacity: 0;
+  opacity: 0;
 }
 
 .burger-menu.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
+  transform: rotate(-45deg) translate(7px, -6px);
 }
 
 @media (max-width: 900px) {
-    .burger-menu {
-        display: flex;
-    }
-    
-    .nav, .nav-button {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 70%;
-        height: 100vh;
-        background-color: white;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: right 0.3s ease;
-        z-index: 999;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    .nav {
-        padding-top: 60px;
-        gap: 2rem;
-    }
-    
-    .nav-button {
-        padding: 2rem;
-        gap: 1.5rem;
-        flex-direction: column;
-        justify-content: flex-start;
-        padding-top: 80px;
-    }
-    
-    .nav.active, .nav-button.active {
-        right: 0;
-    }
-    
-    .nav-link {
-        font-size: 1.2rem;
-        padding: 0.8rem 1.5rem;
-    }
-    
-    .header-container {
-        position: relative;
-    }
+  .burger-menu {
+    display: flex;
+  }
 
-    .platform-section{
-        width: 100%;
-    }
+  .nav,
+  .nav-button {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100vh;
+    background-color: white;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: right 0.3s ease;
+    z-index: 999;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  }
 
-    .creators-section img{
-        width: 100%;
-    }
+  .nav {
+    padding-top: 60px;
+    gap: 2rem;
+  }
+
+  .nav-button {
+    padding: 2rem;
+    gap: 1.5rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 80px;
+  }
+
+  .nav.active,
+  .nav-button.active {
+    right: 0;
+  }
+
+  .nav-link {
+    font-size: 1.2rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .header-container {
+    position: relative;
+  }
+
+  .platform-section {
+    width: 100%;
+  }
+
+  .creators-section img {
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
-  
   .nav {
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .hero-title {
     font-size: 2.5em;
   }
-  
+
   .cta-section {
     flex-direction: column;
     width: 100%;
     gap: 1rem;
   }
-  
-  .email-input, .cta-button {
+
+  .email-input,
+  .cta-button {
     width: 100%;
     border-radius: 5px;
   }
-  
+
   .features {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
   }
-  
+
   .hero-bottom-logos {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
   }
-  
+
   .widgets-section-text {
     width: 100%;
   }
-  
+
   .widgets-section-text-icon {
     width: 100%;
   }
-  
+
   .let-section-block {
     width: 100%;
   }
-  
+
   .section-double-block {
     width: 100%;
   }
-  
+
   .section-double-review {
     width: 80%;
   }
-  
+
   .started-section-slide {
     width: 100%;
   }
-  
+
   .customization-section-block {
     width: 45%;
   }
-  
+
   .features-section-block {
     width: 100%;
   }
-  
+
   .customers-section-block {
     width: 100%;
     height: 320px;
   }
-  
+
   .frequently-block {
     width: 100%;
   }
-  
+
   .footer-columns {
     grid-template-columns: 1fr;
   }
-  
+
   .footer-content {
     gap: 2rem;
   }
-  
+
   .bottom-content {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .legal-links {
     justify-content: center;
   }
-  
-  .platform-section-block-img img{
+
+  .platform-section-block-img img {
     width: 100%;
   }
 
-  .jacole-section-img img{
+  .jacole-section-img img {
     width: 100%;
   }
 
-  .integrations-section img:last-child{
+  .integrations-section img:last-child {
     width: 100%;
   }
 }
 
 @media (max-width: 480px) {
-.section-top-footer .cta-section{
+  .section-top-footer .cta-section {
     width: 60%;
-}
+  }
 
   .hero-title {
     font-size: 2em;
   }
-  
+
   .hero-description {
     font-size: 1em;
     width: 100%;
   }
-  
+
   .hero-bottom-text {
     font-size: 0.9em;
     text-align: center;
   }
-  
+
   .widgets-section-text h2 {
     font-size: 2em;
   }
-  
+
   .let-section h2 {
     font-size: 2em;
   }
-  
-  .customization-section-title h2, 
-  .installation-section-title h2, 
+
+  .customization-section-title h2,
+  .installation-section-title h2,
   .integrations-section-title h2 {
     font-size: 2em;
   }
-  
+
   .dive-section-title {
     font-size: 2.5em;
   }
-  
+
   .platform-section-title {
     font-size: 2.5em;
   }
-  
+
   .platform-section-block-title h2 {
     font-size: 2em;
   }
-  
+
   .features-section h2 {
     font-size: 2em;
   }
-  
+
   .jacole-section-text h2 {
     font-size: 2em;
   }
-  
+
   .customers-section h2 {
     font-size: 2em;
   }
-  
+
   .frequently-title h2 {
     font-size: 2em;
   }
-  
+
   .creators-section h2 {
     font-size: 2em;
   }
-  
+
   .section-top-footer h2 {
     font-size: 2.5em;
   }
-  
+
   .customization-section-block {
     width: 100%;
   }
-  
+
   .frequently-buttons {
     flex-direction: column;
     width: 100%;
   }
-  
+
   .frequently-buttons button {
     width: 100%;
   }
 
-  .section-double-title{
+  .section-double-title {
     width: 100%;
   }
-  .section-double-title h2, .section-double-title h3{
+  .section-double-title h2,
+  .section-double-title h3 {
     font-size: 2rem;
+  }
+
+  .customers-section-block {
+    height: auto;
+  }
+
+  .main {
+    padding: 0;
+    gap: 2rem;
+  }
+
+  h2 {
+    padding-left: 0.4rem;
   }
 }
 
-@media (max-width: 400px) {
-  .customers-section-block {
-    height: auto;
+@media (max-width: 320px) {
+  .features-section {
+    gap: 3.7rem;
   }
 }
