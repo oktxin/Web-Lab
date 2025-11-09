@@ -263,6 +263,21 @@
       "role": "user",
       "registrationDate": "2025-08-28T11:48:57.050Z",
       "password": "4Kz15nMGX49M"
+    },
+    {
+      "id": "5ac1",
+      "phone": "+375291776600",
+      "email": "kovalenkonik@gmail.com",
+      "lastName": "Никита",
+      "firstName": "Коваленко",
+      "middleName": "Александрович",
+      "birthDate": "2005-11-10",
+      "nickname": "Us252king",
+      "passwordMethod": "manual",
+      "agreeTerms": true,
+      "role": "admin",
+      "registrationDate": "2025-11-09T19:38:39.550Z",
+      "password": "F@t8}^;R#q$Ye9^"
     }
   ],
   "feedback": [],
@@ -347,6 +362,36 @@
       "total": 1645,
       "status": "completed",
       "userId": "4a98"
+    },
+    {
+      "id": "f2c7",
+      "orderDate": "2025-11-09T20:00:08.173Z",
+      "items": [
+        {
+          "id": "929c",
+          "userId": "5ac1",
+          "productId": "12",
+          "quantity": 1,
+          "addedAt": "2025-11-09T20:00:00.288Z",
+          "product": {
+            "id": "12",
+            "name": "Heatmap отслеживание",
+            "description": "Отслеживайте клики и взаимодействия пользователей с вашими виджетами",
+            "price": 299,
+            "category": "analytics",
+            "rating": 4.7,
+            "reviews": 64,
+            "image": "https://placehold.co/400x300/E74C3C/white?text=Heatmap+Tracking",
+            "featured": false,
+            "details": {
+              "complexity": "сложная"
+            }
+          }
+        }
+      ],
+      "total": 299,
+      "status": "completed",
+      "userId": "5ac1"
     }
   ],
   "reviews": [
