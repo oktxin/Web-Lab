@@ -11,8 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         url: "https://images.unsplash.com/photo-1454496522488-7a8e488e8606",
         title: "Горный пейзаж 2",
         description: "Скалистые вершины в туманной дымке",
-        sound:
-          "https://assets.mixkit.co/sfx/preview/mixkit-wind-in-the-leaves-1681.mp3",
+        sound: "../sound/deep-strange-whoosh-183845.mp3",
       },
       {
         url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b",
@@ -26,21 +25,19 @@ document.addEventListener("DOMContentLoaded", function () {
         url: "https://images.unsplash.com/photo-1502082553048-f009c37129b9",
         title: "Морской пейзаж 1",
         description: "Волны, разбивающиеся о скалы",
-        sound:
-          "https://assets.mixkit.co/sfx/preview/mixkit-ocean-waves-crashing-1186.mp3",
+        sound: "../sound/dust-whooshes_mj5neh4o.mp3",
       },
       {
         url: "https://images.unsplash.com/photo-1471922694854-ff1b63b20054",
         title: "Морской пейзаж 2",
         description: "Тихая бухта с кристально чистой водой",
-        sound: "../sound/deep-strange-whoosh-183845.mp3",
+        sound: "../sound/dust-whooshes_mj5neh4o.mp3",
       },
       {
         url: "https://images.unsplash.com/photo-1428790067070-0ebf4418d9d8",
         title: "Морской пейзаж 3",
         description: "Закат над океаном с золотыми отблесками",
-        sound:
-          "https://assets.mixkit.co/sfx/preview/mixkit-seagulls-in-the-wild-1184.mp3",
+        sound: "../sound/dust-whooshes_mj5neh4o.mp3",
       },
     ],
     3: [
@@ -48,29 +45,25 @@ document.addEventListener("DOMContentLoaded", function () {
         url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
         title: "Лесной пейзаж 1",
         description: "Тайга с высокими соснами",
-        sound:
-          "https://assets.mixkit.co/sfx/preview/mixkit-forest-ambience-1684.mp3",
+        sound: "../sound/twisting-whoosh_fk4udhvu.mp3",
       },
       {
         url: "https://images.unsplash.com/photo-1448375240586-882707db888b",
         title: "Лесной пейзаж 2",
         description: "Осенний лес с разноцветными листьями",
-        sound:
-          "https://assets.mixkit.co/sfx/preview/mixkit-walking-through-leaves-1188.mp3",
+        sound: "../sound/twisting-whoosh_fk4udhvu.mp3",
       },
       {
         url: "https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd",
         title: "Лесной пейзаж 3",
         description: "Туманное утро в лесу",
-        sound:
-          "https://assets.mixkit.co/sfx/preview/mixkit-rain-ambience-1190.mp3",
+        sound: "../sound/twisting-whoosh_fk4udhvu.mp3",
       },
       {
         url: "https://images.unsplash.com/photo-1426604966848-d7adac402bff",
         title: "Лесной пейзаж 4",
         description: "Зеленый лес с солнечными лучами",
-        sound:
-          "https://assets.mixkit.co/sfx/preview/mixkit-crickets-and-insects-in-the-wild-1182.mp3",
+        sound: "../sound/twisting-whoosh_fk4udhvu.mp3",
       },
     ],
   };
